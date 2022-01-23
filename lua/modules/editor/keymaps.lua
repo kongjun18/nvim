@@ -1,0 +1,57 @@
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+function enhance_jk_move(key)
+    local map
+    if packer_plugins and packer_plugins["accelerated-jk"]
+        and packer_plugins["accelerated-jk"].loaded then
+        map = key == "j" and "<Plug>(accelerated_jk_gj)" or
+        "<Plug>(accelerated_jk_gk)"
+        return t(map)
+    else
+        map = key == "j" and "gj" or "gk"
+    end
+    print(t(map))
+    return t(map)
+end
+
+function enhance_ft_move(key)
+    if packer_plugins and packer_plugins["vim-eft"]
+        and packer_plugins["vim-eft"].loaded then
+        local map = {
+            f = "<Plug>(eft-f)",
+            F = "<Plug>(eft-F)",
+            t = "<Plug>(eft-t)",
+            T = "<Plug>(eft-T)",
+            [";"] = "<Plug>(eft-repeat)"
+        }
+        return map[key]
+    else
+        return key
+    end
+end
+
+local M = {
+    --["j"] = {function() return enhance_jk_move("j") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["k"] = {function() return enhance_jk_move("k") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["f"] = {function() return enhance_ft_move("f") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["t"] = {function() return enhance_ft_move("t") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["F"] = {function() return enhance_ft_move("F") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["T"] = {function() return enhance_ft_move("T") end, {expr = true, mode = {"n"}, noremap = false}},
+    --[";"] = {function() return enhance_ft_move(";") end, {expr = true, mode = {"n"}, noremap = false}},
+    --["gc"] = {"<Plug>(characterize)", "Reveal Representation Of Character"},
+
+    -- " They will slow down <C-I> because <Tab> equals to <C-I>
+    [t"<Tab>"] = {
+        ["name"] = "+AsyncTask",
+        ["5"] = {":AsyncTask file-build<CR>", "Compile File"},
+        ["6"] = {":AsyncTask file-run<CR>", "Run File"},
+        ["7"] = {":AsyncTask project-configure<CR>", "Configure CMake Project"},
+        ["8"] = {":AsyncTask project-build<CR>", "Build CMake Project"},
+        ["9"] = {":AsyncTask project-run<CR>", "Run CMake Project"},
+        ["0"] = {":AsyncTask project-clean<CR>", "Clean CMake Binary Directory"},
+    }
+}
+
+return M
