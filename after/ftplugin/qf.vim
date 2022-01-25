@@ -1,10 +1,10 @@
 " Configuration of quickfix
-" Last Change: 2021-10-11
+" Last Change: 2022-01-25
 " Author: Kong Jun <kongjun18@outlook.com>
 " Github: https://github.com/kongjun18
 " License: GPL-3.0
 
-setlocal nocursorline
+setlocal colorcolumn=0
 setlocal relativenumber
 setlocal wrap
 nnoremap <buffer> <silent> q :wincmd q<CR>
