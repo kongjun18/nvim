@@ -65,6 +65,10 @@ function Packer:initialize()
 		"folke/which-key.nvim",
 		config = function()
 			require("core.packer"):setup("which-key", {
+				operators = {
+					gc = "Linewise Comment/Uncomment",
+					gb = "Blockwise Comment/Uncomment",
+				},
 				key_labels = {
 					["<Space>"] = "SPC",
 					["Cr>"] = "RET",
