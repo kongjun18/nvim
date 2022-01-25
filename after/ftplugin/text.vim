@@ -6,3 +6,4 @@
 
 setlocal wrap           " Wrap line
 setlocal spell          " Enable spell checking
+setlocal colorcolumn=0  " Disable 80 column highlight
