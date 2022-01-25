@@ -39,8 +39,6 @@ local ui = {
     ["rcarriga/nvim-notify"] = {
         config = config.notify
     },
-    ["yamatsum/nvim-cursorline"] = {
-    },
     ["machakann/vim-highlightedyank"] = {
     },
     ["p00f/nvim-ts-rainbow"] = {

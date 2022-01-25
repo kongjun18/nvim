@@ -83,7 +83,6 @@ options = {
    completeopt="menu,menuone,noselect",
    wrapscan = true,
    smartindent = true,
-   cursorline = true,
    colorcolumn = "80",
    linebreak = true,
    expandtab = true,
