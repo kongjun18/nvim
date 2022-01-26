@@ -179,7 +179,15 @@ function config.vista()
 	if packer_plugins and packer_plugins["nvim-lspconfig"] then
 		vim.g.vista_default_executive = "nvim_lsp"
 	end
- 	vim.g["vista#renderer#enable_icon"] = 1
+	vim.g["vista#renderer#enable_icon"] = 1
+end
+
+function config.colorizer()
+	require("core.packer"):setup("colorizer", {
+		"css",
+		"javascript",
+		"html",
+	})
 end
 
 return config

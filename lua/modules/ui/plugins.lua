@@ -57,5 +57,8 @@ local ui = {
     ["liuchengxu/vista.vim"] = {
         config = config.vista,
     },
+    ["norcalli/nvim-colorizer.lua"] = {
+        config = config.colorizer,
+    },
 }
 return ui
