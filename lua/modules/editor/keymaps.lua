@@ -51,7 +51,18 @@ local M = {
         ["8"] = {":AsyncTask project-build<CR>", "Build CMake Project"},
         ["9"] = {":AsyncTask project-run<CR>", "Run CMake Project"},
         ["0"] = {":AsyncTask project-clean<CR>", "Clean CMake Binary Directory"},
-    }
+    },
+    ["<Leader>f"] = {
+        ["name"] = "+Fuzzy Find",
+        ["f"] = {"<Cmd>Telescope find_files<CR>", "Find Files"},
+        ["g"] = {"<Cmd>Telescope live_grep<CR>", "Live Grep"},
+        ["b"] = {"<Cmd>Telescope buffers<CR>", "Find Buffers"},
+        ["h"] = {"<Cmd>Telescope help_tags<CR>", "Find Help"},
+        ["d"] = {"<Cmd>Telescope tags<CR>", "Find Tags(definition)"},
+        ["m"] = {"<Cmd>Telescope man_pages<CR>", "Find Man Pagess"},
+        ["a"] = {"<Cmd>lua require('telescope').extensions.asynctasks.all()<CR>", "Find AsyncTask"},
+        ["t"] = {"<Cmd>TodoTelescope<CR>", "Find Todo Comments"},
+    },
 }
 
 return M
