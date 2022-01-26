@@ -51,7 +51,7 @@ local ui = {
         config = config.bqf,
     },
     ["folke/trouble.nvim"] = {
-        cmd = {"Trouble", "TroubleClose", "TroubleOpen", "TroubleRefresh"},
+        cmd = {"Trouble", "TroubleClose", "TroubleRefresh", "TroubleToggle"},
         config = config.trouble
     },
     ["liuchengxu/vista.vim"] = {
