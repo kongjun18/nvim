@@ -226,6 +226,7 @@ end
 
 -- TODO: Use ctags/gtags index code when LSP is disabled
 function config.gutentags()
+	vim.g.load_gutentags_config = 1
 	vim.g.gutentags_exclude_filetypes = {
 		"text",
 		"markdown",
@@ -244,13 +245,12 @@ function config.gutentags()
 	-- All ctags files suffixed with .tag'
 	vim.g.gutentags_ctags_tagfile = ".tag"
 	-- Use ctags and gtags
-	vim.g.gutentags_modules = {}
-	-- FIXME: fail to add module
+	local gutentags_modules = {}
 	if vim.fn.executable("ctags") > 0 then
-		table.insert(vim.g.gutentags_modules, "ctags")
+		table.insert(gutentags_modules, "ctags")
 	end
-	vim.g.gutentags_define_advanced_commands = 1
-	vim.g.gutentags_trace = 1
+	-- Fail to modify VimL global list. Create Lua variable and then convert to VimL.
+	vim.g.gutentags_modules = gutentags_modules
 	-- Only support universal-ctags
 	vim.g.gutentags_ctags_extra_args = {
 		"--fields=+niazS",
@@ -269,6 +269,7 @@ function config.gutentags()
 	-- Don't load gtags_cscope database automatically
 	vim.g.gutentags_auto_add_gtags_cscope = 0
 	vim.g.gutentags_plus_switch = 0
+	vim.g.gutentags_plus_nomap = 1
 end
 
 function config.projectionist()
