@@ -1,6 +1,11 @@
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+vim.api.nvim_add_user_command("TerminalToggle", function()
+    if packer_plugins
+        and packer_plugins["vim-terminal-help"]
+        and not packer_plugins["vim-terminal-help"].loaded then
+        vim.cmd[[PackerLoad vim-terminal-help]]
+        vim.fn.TerminalToggle()
+    end
+    end, {})
 
 function enhance_jk_move(key)
     local map
@@ -63,6 +68,9 @@ local M = {
         ["a"] = {"<Cmd>lua require('telescope').extensions.asynctasks.all()<CR>", "Find AsyncTask"},
         ["t"] = {"<Cmd>TodoTelescope<CR>", "Find Todo Comments"},
     },
+    -- Terminal
+    ["<M-=>"] = {"<Cmd>TerminalToggle<CR>", "Toggle Terminal"},
+    ["<M-q>"] = {t"<C-\\><C-n>", "Switch To Normal Mode", mode="t"},
 }
 
 return M

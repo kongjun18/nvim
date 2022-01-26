@@ -2,7 +2,6 @@
 -- TODO: doc comment support: vim-doge
 -- TODO: task system: asynctasks and asyncrun
 -- TODO: substitue vim-surround with vim-sandwich
--- TODO: sbustitue vim-terminal-help with akinsho/toggleterm.nvim
 -- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")
 local editor = {
@@ -26,7 +25,7 @@ local editor = {
 	["wellle/targets.vim"] = {
 	},
 	["skywind3000/vim-terminal-help"] = {
-		config = config.terminal_help,
+		cmd = {"H", "TerminalToggle"},
 	},
 	["tpope/vim-rsi"] = {},
 	["tpope/vim-endwise"] = {

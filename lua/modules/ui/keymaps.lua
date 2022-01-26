@@ -55,7 +55,6 @@ local M = {
     ["c"] = {function() require("modules.ui.window").close_buffers() end, "Close Tab"}
   } ,
 
-  ["<M-q>"] = {t'<C-\\><C-n>', "Enter Normal Mode In Terminal"},
   ["<M-m>"] = {function() require("modules.ui.window").scroll_adjacent_window("down") end, {mode = {"n","t"}}},
   ["<M-p>"] = {function() require("modules.ui.window").scroll_adjacent_window("up") end, {mode = {"n","t"}}},
 
