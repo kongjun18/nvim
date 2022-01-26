@@ -289,4 +289,19 @@ function config.asynctasks()
 	vim.g.asyncrun_rootmarks = { ".git", "compile_commands.json", ".root" }
 end
 
+-- TODO: remap to LeaderF keymaps
+function config.telescope()
+	local ok, telescope = pcall(require, "telescope")
+	if not ok then
+		return
+	end
+
+	local themes = require("telescope.themes")
+	telescope.setup({
+		defaults = themes.get_ivy(),
+	})
+	-- Load native sorter for better performance
+	telescope.load_extension("fzy_native")
+end
+
 return config

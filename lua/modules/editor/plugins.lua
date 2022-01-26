@@ -89,5 +89,19 @@ local editor = {
 		requires = "skywind3000/asyncrun.vim",
 		config = config.asynctasks,
 	},
+
+	-- TODO: telescope-frecency.nvim and telescope-project.nvim
+	["nvim-telescope/telescope.nvim"] = {
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzy-native.nvim",
+		},
+		config = config.telescope,
+		after = "nvim-web-devicons",
+	},
+	["GustavoKatel/telescope-asynctasks.nvim"] = {
+		requires = { "nvim-lua/popup.nvim", "skywind3000/asynctasks.vim" },
+	},
 }
+
 return editor
