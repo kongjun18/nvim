@@ -154,8 +154,10 @@ function config.lsp_installer()
 	end
 end
 
+-- TODO: deduplicate repeated items. See nvim-cmp issues [Feature Request: Dedup items #511]
 -- TODO: use ctags source when LSP is disabled
 -- TODO: wrap require
+-- FIXME: cmp-cmdline breaks sometimes
 function config.cmp()
 	local ok, cmp = pcall(require, "cmp")
 	if not ok then
@@ -196,8 +198,11 @@ function config.cmp()
 				require("luasnip").lsp_expand(args.body)
 			end,
 		},
-		-- FIXME: <CR> is not mapped
+		-- FIXME: fail to map keymaps
 		-- perhaps related to  Recursive binding outputs =v:lua.vim.json.decode('"\r"') in infinite loop #744
+		--
+		-- NOTE: nvim-cmp will remove all default mapping in future
+		-- See nvim-cmp PR [Discussion: Remove all default mapping #739]
 		mapping = {
 			["<CR>"] = cmp.mapping.confirm({ select = false }),
 			["<Tab>"] = cmp.mapping(function(fallback)

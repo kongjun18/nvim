@@ -1,6 +1,5 @@
 -- TODO: database support: tpope/vim-dadbod
 -- TODO: doc comment support: vim-doge
--- TODO: task system: asynctasks and asyncrun
 -- TODO: substitue vim-surround with vim-sandwich
 -- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")

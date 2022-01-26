@@ -3,7 +3,7 @@ local config = require("modules.lsp.config")
 local completion = {
 	["ray-x/lsp_signature.nvim"] = {
 	},
-	-- FIXME: display errorneous documentn f
+	-- FIXME: display errorneous function comment
 	["neovim/nvim-lspconfig"] = {
 		config = config.lspconfig,
 		after = "lsp_signature.nvim",
@@ -51,6 +51,9 @@ local completion = {
 		after = "nvim-cmp",
 	},
 	-- FIXME: com-dictionary slow down completion
+	-- Perhaps I can only enable it in comment or when spell is enabled.
+	-- See nvim-cmp PR [add function to check if in comment #676]
+	--
 	-- ["uga-rosa/cmp-dictionary"] = {
 		-- requires = "nvim-cmp",
 		-- after = "nvim-cmp",

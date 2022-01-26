@@ -195,8 +195,7 @@ function config.treesitter()
 end
 
 -- TODO: comment and copy
--- TODO: uncomment // block
--- TODO: register keymaps in which-key.nvim
+-- TODO: uncomment consecutive // block
 function config.comment()
 	local ok, comment = pcall(require, "Comment")
 	if not ok then
