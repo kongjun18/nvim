@@ -4,8 +4,8 @@ local ui = {
     ["kyazdani42/nvim-tree.lua"] = {
         config = config.nvim_tree,
     },
-    ["navarasu/onedark.nvim"] = {
-        config = config.onedark
+    ["EdenEast/nightfox.nvim"] = {
+        config = config.nightfox,
     },
     ["kyazdani42/nvim-web-devicons"] = {},
     ["arkav/lualine-lsp-progress"] = {},
