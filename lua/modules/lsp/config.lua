@@ -126,6 +126,7 @@ function config.lsp_installer()
 				},
 			},
 		})
+
 		local config = require("modules.lsp.config")
 		local providers = require("modules.lsp.providers")
 		local servers = providers.servers
@@ -204,7 +205,6 @@ function config.cmp()
 		-- NOTE: nvim-cmp will remove all default mapping in future
 		-- See nvim-cmp PR [Discussion: Remove all default mapping #739]
 		mapping = {
-			["<CR>"] = cmp.mapping.confirm({ select = false }),
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
@@ -214,7 +214,6 @@ function config.cmp()
 					fallback()
 				end
 			end, { "i", "s" }),
-
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
@@ -222,10 +221,15 @@ function config.cmp()
 					fallback()
 				end
 			end, { "i", "s" }),
-
+			["<CR>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.confirm()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 			["<C-y>"] = cmp.config.disable,
 			["<C-e>"] = cmp.mapping({
 				i = cmp.mapping.abort(),
@@ -338,6 +342,5 @@ end
 function config.lsp_signature()
 	require("core.packer"):setup("lsp_signature")
 end
-
 
 return config
