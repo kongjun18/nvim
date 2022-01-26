@@ -16,9 +16,8 @@ local ui = {
         config = config.lualine,
         after = {"nvim-web-devicons", "nvim-gps", "lualine-lsp-progress"}
     },
-    ["romgrk/barbar.nvim"] = {
-        config = config.barbar,
-        after = "nvim-web-devicons"
+    ["alvarosevilla95/luatab.nvim"] = {
+        config = config.luatab,
     },
     ["jeffkreeftmeijer/vim-numbertoggle"] = {
     },

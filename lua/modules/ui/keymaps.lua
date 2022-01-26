@@ -38,17 +38,17 @@ local M = {
 
   ["<Leader><Tab>"] = {"<C-^>", "Edit Alternate File"},
 
-  ["<leader>1"] = {"1gt", "Go To Tab 1"},
-  ["<leader>2"] = {"2gt", "Go To Tab 2"},
-  ["<leader>3"] = {"3gt", "Go To Tab 3"},
-  ["<leader>4"] = {"4gt", "Go To Tab 4"},
-  ["<leader>5"] = {"5gt", "Go To Tab 5"},
-  ["<leader>6"] = {"6gt", "Go To Tab 6"},
-  ["<leader>7"] = {"7gt", "Go To Tab 7"},
-  ["<leader>8"] = {"8gt", "Go To Tab 8"},
-  ["<leader>9"] = {"9gt", "Go To Tab 9"},
-  ["<leader>-"] = {"gT", "Go To Next Tab"},
-  ["<leader>="] = {"gt", "Go To Previos Tab"},
+  ["<leader>1"] = {"1gt<CR>", "Go To Tab 1"},
+  ["<leader>2"] = {"2gt<CR>", "Go To Tab 2"},
+  ["<leader>3"] = {"3gt<CR>", "Go To Tab 3"},
+  ["<leader>4"] = {"4gt<CR>", "Go To Tab 4"},
+  ["<leader>5"] = {"5gt<CR>", "Go To Tab 5"},
+  ["<leader>6"] = {"6gt<CR>", "Go To Tab 6"},
+  ["<leader>7"] = {"7gt<CR>", "Go To Tab 7"},
+  ["<leader>8"] = {"8gt<CR>", "Go To Tab 8"},
+  ["<leader>9"] = {"9gt<CR>", "Go To Tab 9"},
+  ["<leader>-"] = {"gt<CR>", "Go To Next Buffer"},
+  ["<leader>="] = {"gT<CR>", "Go To Previos Buffer"},
 
   ["<Leader>t"] = {
     ["name"] = "+tab",
