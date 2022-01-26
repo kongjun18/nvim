@@ -37,19 +37,25 @@ function config.nvim_tree()
 	})
 end
 
-function config.onedark()
-	local ok, onedark = pcall(require, "onedark")
+function config.nightfox()
+	local ok, nightfox = pcall(require, "nightfox")
 	if ok then
-		onedark.setup({ style = "cool" })
-		onedark.load()
+		nightfox.setup({
+			fox = "dayfox",
+			styles = {
+				comments = "italic",
+				keywords = "bold",
+			},
+			inverse = {
+				match_paren = true,
+			},
+		})
+		nightfox.load()
 	end
 end
 
 function config.lualine()
 	local opts = {
-		options = {
-			theme = "onedark",
-		},
 		sections = {
 			lualine_c = {
 				"lsp_progress",
