@@ -1,6 +1,5 @@
 local providers = {
 	servers = {
-		c = "ccls",
 		cpp = "ccls",
 		cmake = "cmake",
 		css = "cssls",
