@@ -31,7 +31,7 @@ config.keymaps = {
 		"<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
 		"Show Workspace Folders",
 	},
-	["<space>rn"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename Symbol" },
+	["<space>rn"] = { "<cmd>lua require('renamer').rename()<CR>", "Rename Symbol"},
 	["<space>ca"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
 }
 
@@ -341,6 +341,10 @@ end
 
 function config.lsp_signature()
 	require("core.packer"):setup("lsp_signature")
+end
+
+function config.renamer()
+	require("core.packer"):setup("renamer")
 end
 
 return config

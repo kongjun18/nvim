@@ -80,6 +80,10 @@ local completion = {
 	["ii14/lsp-command"] = {
 		after = {"nvim-lspconfig"},
 	},
+  ["filipdutescu/renamer.nvim"] = {
+		requires = "nvim-lua/plenary.nvim",
+		config = config.renamer,
+	},
 }
 
 return completion
