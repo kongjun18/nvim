@@ -55,11 +55,11 @@ local M = {
     ["c"] = {function() require("modules.ui.window").close_buffers() end, "Close Tab"}
   } ,
 
-  ["<M-m>"] = {function() require("modules.ui.window").scroll_adjacent_window("down") end, {mode = {"n","t"}}},
-  ["<M-p>"] = {function() require("modules.ui.window").scroll_adjacent_window("up") end, {mode = {"n","t"}}},
+  ["<M-m>"] = {function() require("modules.ui.window").scroll_adjacent_window("down") end, "Scroll Adjacent Window Down"},
+  ["<M-p>"] = {function() require("modules.ui.window").scroll_adjacent_window("up") end, "Scroll Adjacent Window Up"},
 
-  ["<M-u>"] = {function() require("modules.ui.window").scroll_quickfix("up") end, {mode = {"n","t"}}},
-  ["<M-d>"] = {function() require("modules.ui.window").scroll_quickfix("down") end, {mode = {"n","t"}}},
+  ["<M-u>"] = {function() require("modules.ui.window").scroll_quickfix("up") end, "Scroll Quickfix Up"},
+  ["<M-d>"] = {function() require("modules.ui.window").scroll_quickfix("down") end, "Scroll Quickfix Down"},
 
   ["H"] = {"<C-w>h", "Move Cursor To Left Window"},
   ["L"] = {"<C-w>l", "Move Cursor To Right Window"},
