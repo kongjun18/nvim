@@ -65,7 +65,7 @@ providers.opts.ccls = {
 		},
 		-- Only support GCC/Clang
 		clang = {
-			extraArgs = { "-Wall", "-Wextra", "-Wconversion", "-Wsign-conversion" },
+			extraArgs = { "-std=c++17", "-Wall", "-Wextra", "-Wconversion", "-Wsign-conversion" },
 		},
 	},
 }
