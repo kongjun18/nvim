@@ -340,7 +340,10 @@ function config.null_ls()
 end
 
 function config.lsp_signature()
-	require("core.packer"):setup("lsp_signature")
+	require("core.packer"):setup("lsp_signature", {
+		bind = true,
+		hint_prefix = "⤷",
+	})
 end
 
 function config.renamer()

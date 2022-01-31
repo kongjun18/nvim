@@ -5,7 +5,7 @@ local completion = {
 	},
 	-- FIXME: display errorneous function comment
 	["neovim/nvim-lspconfig"] = {
-		config = config.lspconfig,
+		config = config.lsp_signature,
 		after = "lsp_signature.nvim",
 	},
 	["williamboman/nvim-lsp-installer"] = {
