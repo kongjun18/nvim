@@ -71,6 +71,40 @@ local M = {
     -- Terminal
     ["<M-=>"] = {"<Cmd>TerminalToggle<CR>", "Toggle Terminal"},
     ["<M-q>"] = {t"<C-\\><C-n>", "Switch To Normal Mode", mode="t"},
+    ["<Leader>n"] = {
+        ["name"] = "+Neogen Annotation",
+        ["f"] = {function() require("neogen").generate() end, "Function Annotation"},
+        ["c"] = {function() require("neogen").generate({ type = "class" }) end, "Class Annotation"},
+        ["t"] = {function() require("neogen").generate({ type = "type" }) end, "Type Annotation"},
+        ["u"] = {function() require("neogen").generate({ type = "file" }) end, "File Annotation"},
+    }
 }
+
+vim.keymap.set(
+    {"i", "s"},
+    t("<C-j>"),
+    function()
+        local snip = require("luasnip")
+        local neogen = require("neogen")
+        if snip.expand_or_jumpable() then
+            snip.expand_or_jump()
+        elseif neogen.jumpable() then
+            vim.fn.feedkeys(t("<Cmd>lua require('neogen').jump_next()<CR>"), "")
+        end
+    end
+)
+vim.keymap.set(
+    {"i", "s"},
+    t("<C-k>"),
+    function()
+        local snip = require("luasnip")
+        local neogen = require("neogen")
+        if snip.jumpable(-1) then
+            snip.jump(-1)
+        elseif neogen.jumpable(-1) then
+            vim.fn.feedkeys(t("<Cmd>lua require('neogen').jump_prev()<CR>"), "")
+        end
+    end
+)
 
 return M

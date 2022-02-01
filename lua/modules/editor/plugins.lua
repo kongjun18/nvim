@@ -100,6 +100,10 @@ local editor = {
 	["GustavoKatel/telescope-asynctasks.nvim"] = {
 		requires = { "nvim-lua/popup.nvim", "skywind3000/asynctasks.vim" },
 	},
+	["danymat/neogen"] = {
+		config = config.neogen,
+		requires = "nvim-treesitter/nvim-treesitter",
+	},
 }
 
 return editor

@@ -266,23 +266,6 @@ end
 function config.luasnip()
 	local ok, luasnip = pcall(require, "luasnip")
 	if ok then
-		-- Mappings:
-		--     <C-j>: Jump to the next placeholder
-		--     <C-k>: Jump to the previous placeholder
-		local t = function(str)
-			return vim.api.nvim_replace_termcodes(str, true, true, true)
-		end
-		vim.keymap.set({ "i", "s" }, t("<C-j>"), function()
-			if luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			end
-		end)
-		vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
-			if luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			end
-		end)
-
 		luasnip.filetype_extend("all", { "_" })
 		luasnip.filetype_extend("cpp", { "c" })
 		require("luasnip.loaders.from_vscode").lazy_load()
