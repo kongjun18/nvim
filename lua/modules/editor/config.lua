@@ -304,4 +304,14 @@ function config.telescope()
 	telescope.load_extension("fzy_native")
 end
 
+function config.neogen()
+	require("core.packer"):setup("neogen", {
+		languages = {
+			template = {
+				annotation_convention = "ldoc",
+			},
+		},
+	})
+end
+
 return config
