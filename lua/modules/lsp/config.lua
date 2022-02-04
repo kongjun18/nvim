@@ -199,11 +199,6 @@ function config.cmp()
 				require("luasnip").lsp_expand(args.body)
 			end,
 		},
-		-- FIXME: fail to map keymaps
-		-- perhaps related to  Recursive binding outputs =v:lua.vim.json.decode('"\r"') in infinite loop #744
-		--
-		-- NOTE: nvim-cmp will remove all default mapping in future
-		-- See nvim-cmp PR [Discussion: Remove all default mapping #739]
 		mapping = {
 			["<Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
