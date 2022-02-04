@@ -27,8 +27,6 @@ local editor = {
 		cmd = {"H", "TerminalToggle"},
 	},
 	["tpope/vim-rsi"] = {},
-	["tpope/vim-endwise"] = {
-	},
 	["tpope/vim-surround"] = {
 	},
 	["tpope/vim-projectionist"] = {
