@@ -41,7 +41,7 @@ local ui = {
     ["machakann/vim-highlightedyank"] = {
     },
     ["p00f/nvim-ts-rainbow"] = {
-        after = "nvim-treesitter"
+        requres = "nvim-treesitter"
     },
     ["lukas-reineke/indent-blankline.nvim"] = {
         config = config.indent_blankline
