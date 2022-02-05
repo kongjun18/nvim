@@ -44,9 +44,6 @@ local editor = {
     config = config.editorconfig,
   },
   ["junegunn/vim-easy-align"] = {},
-  ["sbdchd/neoformat"] = {
-    config = config.neoformat,
-  },
   ["lilydjwg/fcitx.vim"] = {
     event = "InsertEnter",
   },
