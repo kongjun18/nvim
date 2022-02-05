@@ -2,30 +2,32 @@
 local M = {}
 
 -- TODO: make sure configuration works perfectly without LSP
-M.modules = {"ui", "editor", "lsp", "vcs"}
+M.modules = { "ui", "editor", "lsp", "vcs" }
 M.packer = require("core.packer")
 
 for _, module in pairs(M.modules) do
-    local m = require("modules/" .. module)
-    M.packer:load(m.plugins)
+  local m = require("modules/" .. module)
+  M.packer:load(m.plugins)
 end
 
 if M.packer.bootstrap then
-    M.packer.packer.sync()
+  M.packer.packer.sync()
 end
 
 require("packer_compiled")
 
 while require("core.packer").bootstrap do
-    vim.wait(200, function() return not require("core.packer").bootstrap end)
+  vim.wait(200, function()
+    return not require("core.packer").bootstrap
+  end)
 end
 
 local wk = require("which-key")
 for _, module in pairs(M.modules) do
-    local m = require("modules/" .. module)
-    if m.keymaps then
-        wk.register(m.keymaps)
-    end
+  local m = require("modules/" .. module)
+  if m.keymaps then
+    wk.register(m.keymaps)
+  end
 end
 
 return M

@@ -1,4 +1,4 @@
-module('modules.ui.window', package.seeall)
+module("modules.ui.window", package.seeall)
 local fn = vim.fn
 local cmd = vim.cmd
 
@@ -6,22 +6,28 @@ local cmd = vim.cmd
 -- @param direction "up" or "down"
 function scroll_quickfix(direction, mode)
   current = fn.win_getid()
-  quickfix = fn.getqflist({winid= 0}).winid
+  quickfix = fn.getqflist({ winid = 0 }).winid
   if quickfix == 0 then
-    cmd[[echomsg "There is no quickfix"]]
+    cmd([[echomsg "There is no quickfix"]])
     return
   end
-  cmd(string.format([[call win_execute(%s, "%s", v:true)]], quickfix, (direction == 'up') and 'normal \\<C-U>' or 'normal \\<C-D>'))
+  cmd(
+    string.format(
+      [[call win_execute(%s, "%s", v:true)]],
+      quickfix,
+      (direction == "up") and "normal \\<C-U>" or "normal \\<C-D>"
+    )
+  )
 end
 
 -- direction hjkl
 function close_window(direction)
-  fn.win_execute(fn.win_getid(fn.winnr(direction)), 'close', true)
+  fn.win_execute(fn.win_getid(fn.winnr(direction)), "close", true)
 end
 
 -- direction hjkl
 function hide_window(direction)
-  fn.win_execute(fn.win_getid(fn.winnr(direction)), 'hide', true)
+  fn.win_execute(fn.win_getid(fn.winnr(direction)), "hide", true)
 end
 
 function close_buffers()
@@ -33,18 +39,30 @@ function close_buffers()
 end
 
 function scroll_adjacent_window(direction)
-  local left = fn.win_getid(fn.winnr('h'))
-  local right = fn.win_getid(fn.winnr('l'))
+  local left = fn.win_getid(fn.winnr("h"))
+  local right = fn.win_getid(fn.winnr("l"))
   local current = fn.win_getid(fn.winnr())
   if left ~= current and current ~= right then
-    cmd[[echomsg 'There are too more windows']]
+    cmd([[echomsg 'There are too more windows']])
     return
   elseif current == left and current == right then
-    cmd[[echomsg 'There is only one window']]
+    cmd([[echomsg 'There is only one window']])
     return
   elseif current ~= left then
-    cmd(string.format([[call win_execute(%s, "%s", v:true)]], left, (direction == 'up') and 'normal \\<C-Y>' or 'normal \\<C-E>'))
+    cmd(
+      string.format(
+        [[call win_execute(%s, "%s", v:true)]],
+        left,
+        (direction == "up") and "normal \\<C-Y>" or "normal \\<C-E>"
+      )
+    )
   else
-    cmd(string.format([[call win_execute(%s, "%s", v:true)]], right, (direction == 'up') and 'normal \\<C-Y>' or 'normal \\<C-E>'))
+    cmd(
+      string.format(
+        [[call win_execute(%s, "%s", v:true)]],
+        right,
+        (direction == "up") and "normal \\<C-Y>" or "normal \\<C-E>"
+      )
+    )
   end
 end
