@@ -4,8 +4,6 @@
 -- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")
 local editor = {
-  ["rhysd/accelerated-jk"] = {},
-  ["hrsh7th/vim-eft"] = {},
   ["bronson/vim-visual-star-search"] = {},
   ["andymass/vim-matchup"] = {
     config = config.matchup,
