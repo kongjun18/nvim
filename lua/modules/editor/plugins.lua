@@ -97,6 +97,9 @@ local editor = {
     config = config.neogen,
     requires = "nvim-treesitter/nvim-treesitter",
   },
+  ["romainl/vim-qf"] = {
+    ft = "qf",
+  },
 }
 
 return editor
