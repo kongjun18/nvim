@@ -60,7 +60,7 @@ local editor = {
 		config = config.todo_comments,
 	},
 	["windwp/nvim-autopairs"] = {
-		require = "hrsh7th/nvim-cmp",
+		requires = "hrsh7th/nvim-cmp",
 		config = config.autopairs,
 		after = "nvim-cmp",
 	},
@@ -85,15 +85,15 @@ local editor = {
 		requires = "skywind3000/asyncrun.vim",
 		config = config.asynctasks,
 	},
-
+	--
 	-- TODO: telescope-frecency.nvim and telescope-project.nvim
 	["nvim-telescope/telescope.nvim"] = {
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-fzy-native.nvim",
+			"kyazdani42/nvim-web-devicons",
 		},
 		config = config.telescope,
-		after = "nvim-web-devicons",
 	},
 	["GustavoKatel/telescope-asynctasks.nvim"] = {
 		requires = { "nvim-lua/popup.nvim", "skywind3000/asynctasks.vim" },
