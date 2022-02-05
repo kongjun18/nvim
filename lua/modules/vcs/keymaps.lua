@@ -2,7 +2,7 @@ local vcs = {
   ["]c"] = {
     function()
       return vim.api.nvim_win_get_option(0, "diff") and "]c"
-        or "<Cmd>Gitsigns next_hunk<CR>"
+        or t("<Cmd>Gitsigns next_hunk<CR>")
     end,
     "Next Difference",
     expr = true,
@@ -10,7 +10,7 @@ local vcs = {
   ["[c"] = {
     function()
       return vim.api.nvim_win_get_option(0, "diff") and "[c"
-        or "<Cmd>Gitsigns prev_hunk<CR>"
+        or t("<Cmd>Gitsigns prev_hunk<CR>")
     end,
     "Previous Difference",
     expr = true,
