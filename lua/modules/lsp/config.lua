@@ -330,11 +330,6 @@ function config.dictionary()
   end
 end
 
--- TODO: install formatters automatically
-function config.format_installer()
-  require("core.packer"):setup("format-installer")
-end
-
 -- TODO: configure linters
 -- TODO: how to install linters automatically?
 function config.null_ls()
@@ -343,19 +338,41 @@ function config.null_ls()
     return
   end
 
-  local formatter_install = require("format-installer")
-
   local sources = {}
-  for _, formatter in ipairs(formatter_install.get_installed_formatters()) do
-    local config = { command = formatter.cmd }
-    table.insert(
-      sources,
-      null_ls.builtins.formatting[formatter.name].with(config)
-    )
+  local providers = require("modules.lsp.providers")
+  local formatters = providers.formatters
+  for _, formatter in pairs(formatters.formatters) do
+    local opt = formatters.opts[formatter]
+    if opt then
+      table.insert(
+        sources,
+        null_ls.builtins.formatting[formatter].with(opt)
+      )
+    else
+      table.insert(
+        sources,
+        null_ls.builtins.formatting[formatter]
+      )
+    end
   end
 
+  local linters = providers.linters
+  for _, linter in pairs(linters.linters) do
+    local opt = linters.opts[linter]
+    if opt then
+      table.insert(
+        sources,
+        null_ls.builtins.diagnostics[linters].with(opt)
+      )
+    else
+      table.insert(
+        sources,
+        null_ls.builtins.diagnostics[linters]
+      )
+    end
+  end
   null_ls.setup({
-    sources = sources,
+    sources = sources
   })
 end
 
