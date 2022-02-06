@@ -1,4 +1,4 @@
-local providers = {
+local M = {
   servers = {
     cpp = "ccls",
     cmake = "cmake",
@@ -30,7 +30,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-providers.opts.sumneko_lua = {
+M.opts.sumneko_lua = {
   settings = {
     Lua = {
       workspace = {
@@ -55,7 +55,7 @@ providers.opts.sumneko_lua = {
 -- ccls configuration
 --
 -- TODO: Cached in standard vim cache dir
-providers.opts.ccls = {
+M.opts.ccls = {
   init_options = {
     cache = {
       directory = ".cache/ccls-cache",
@@ -149,7 +149,7 @@ function ccls_member(kind)
 end
 
 -- FIXME: VarLocal finds global variable
-providers.commands.ccls = {
+M.commands.ccls = {
   {
     name = "Derived",
     command = function()
@@ -212,4 +212,4 @@ providers.commands.ccls = {
   },
 }
 
-return providers
+return M

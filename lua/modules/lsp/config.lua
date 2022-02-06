@@ -80,7 +80,7 @@ function config.on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
 
-  local providers = require("modules.lsp.providers")
+  local lsp_servers = require("modules.lsp.providers").lsp_servers
 
   -- Enable completion triggered by <c-x><c-o>
   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -89,14 +89,14 @@ function config.on_attach(client, bufnr)
   local opts = { buffer = bufnr }
   local wk = require("which-key")
   local default = require("modules.lsp.config").keymaps
-  local customed = providers.keymaps[client.name]
+  local customed = lsp_servers.keymaps[client.name]
   local keymaps = customed and vim.tbl_extend("force", default, customed)
     or default
   wk.register(keymaps, opts)
 
   -- Commands
   default = require("modules.lsp.config").commands
-  customed = providers.commands[client.name]
+  customed = lsp_servers.commands[client.name]
   local commands = customed and vim.tbl_extend("force", default, customed)
     or default
   add_command = vim.api.nvim_buf_add_user_command
@@ -157,8 +157,8 @@ function config.lsp_installer()
     })
 
     local config = require("modules.lsp.config")
-    local providers = require("modules.lsp.providers")
-    local servers = providers.servers
+    local lsp_servers = require("modules.lsp.providers").lsp_servers
+    local servers = lsp_servers.servers
     for _, server in pairs(servers) do
       local lsp_installer_servers = require("nvim-lsp-installer.servers")
       local server_available, requested_server =
@@ -167,7 +167,7 @@ function config.lsp_installer()
         )
       if server_available then
         requested_server:on_ready(function()
-          local customed = providers.opts[server]
+          local customed = lsp_servers.opts[server]
           local default = {
             on_attach = config.on_attach,
             capabilities = require("cmp_nvim_lsp").update_capabilities(
