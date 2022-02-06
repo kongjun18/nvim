@@ -327,4 +327,10 @@ function config.neogen()
   })
 end
 
+function config.surround()
+  require("core.packer"):setup("surround", {
+    mappings_style = "surround",
+  })
+end
+
 return config

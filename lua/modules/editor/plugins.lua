@@ -1,6 +1,5 @@
 -- TODO: database support: tpope/vim-dadbod
 -- TODO: doc comment support: vim-doge
--- TODO: substitue vim-surround with vim-sandwich
 -- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")
 local editor = {
@@ -19,7 +18,9 @@ local editor = {
     cmd = { "H", "TerminalToggle" },
   },
   ["tpope/vim-rsi"] = {},
-  ["tpope/vim-surround"] = {},
+  ["blackCauldron7/surround.nvim"] = {
+    config = config.surround,
+  },
   ["tpope/vim-projectionist"] = {},
   ["tpope/vim-repeat"] = {},
   ["tpope/vim-unimpaired"] = {},
