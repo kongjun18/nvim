@@ -14,13 +14,13 @@ if M.packer.bootstrap then
   M.packer.packer.sync()
 end
 
-require("packer_compiled")
-
 while require("core.packer").bootstrap do
   vim.wait(200, function()
     return not require("core.packer").bootstrap
   end)
 end
+
+pcall(require, "packer_compiled")
 
 local wk = require("which-key")
 for _, module in pairs(M.modules) do
