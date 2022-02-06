@@ -72,8 +72,6 @@ local completion = {
     after = { "LuaSnip", "nvim-cmp" },
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
-    requires = "PlatyPew/format-installer.nvim",
-    after = "format-installer.nvim",
     config = config.null_ls,
   },
   ["ii14/lsp-command"] = {
