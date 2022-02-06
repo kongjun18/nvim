@@ -1,5 +1,10 @@
 local config = {}
 
+config.telescope_extensions = {
+  "fzy_native",   -- Load native sorter for better performance
+  "asynctasks",
+}
+
 function config.matchup()
   vim.g.matchup_matchparen_deferred = 1
   vim.g.matchup_matchparen_offscreen = { method = "popup" }
@@ -306,8 +311,10 @@ function config.telescope()
   telescope.setup({
     defaults = themes.get_ivy(),
   })
-  -- Load native sorter for better performance
-  telescope.load_extension("fzy_native")
+  local extensions = require("modules.editor.config").telescope_extensions
+  for _, extension in ipairs(extensions) do
+    telescope.load_extension(extension)
+  end
 end
 
 function config.neogen()

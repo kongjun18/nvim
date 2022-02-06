@@ -84,11 +84,15 @@ local editor = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-fzy-native.nvim",
       "kyazdani42/nvim-web-devicons",
+      {
+        "GustavoKatel/telescope-asynctasks.nvim",
+        requires = {
+          "nvim-lua/popup.nvim",
+          "skywind3000/asynctasks.vim",
+        },
+      },
     },
     config = config.telescope,
-  },
-  ["GustavoKatel/telescope-asynctasks.nvim"] = {
-    requires = { "nvim-lua/popup.nvim", "skywind3000/asynctasks.vim" },
   },
   ["danymat/neogen"] = {
     config = config.neogen,
