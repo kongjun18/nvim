@@ -83,7 +83,7 @@ local editor = {
   ["nvim-telescope/telescope.nvim"] = {
     requires = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-fzy-native.nvim",
+      "https://gitee.com/kongjun18/telescope-fzy-native.nvim",
       "kyazdani42/nvim-web-devicons",
       {
         "GustavoKatel/telescope-asynctasks.nvim",
