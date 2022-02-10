@@ -30,6 +30,7 @@
 
 - [ripgrep](https://github.com/BurntSushi/ripgrep)：提高文本查找性能。
 - [fd](https://github.com/sharkdp/fd)：提高文件检索效率。
+- [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)：显示图标并用作 nvim-qt 默认字体。
 - 其他开发工具，如 linter、formatter、ctags 等。
 
 **备注：**
