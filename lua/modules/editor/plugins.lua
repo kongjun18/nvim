@@ -25,6 +25,7 @@ local editor = {
   ["tpope/vim-repeat"] = {},
   ["tpope/vim-unimpaired"] = {},
   ["yianwillis/vimcdoc"] = {},
+  ["milisims/nvim-luaref"] = {},
   ["lfv89/vim-interestingwords"] = {},
   ["windwp/nvim-ts-autotag"] = {
     ft = {
