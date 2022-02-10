@@ -42,7 +42,7 @@
 
 # 安装
 
-确保网络通畅，能够正常访问 Github，如果不能请参考 README [使用 Github 镜像](#Github 镜像)。
+确保网络通畅，能够正常访问 Github，如果不能请参考 README *使用 Github 镜像* 一节。
 
 备份旧配置，将本仓库克隆到配置目录。
 
@@ -60,7 +60,7 @@ git clone --depth 1 https://github.com/kongjun18/nvim ~/.config/nvim
 
 - 如果 Github 镜像崩溃或限制流量导致插件安装失败，请更换镜像或换个时间安装插件。
 
-  
+
 
 # Github 镜像
 
