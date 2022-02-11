@@ -34,7 +34,6 @@ function config.todo_comments()
   require("core.packer"):setup("todo-comments")
 end
 
--- Note: copy from LunarVim
 function config.autopairs()
   local ok, autopairs = pcall(require, "nvim-autopairs")
   if not ok then
@@ -131,15 +130,6 @@ function config.autopairs()
         return false
       end
     end),
-  })
-
-  local ts_conds = require("nvim-autopairs.ts-conds")
-  -- press % => %% is only inside comment or string
-  autopairs.add_rules({
-    Rule("%", "%", "lua"):with_pair(
-      ts_conds.is_ts_node({ "string", "comment" })
-    ),
-    Rule("$", "$", "lua"):with_pair(ts_conds.is_not_ts_node({ "function" })),
   })
 end
 
