@@ -306,6 +306,8 @@ function config.surround()
   require("core.packer"):setup("surround", {
     mappings_style = "surround",
   })
+  -- Remap s to S in keymaps.lua
+  vim.cmd([[silent! xunmap s]])
 end
 
 return config
