@@ -362,12 +362,12 @@ function config.null_ls()
     if opt then
       table.insert(
         sources,
-        null_ls.builtins.diagnostics[linters].with(opt)
+        null_ls.builtins.diagnostics[linter].with(opt)
       )
     else
       table.insert(
         sources,
-        null_ls.builtins.diagnostics[linters]
+        null_ls.builtins.diagnostics[linter]
       )
     end
   end
