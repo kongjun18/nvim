@@ -111,6 +111,11 @@ function config.autopairs()
       end)
       :use_key("]"),
   })
+  -- sh: enable ()/{} in string
+  autopairs.add_rules({
+    Rule("{", "}", "sh"),
+    Rule("(", ")", "sh"),
+  })
 end
 
 function config.treesitter()
