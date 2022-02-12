@@ -128,8 +128,10 @@ function config.treesitter()
   -- Download packages from mirror
   local parsers = require("nvim-treesitter.parsers").get_parser_configs()
   for _, p in pairs(parsers) do
-    local mirror = string.match(require("core.packer").mirror, "https?://(.*)")
-    p.install_info.url = p.install_info.url:gsub("github.com", mirror)
+    p.install_info.url = p.install_info.url:gsub(
+      "https://github.com/",
+      require("core.packer").mirror
+    )
   end
 
   treesitter.setup({

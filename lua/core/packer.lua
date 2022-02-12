@@ -9,11 +9,9 @@ function Packer:new()
   local o = {}
   setmetatable(o, self)
   self.__index = self
-  -- Mirrors:
-  -- 	https://hub.fastgit.org
-  -- 	https://github.com.cnpmjs.org
-  self.mirror = "https://github.com"
-  self.repo = self.mirror .. "/" .. "wbthomason/packer.nvim"
+  -- Install plugins via ssh to pass China's Great Firewall
+  self.mirror = "git@github.com:"
+  self.repo = self.mirror .. "wbthomason/packer.nvim"
   self.path = path(data_dir, "site", "pack", "packer")
   self.install_path = path(self.path, "start", "packer.nvim")
   self.compiled = path(config_dir, "lua", "packer_compiled.lua")
@@ -57,7 +55,7 @@ function Packer:initialize()
   self.packer.init({
     compile_path = self.compiled,
     git = {
-      default_url_format = self.mirror .. "/%s",
+      default_url_format = self.mirror .. "%s",
       clone_timeout = self.clone_timeout, -- Prevent time out prematurely
     },
     max_jobs = 20,

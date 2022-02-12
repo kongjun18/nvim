@@ -63,13 +63,15 @@ function config.lualine()
     },
   }
 
-  local ok, gps = pcall(require, "nvim-gps")
-  if ok then
-    table.insert(
-      opts.sections.lualine_c,
-      1,
-      { gps.get_location, cond = gps.is_available }
-    )
+  if pcall(require, "treesitter") then
+    local ok, gps = pcall(require, "nvim-gps")
+    if ok then
+      table.insert(
+        opts.sections.lualine_c,
+        #opts.sections.lualine_c,
+        { gps.get_location, cond = gps.is_available }
+      )
+    end
   end
 
   require("core.packer"):setup("lualine", opts)

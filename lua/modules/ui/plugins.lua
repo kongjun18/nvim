@@ -7,16 +7,19 @@ local ui = {
   ["EdenEast/nightfox.nvim"] = {
     config = config.nightfox,
   },
-  ["kyazdani42/nvim-web-devicons"] = {},
   ["arkav/lualine-lsp-progress"] = {},
   ["SmiteshP/nvim-gps"] = {
     config = config.gps,
+    requires = "nvim-treesitter/nvim-treesitter",
+    after = "nvim-treesitter",
   },
   ["nvim-lualine/lualine.nvim"] = {
     config = config.lualine,
-    after = { "nvim-web-devicons", "nvim-gps", "lualine-lsp-progress" },
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    after = { "nvim-gps" },
   },
   ["alvarosevilla95/luatab.nvim"] = {
+    requires = { "kyazdani42/nvim-web-devicons", opt = true },
     config = config.luatab,
   },
   ["jeffkreeftmeijer/vim-numbertoggle"] = {},
@@ -38,7 +41,8 @@ local ui = {
   },
   ["machakann/vim-highlightedyank"] = {},
   ["p00f/nvim-ts-rainbow"] = {
-    requres = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+    after = "nvim-treesitter",
   },
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
