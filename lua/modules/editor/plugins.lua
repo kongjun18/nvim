@@ -42,7 +42,7 @@ local editor = {
     config = config.ts_autotag,
   },
   ["tpope/vim-sleuth"] = {},
-  ["editorconfig/editorconfig-vim"] = {
+  ["https://gitee.com/kongjun18/editorconfig-vim"] = {
     config = config.editorconfig,
   },
   ["junegunn/vim-easy-align"] = {},
