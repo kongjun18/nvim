@@ -103,6 +103,9 @@ local editor = {
   ["romainl/vim-qf"] = {
     ft = "qf",
   },
+  ["ojroques/vim-oscyank"] = {
+    cmd = { "OSCYank" },
+  },
 }
 
 return editor
