@@ -56,7 +56,7 @@ config.keymaps = {
     "Show Workspace Folders",
   },
   ["<space>rn"] = {
-    "<cmd>lua require('renamer').rename()<CR>",
+    "<cmd>lua vim.lsp.buf.rename()<CR>",
     "Rename Symbol",
   },
   ["<space>ca"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
@@ -381,10 +381,6 @@ function config.lsp_signature()
     bind = true,
     hint_prefix = "⤷",
   })
-end
-
-function config.renamer()
-  require("core.packer"):setup("renamer")
 end
 
 return config

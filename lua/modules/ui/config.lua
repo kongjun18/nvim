@@ -220,4 +220,8 @@ function config.colorizer()
   })
 end
 
+function config.dressing()
+  require("core.packer"):setup("dressing")
+end
+
 return config
