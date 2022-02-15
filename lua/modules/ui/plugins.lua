@@ -61,5 +61,8 @@ local ui = {
   ["norcalli/nvim-colorizer.lua"] = {
     config = config.colorizer,
   },
+  ["stevearc/dressing.nvim"] = {
+    config = config.dressing,
+  },
 }
 return ui
