@@ -18,8 +18,9 @@ local editor = {
     cmd = { "H", "TerminalToggle" },
   },
   ["tpope/vim-rsi"] = {},
-  ["blackCauldron7/surround.nvim"] = {
-    config = config.surround,
+  ["machakann/vim-sandwich"] = {
+    config = config.sandwich,
+    event = "BufWinEnter",
   },
   ["tpope/vim-projectionist"] = {},
   ["tpope/vim-repeat"] = {},

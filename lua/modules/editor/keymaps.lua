@@ -64,12 +64,6 @@ local M = {
       "File Annotation",
     },
   },
-  ["S"] = {
-    "<Plug>SurroundAddVisual",
-    mode = "x",
-    noremap = false,
-    "Surround Visual Area",
-  },
 }
 
 vim.keymap.set({ "i", "s" }, t("<C-j>"), function()

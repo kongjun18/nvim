@@ -304,12 +304,8 @@ function config.neogen()
   })
 end
 
-function config.surround()
-  require("core.packer"):setup("surround", {
-    mappings_style = "surround",
-  })
-  -- Remap s to S in keymaps.lua
-  vim.cmd([[silent! xunmap s]])
+function config.sandwich()
+  vim.cmd([[runtime macros/sandwich/keymap/surround.vim]])
 end
 
 return config
