@@ -107,6 +107,7 @@ local editor = {
   ["ojroques/vim-oscyank"] = {
     cmd = { "OSCYank" },
   },
+  ["ygm2/rooter.nvim"] = {},
 }
 
 return editor
