@@ -10,12 +10,16 @@ disabled_plugins = {
   "vimballPlugin",
   "2html_plugin",
   "logiPat",
-  "machit",
+  "matchit",
   "matchparen",
   "rrhelper",
   "netrwPlugin",
   "netrwSettings",
   "netrwFileHandlers",
+  "rplugin",
+  "spellfile",
+  "tohtml",
+  "tutor.vim",
 }
 
 basic_options = {
@@ -83,6 +87,7 @@ options = {
   completeopt = "menu,menuone,noselect",
   wrapscan = true,
   smartindent = true,
+  breakindentopt = "shift:2,min:20",
   colorcolumn = "80",
   linebreak = true,
   expandtab = true,

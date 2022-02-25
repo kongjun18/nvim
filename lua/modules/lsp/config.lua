@@ -170,9 +170,7 @@ function config.lsp_installer()
           local customed = lsp_servers.opts[server]
           local default = {
             on_attach = config.on_attach,
-            capabilities = require("cmp_nvim_lsp").update_capabilities(
-              vim.lsp.protocol.make_client_capabilities()
-            ),
+            capabilities = vim.lsp.protocol.make_client_capabilities(),
           }
           local opts = customed and vim.tbl_extend("force", default, customed)
             or default
@@ -191,13 +189,12 @@ end
 -- TODO: deduplicate repeated items. See nvim-cmp issues [Feature Request: Dedup items #511]
 -- TODO: use ctags source when LSP is disabled
 -- TODO: wrap require
--- FIXME: cmp-cmdline breaks sometimes
 function config.cmp()
   local ok, cmp = pcall(require, "cmp")
   if not ok then
     return
   end
-
+  vim.cmd([[silent! packadd LuaSnip]])
   local lspkind = require("lspkind")
 
   local has_words_before = function()
@@ -344,15 +341,9 @@ function config.null_ls()
   for _, formatter in pairs(formatters.formatters) do
     local opt = formatters.opts[formatter]
     if opt then
-      table.insert(
-        sources,
-        null_ls.builtins.formatting[formatter].with(opt)
-      )
+      table.insert(sources, null_ls.builtins.formatting[formatter].with(opt))
     else
-      table.insert(
-        sources,
-        null_ls.builtins.formatting[formatter]
-      )
+      table.insert(sources, null_ls.builtins.formatting[formatter])
     end
   end
 
@@ -360,19 +351,13 @@ function config.null_ls()
   for _, linter in pairs(linters.linters) do
     local opt = linters.opts[linter]
     if opt then
-      table.insert(
-        sources,
-        null_ls.builtins.diagnostics[linter].with(opt)
-      )
+      table.insert(sources, null_ls.builtins.diagnostics[linter].with(opt))
     else
-      table.insert(
-        sources,
-        null_ls.builtins.diagnostics[linter]
-      )
+      table.insert(sources, null_ls.builtins.diagnostics[linter])
     end
   end
   null_ls.setup({
-    sources = sources
+    sources = sources,
   })
 end
 
