@@ -151,6 +151,10 @@ local editor = {
         "https://gitee.com/kongjun18/telescope-fzy-native.nvim",
         after = "telescope.nvim",
       },
+      {
+        "ahmedkhalf/project.nvim",
+        config = config.project,
+      },
     },
     config = config.telescope,
     cmd = "Telescope",

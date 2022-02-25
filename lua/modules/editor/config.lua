@@ -3,6 +3,7 @@ local config = {}
 config.telescope_extensions = {
   "fzy_native", -- Load native sorter for better performance
   "asynctasks",
+  "projects",
 }
 
 function config.matchup()
@@ -310,6 +311,10 @@ end
 
 function config.sandwich()
   vim.cmd([[runtime macros/sandwich/keymap/surround.vim]])
+end
+
+function config.project()
+  require("core.packer"):setup("project_nvim")
 end
 
 return config
