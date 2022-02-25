@@ -27,7 +27,8 @@ local M = {
     ["b"] = { "<Cmd>Telescope buffers<CR>", "Find Buffers" },
     ["h"] = { "<Cmd>Telescope help_tags<CR>", "Find Help" },
     ["d"] = { "<Cmd>Telescope tags<CR>", "Find Tags(definition)" },
-    ["m"] = { "<Cmd>Telescope man_pages<CR>", "Find Man Pagess" },
+    ["m"] = { "<Cmd>Telescope man_pages<CR>", "Find Man Pages" },
+    ["p"] = { "<Cmd>Telescope projects<CR>", "Find projects" },
     ["a"] = {
       "<Cmd>lua require('telescope').extensions.asynctasks.all()<CR>",
       "Find AsyncTask",

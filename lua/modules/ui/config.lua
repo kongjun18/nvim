@@ -1,5 +1,6 @@
 local config = {}
 function config.nvim_tree()
+  vim.g.nvim_tree_respect_buf_cwd = 1
   require("core.packer"):setup("nvim-tree", {
     disable_netrw = true,
     hijack_netrw = true,
@@ -8,10 +9,11 @@ function config.nvim_tree()
     auto_close = true,
     open_on_tab = false,
     hijack_cursor = true,
-    update_cwd = false,
+    update_cwd = true,
     update_to_buf_dir = { enable = true, auto_open = true },
     diagnostics = {
-      enable = false,
+      enable = true,
+      update_cwd = true,
       icons = { hint = "", info = "", warning = "", error = "" },
     },
     update_focused_file = {
