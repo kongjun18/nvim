@@ -5,6 +5,7 @@ local M = {}
 M.modules = { "ui", "editor", "lsp", "vcs" }
 M.packer = require("core.packer")
 
+require("modules.custom")
 for _, module in pairs(M.modules) do
   local m = require("modules/" .. module)
   M.packer:load(m.plugins)
