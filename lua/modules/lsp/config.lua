@@ -1,9 +1,8 @@
 local config = {}
 
 local function snippet_path(dir)
-  local g = require("core.global")
-  local s = g.path_sep
-  local m = g.modules_dir
+  local s = path_sep
+  local m = modules_dir
   return string.format("%s%s%s%s%s", m, s, "lsp", s, dir)
 end
 

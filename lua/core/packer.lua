@@ -1,7 +1,4 @@
-local global = require("core.global")
 local fn = vim.fn
-local path_sep = global.path_sep
-local data_dir = global.data_dir
 
 local Packer = {}
 
