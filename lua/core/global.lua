@@ -24,22 +24,3 @@ end
 function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
-
-return {
-  os_name = os_name,
-  is_linux = is_linux,
-  is_windows = is_windows,
-  config_dir = config_dir,
-  cache_dir = cache_dir,
-  data_dir = data_dir,
-  home = home,
-  path_sep = path_sep,
-  modules_dir = modules_dir,
-  core_dir = core_dir,
-  packer_dir = packer_dir,
-  backup_dir = backup_dir,
-  swap_dir = swap_dir,
-  undo_dir = undo_dir,
-  session_dir = session_dir,
-  dict_dir = dict_dir,
-}

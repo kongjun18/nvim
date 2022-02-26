@@ -1,4 +1,3 @@
--- TODO: remove unnecessary require("global.core")
 local M = {}
 
 -- TODO: make sure configuration works perfectly without LSP
