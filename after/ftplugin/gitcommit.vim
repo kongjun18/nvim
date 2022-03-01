@@ -6,5 +6,4 @@
 
 setlocal wrap           " Wrap line
 setlocal spell          " Enable spell checking
-let b:EditorConfig_disable = 1 " Disable EditorConfig
 iabbrev refector refactor

@@ -27,10 +27,6 @@ function config.ts_autotag()
   require("core.packer"):setup("nvim-ts-autotag")
 end
 
-function config.editorconfig()
-  vim.g.EditorConfig_exclude_patterns = { "fugitive://.*" }
-end
-
 function config.todo_comments()
   require("core.packer"):setup("todo-comments")
 end
