@@ -71,8 +71,7 @@ local editor = {
   ["tpope/vim-sleuth"] = {
     event = "BufReadPost",
   },
-  ["https://gitee.com/kongjun18/editorconfig-vim"] = {
-    config = config.editorconfig,
+  ["gpanders/editorconfig.nvim"] = {
     event = "BufReadPost",
   },
   ["junegunn/vim-easy-align"] = {
