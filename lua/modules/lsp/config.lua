@@ -357,6 +357,10 @@ function config.null_ls()
   end
   null_ls.setup({
     sources = sources,
+    should_attach = function(bufnr)
+      local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+      return ft ~= "c" and ft ~= "cpp"
+    end,
   })
 end
 
