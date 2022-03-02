@@ -297,6 +297,7 @@ end
 
 function config.neogen()
   require("core.packer"):setup("neogen", {
+    snippet_engine = "luasnip",
     languages = {
       template = {
         annotation_convention = "ldoc",
