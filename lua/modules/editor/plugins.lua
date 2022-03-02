@@ -174,6 +174,9 @@ local editor = {
   },
   ["ygm2/rooter.nvim"] = {
     event = "BufReadPost",
+    setup = function()
+      vim.g.outermost_root = false
+    end
   },
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",
