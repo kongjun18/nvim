@@ -33,10 +33,27 @@ autocmd("BufWritePre", {
   desc = "Set backup file suffix",
   group = "backup",
   callback = function()
+    local floor = function(minute)
+      if minute >= 40 then
+        minute = 40
+      else
+        if minute >= 20 then
+          minute = 20
+        else
+          minute = 00
+        end
+      end
+      return minute
+    end
+    local strftime = vim.fn.strftime
+    local expand = vim.fn.expand
+    local minute = floor(tonumber(strftime("%M")))
+    -- backupext: ~~<directory>~~<date>
     vim.o.backupext = string.format(
-      "~%s~%s",
-      vim.fn.expand("%:p:h:t"),
-      vim.fn.strftime("%Y-%m-%d")
+      "~%s~~%s-%s",
+      string.gsub(expand("%:p:h"), path_sep, "~"),
+      strftime("%Y-%m-%d-%H"),
+      minute
     )
   end,
 })
