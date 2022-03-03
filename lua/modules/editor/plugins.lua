@@ -3,6 +3,10 @@
 -- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")
 local editor = {
+  ["tpope/vim-unimpaired"] = {
+    event = { "BufReadPost", "BufNewFile" },
+    ft = "qf",
+  },
   ["lambdalisue/suda.vim"] = {
     cmd = { "SudaRead", "SudaWrite" },
   },
