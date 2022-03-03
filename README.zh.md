@@ -1,10 +1,14 @@
 # 介绍
 
+这是我的个人 Neovim 配置，您可以参考或使用。
+
+# 特性
+
 - 自动安装插件、LSP
 - 纯 Lua 配置
 - 模块化
 - 聚焦核心功能
-- 启动快速（40ms）
+- 启动快速（40~50ms）
 - 跨平台（Windows 和 GNU/Linux）
 - 无需翻墙
 
@@ -14,9 +18,9 @@
 
 **必要依赖：**
 
-- [neovim nightly(v0.7)](https://github.com/neovim/neovim/releases/tag/nightly)。
+- [最新的 neovim nightly](https://github.com/neovim/neovim/releases/tag/nightly)。
 
-- [SourceCodePro](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)：显示图标并用作 nvim-qt 默认字体。
+- [SourceCodePro Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip)：显示图标并用作 nvim-qt 默认字体。
 
 - 自动下载安装 LSP：
 
@@ -38,21 +42,21 @@
 **备注：**
 
 - Windows 用户可以通过 [chocolatey](https://chocolatey.org/install) 包管理器方便地安装依赖。
-- [scripts](./scripts) 目录中提供了 Debian 平台上的依赖安装脚本（C++/Lua/Bash）。安装脚本可能污染用户系统，请谨慎使用。
+- [scripts](./scripts) 目录中提供了 GNU/Linux 平台上的依赖安装脚本（C++/Lua/Bash）。安装脚本可能污染用户系统，请谨慎使用。
 
 
 
 # 安装
 默认使用 SSH 从 Github 下载依赖插件，请先配置 SSH：
 1. [将 SSH 公钥添加到 Github 帐号](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)。
-2. 配置 ~/.ssh/config（Windows 平台：C:\Users\\<user\>\.ssh\config），添加以下代码。
+2. 配置 ~/.ssh/config（Windows 平台：C:\Users\\<user\>\.ssh\config），添加以下代码（~/.ssh/id_rsa.pub 替换为你的你的 SSH 公钥文件）。
 ```
 Host github
     Hostname github.com
     User git
-    IdentityFile ~/.ssh/id_rsa.pub # 你的 SSH 公钥文件
+    IdentityFile ~/.ssh/id_rsa.pub
 ```
-克隆仓库到 Neovim 配置目录（Neovim 中执行`echo stdpath('config')`查看）。
+3. 克隆仓库到 Neovim 配置目录（Neovim 中执行`echo stdpath('config')`查看）。
 ```shell
 git clone --depth 1 git@github.com/kongjun18/nvim <配置目录>
 # git clone --depth 1 https://github.com/kongjun18/nvim <配置目录>
@@ -75,24 +79,6 @@ md C:\Users\<user>\AppData\Local\nvim-data\lsp_servers\ccls
 **备注：**
 
 - 如果安装时退出或由于网络原因导致插件未克隆完，可能要手动删除插件，重新安装。
-
-
-
-
-# Github 镜像
-
-在 lua/core/packer.lua 中修改`Packer:new()`的镜像 URL，自定义插件源。
-```shell
-function Packer:new()
-  -- some code
-  self.mirror = "https://github.com.cnpmjs.org/" -- Github 镜像地址（带 / 后缀）
-  -- some code
-end
-```
-
-
-**备注：**
-
 - nvim-lsp-installer 可能使用 npm 等工具安装 LSP，请自己配置 npm 等工具使用国内镜像。
 
 
