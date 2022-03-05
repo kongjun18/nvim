@@ -1,16 +1,12 @@
 local config = {}
 
-local function snippet_path(dir)
-  local s = path_sep
-  local m = modules_dir
-  return string.format("%s%s%s%s%s", m, s, "lsp", s, dir)
-end
-
 config.dictionaries = {
   ["*"] = "word.dict",
 }
 
-config.snippet_path = snippet_path("snippets")
+config.snippet_paths = {
+  "./my-snippets",
+}
 
 config.keymaps = {
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
@@ -193,7 +189,6 @@ function config.cmp()
   if not ok then
     return
   end
-  vim.cmd([[silent! packadd LuaSnip]])
   local lspkind = require("lspkind")
 
   local has_words_before = function()

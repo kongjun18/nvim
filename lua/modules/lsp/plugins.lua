@@ -15,12 +15,16 @@ local completion = {
   },
   ["L3MON4D3/LuaSnip"] = {
     config = config.luasnip,
-    requires = "hrsh7th/nvim-cmp",
-    opt = true, -- Load in after nvim-cmp
+    requires = {
+      "hrsh7th/nvim-cmp",
+      "rafamadriz/friendly-snippets",
+    },
+    event = "InsertEnter",
   },
   ["hrsh7th/nvim-cmp"] = {
     config = config.cmp,
     event = { "InsertEnter", "CmdlineEnter" }, -- Will make first insert slow
+    after = "LuaSnip",
     requires = {
       "onsails/lspkind-nvim",
       "lukas-reineke/cmp-under-comparator",
