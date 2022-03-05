@@ -289,6 +289,23 @@ end
 function config.luasnip()
   local ok, luasnip = pcall(require, "luasnip")
   if ok then
+    vim.cmd([[hi LuaSnipChoiceNode guifg=#6080b0]]) -- Dayfox Blue
+    vim.cmd([[hi LuaSnipInsertNode guifg=#E8857A]]) -- Daynight Orange
+    local types = require("luasnip.util.types")
+    luasnip.config.setup({
+      ext_opts = {
+        [types.choiceNode] = {
+          active = {
+            virt_text = { { "●", "LuaSnipChoiceNode" } },
+          },
+        },
+        [types.insertNode] = {
+          active = {
+            virt_text = { { "●", "LuaSnipInsertNode" } },
+          },
+        },
+      },
+    })
     luasnip.filetype_extend("all", { "_" })
     luasnip.filetype_extend("cpp", { "c" })
     require("luasnip.loaders.from_vscode").lazy_load()
