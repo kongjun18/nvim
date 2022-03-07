@@ -266,10 +266,19 @@ function config.cmp()
     }, {
       { name = "buffer" },
       { name = "calc" },
-      { name = "cmp_git" },
+      { name = "path" },
     }, {
       -- { name = "dictionary" },
       -- { name = "spell" },
+    }),
+  })
+  cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit" }, {
+    sources = cmp.config.sources({
+      { name = "luasnip" },
+      { name = "buffer" },
+      { name = "path" },
+      { name = "dictionary" },
+      { name = "calc" },
     }),
   })
   cmp.setup.cmdline("/", {
@@ -312,17 +321,13 @@ function config.luasnip()
   end
 end
 
-function config.cmp_git()
-  require("core.packer"):setup("cmp_git")
-end
-
 function config.dictionary()
   local dict2path = function(dict)
     return dict_dir .. path_sep .. dict
   end
 
   local dictionaries = require("modules.lsp.config").dictionaries
-  -- Avoud re-modifing the dictionaries path after :PackerCompile
+  -- Avoid re-modifying the dictionaries path after :PackerCompile
   if not loaded_dictionaries then
     for ft, dict in pairs(dictionaries) do
       dictionaries[ft] = dict2path(dict)
