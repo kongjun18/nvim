@@ -36,15 +36,14 @@ local completion = {
       { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
       { "f3fora/cmp-spell", after = "nvim-cmp" },
       {
+        "uga-rosa/cmp-dictionary",
+        after = "nvim-cmp",
+        config = config.dictionary,
+      },
+      {
         "kristijanhusak/vim-dadbod-completion",
         requires = "tpope/vim-dadbod",
         after = "nvim-cmp",
-      },
-      {
-        "petertriho/cmp-git",
-        requires = "nvim-lua/plenary.nvim",
-        after = "nvim-cmp",
-        config = config.cmp_git(),
       },
       {
         "saadparwaiz1/cmp_luasnip",
