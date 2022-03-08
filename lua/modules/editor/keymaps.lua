@@ -1,14 +1,3 @@
-vim.api.nvim_add_user_command("TerminalToggle", function()
-  if
-    packer_plugins
-    and packer_plugins["vim-terminal-help"]
-    and not packer_plugins["vim-terminal-help"].loaded
-  then
-    vim.cmd([[PackerLoad vim-terminal-help]])
-    vim.fn.TerminalToggle()
-  end
-end, {})
-
 local M = {
   -- " They will slow down <C-I> because <Tab> equals to <C-I>
   [t("<Tab>")] = {
@@ -36,7 +25,13 @@ local M = {
     ["t"] = { "<Cmd>TodoTelescope<CR>", "Find Todo Comments" },
   },
   -- Terminal
-  ["<M-=>"] = { "<Cmd>TerminalToggle<CR>", "Toggle Terminal" },
+  ["<M-=>"] = {
+    function()
+      vim.cmd([[silent! PackerLoad vim-terminal-help]])
+      vim.fn.TerminalToggle()
+    end,
+    "Toggle Terminal",
+  },
   ["<M-q>"] = { t("<C-\\><C-n>"), "Switch To Normal Mode", mode = "t" },
   ["<Leader>n"] = {
     ["name"] = "+Neogen Annotation",
