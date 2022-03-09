@@ -210,7 +210,7 @@ end
 
 -- TODO: Use ctags/gtags index code when LSP is disabled
 function config.gutentags()
-  vim.cmd([[ packadd gutentags_plus ]])
+  vim.cmd([[ PackerLoad gutentags_plus ]])
   vim.g.load_gutentags_config = 1
   vim.g.gutentags_exclude_filetypes = {
     "text",
@@ -269,7 +269,7 @@ function config.projectionist()
 end
 
 function config.asynctasks()
-  vim.cmd([[packadd asyncrun.vim]])
+  vim.cmd([[PackerLoad asyncrun.vim]])
   vim.g.asynctasks_term_pos = "tab"
   vim.g.asyncrun_open = 10
   vim.g.asyncrun_bell = 1
@@ -283,8 +283,8 @@ function config.telescope()
     return
   end
 
-  vim.cmd([[ packadd telescope-fzy-native.nvim ]])
-  vim.cmd([[ packadd telescope-asynctasks.nvim ]])
+  vim.cmd([[ PackerLoad telescope-fzy-native.nvim ]])
+  vim.cmd([[ PackerLoad telescope-asynctasks.nvim ]])
   local themes = require("telescope.themes")
   telescope.setup({
     defaults = themes.get_ivy(),

@@ -80,7 +80,7 @@ function config.lualine()
 end
 
 function config.lens()
-  vim.cmd([[silent! packadd animate.vim]])
+  vim.cmd([[silent! PackerLoad animate.vim]])
   vim.g["lens#disabled_filetypes"] = {
     "list",
     "gitcommit",
