@@ -87,6 +87,7 @@ local vcs = {
     "Reset Hunk",
     mode = "v",
   },
+  -- which-key.nvim only maps one mode mapping
   ["i"] = {
     ["h"] = {
       "<Cmd>:<C-U>Gitsigns select_hunk<CR>",

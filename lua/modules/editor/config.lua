@@ -269,7 +269,6 @@ function config.projectionist()
 end
 
 function config.asynctasks()
-  vim.cmd([[PackerLoad asyncrun.vim]])
   vim.g.asynctasks_term_pos = "tab"
   vim.g.asyncrun_open = 10
   vim.g.asyncrun_bell = 1
