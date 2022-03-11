@@ -1,4 +1,3 @@
--- TODO: support kristijanhusak/vim-dadbod-ui
 local config = require("modules.ui.config")
 local ui = {
   ["kyazdani42/nvim-tree.lua"] = {
@@ -90,6 +89,9 @@ local ui = {
   ["stevearc/dressing.nvim"] = {
     config = config.dressing,
     event = "BufReadPost",
+  },
+  ["kristijanhusak/vim-dadbod-ui"] = {
+    event = "CmdlineEnter",
   },
 }
 return ui

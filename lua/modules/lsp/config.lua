@@ -272,6 +272,12 @@ function config.cmp()
       -- { name = "spell" },
     }),
   })
+  cmp.setup.filetype({ "mysql", "plsql", "sql" }, {
+    sources = cmp.config.sources({
+      { name = "vim-dadbod-completion" },
+      { name = "nvim_lsp" },
+    }),
+  })
   cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit" }, {
     sources = cmp.config.sources({
       { name = "luasnip" },
