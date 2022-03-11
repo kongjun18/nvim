@@ -3,17 +3,7 @@ local config = require("modules.ui.config")
 local ui = {
   ["kyazdani42/nvim-tree.lua"] = {
     config = config.nvim_tree,
-    cmd = {
-      "NvimTreeOpen",
-      "NvimTreeClose",
-      "NvimTreeFocus",
-      "NvimTreeResize",
-      "NvimTreeToggle",
-      "NvimTreeRefresh",
-      "NvimTreeFindFile",
-      "NvimTreeClipboard",
-      "NvimTreeFindFileToggle",
-    },
+    event = "CmdlineEnter",
   },
   ["EdenEast/nightfox.nvim"] = {
     config = config.nightfox,
@@ -86,12 +76,12 @@ local ui = {
     config = config.bqf,
   },
   ["folke/trouble.nvim"] = {
-    cmd = { "Trouble", "TroubleClose", "TroubleRefresh", "TroubleToggle" },
+    event = "CmdlineEnter",
     config = config.trouble,
   },
   ["liuchengxu/vista.vim"] = {
     config = config.vista,
-    cmd = { "Vista", "Vista!", "Vista!!" },
+    event = "CmdlineEnter",
   },
   ["norcalli/nvim-colorizer.lua"] = {
     config = config.colorizer,

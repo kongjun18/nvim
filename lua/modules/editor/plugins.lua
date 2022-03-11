@@ -120,25 +120,9 @@ local editor = {
     requires = "vim-gutentags",
     after = "vim-gutentags",
   },
-  ["skywind3000/asyncrun.vim"] = {
-    opt = true,
-    cmd = { "AsyncRun", "AsyncStop" },
-  },
   ["skywind3000/asynctasks.vim"] = {
-    require = "asyncrun.vim",
-    cmd = {
-      "AsyncTask",
-      "AsyncTaskEdit",
-      "AsyncTaskLast",
-      "AsyncTaskList",
-      "AsyncTaskMacro",
-      "AsyncTaskProfile",
-      "AsyncTask!",
-      "AsyncTaskEdit!",
-      "AsyncTaskLast!",
-      "AsyncTaskList!",
-      "AsyncTaskMacro!",
-    },
+    requires = { "skywind3000/asyncrun.vim", event = "CmdlineEnter" },
+    after = "asyncrun.vim",
     config = config.asynctasks,
   },
   ["nvim-telescope/telescope.nvim"] = {
@@ -163,7 +147,7 @@ local editor = {
       },
     },
     config = config.telescope,
-    cmd = "Telescope",
+    event = "CmdlineEnter",
   },
   ["danymat/neogen"] = {
     config = config.neogen,
@@ -180,7 +164,7 @@ local editor = {
     event = "BufReadPost",
     setup = function()
       vim.g.outermost_root = false
-    end
+    end,
   },
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",

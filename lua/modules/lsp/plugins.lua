@@ -60,7 +60,7 @@ local completion = {
   ["ii14/lsp-command"] = {
     requires = "nvim-lspconfig",
     after = "nvim-lspconfig",
-    cmd = "Lsp",
+    event = "CmdlineEnter",
   },
 }
 
