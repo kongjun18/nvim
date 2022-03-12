@@ -30,6 +30,13 @@ config.keymaps = {
   },
   ["gK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
   ["gf"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format Buffer" },
+  ["g"] = {
+    ["f"] = {
+      "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
+      "Format Range",
+      mode = "v",
+    },
+  },
   ["<space>e"] = {
     "<cmd>lua vim.diagnostic.open_float()<CR>",
     "Show Diagnostic Message In Float Window",
