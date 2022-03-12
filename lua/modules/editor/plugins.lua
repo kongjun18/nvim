@@ -120,9 +120,12 @@ local editor = {
     requires = "vim-gutentags",
     after = "vim-gutentags",
   },
+  ["skywind3000/asyncrun.vim"] = {
+    event = "CmdlineEnter",
+  },
   ["skywind3000/asynctasks.vim"] = {
-    requires = { "skywind3000/asyncrun.vim", event = "CmdlineEnter" },
-    after = "asyncrun.vim",
+    requires = "asyncrun.vim",
+    event = "CmdlineEnter",
     config = config.asynctasks,
   },
   ["nvim-telescope/telescope.nvim"] = {
