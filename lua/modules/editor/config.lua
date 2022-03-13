@@ -205,6 +205,9 @@ function config.comment()
 
   comment.setup({
     pre_hook = pre_hook,
+    mappings = {
+      extended = true,
+    },
   })
 end
 
