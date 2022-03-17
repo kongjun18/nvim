@@ -262,11 +262,12 @@ end
 
 function config.projectionist()
   vim.g.projectionist_heuristics = {
-    ["*.c|*.h|*.cpp|*.hpp"] = {
+    ["*.c|*.h|*.cc|*.cpp|*.hpp"] = {
       ["*.c"] = { ["alternate"] = { "{}.h" } },
       ["*.cpp"] = { ["alternate"] = { "{}.hpp", "{}.h" } },
-      ["*.h"] = { ["alternate"] = { "{}.c", "{}.cpp" } },
-      ["*.hpp"] = { ["alternate"] = "{}.cpp" },
+      ["*.cc"] = { ["alternate"] = { "{}.hpp", "{}.h" } },
+      ["*.h"] = { ["alternate"] = { "{}.c", "{}.cpp", "{}.cc" } },
+      ["*.hpp"] = { ["alternate"] = { "{}.cpp", "{}.cc" } },
     },
   }
 end
