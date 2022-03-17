@@ -48,6 +48,7 @@ local editor = {
     event = "BufReadPost",
   },
   ["tpope/vim-projectionist"] = {
+    setup = config.projectionist,
     event = "CmdlineEnter",
   },
   ["tpope/vim-repeat"] = {
