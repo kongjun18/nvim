@@ -43,16 +43,17 @@ function config.nightfox()
   local ok, nightfox = pcall(require, "nightfox")
   if ok then
     nightfox.setup({
-      fox = "dayfox",
-      styles = {
-        comments = "italic",
-        keywords = "bold",
-      },
-      inverse = {
-        match_paren = true,
+      options = {
+        styles = {
+          comments = "italic",
+          keywords = "bold",
+        },
+        inverse = {
+          match_paren = true,
+        },
       },
     })
-    nightfox.load()
+    vim.cmd("colorscheme dayfox")
   end
 end
 
