@@ -171,48 +171,12 @@ function config.treesitter()
     autopairs = {
       eanble = true,
     },
-    context_commentstring = {
-      enable = true,
-      enable_autocmd = false,
-    },
-  })
-end
-
--- TODO: comment and copy
--- TODO: uncomment consecutive // block
-function config.comment()
-  local ok, comment = pcall(require, "Comment")
-  if not ok then
-    return
-  end
-
-  local U = require("Comment.utils")
-
-  local pre_hook = function(ctx)
-    local location = nil
-    if ctx.ctype == U.ctype.block then
-      location = require("ts_context_commentstring.utils").get_cursor_location()
-    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-      location =
-        require("ts_context_commentstring.utils").get_visual_start_location()
-    end
-
-    return require("ts_context_commentstring.internal").calculate_commentstring({
-      key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
-      location = location,
-    })
-  end
-
-  comment.setup({
-    pre_hook = pre_hook,
-    mappings = {
-      extended = true,
-    },
   })
 end
 
 -- TODO: Use ctags/gtags index code when LSP is disabled
 function config.gutentags()
+  vim.g.gutentags_plus_nomap = 1
   vim.cmd([[ PackerLoad gutentags_plus ]])
   vim.g.load_gutentags_config = 1
   vim.g.gutentags_exclude_filetypes = {
@@ -315,6 +279,19 @@ end
 
 function config.project()
   require("core.packer"):setup("project_nvim")
+end
+
+-- TODO: comment and copy
+-- TODO: uncomment consecutive // block
+function config.nerdcommenter()
+  local g = vim.g
+  g.NERDSpaceDelims = 1
+  g.NERDDefaultAlign = "both"
+  g.NERDCommentEmptyLines = 1
+  g.NERDTrimTrailingWhitespace = 1
+  g.NERDToggleCheckAllLines = 1
+  g.NERDAllowAnyVisualDelims = 0
+  g.NERDAltDelims_asm = 1
 end
 
 return config

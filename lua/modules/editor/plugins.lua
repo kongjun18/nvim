@@ -105,13 +105,9 @@ local editor = {
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
     after = "nvim-treesitter",
   },
-  ["JoosepAlviste/nvim-ts-context-commentstring"] = {
-    after = "nvim-treesitter",
-  },
-  ["numToStr/Comment.nvim"] = {
-    requires = "JoosepAlviste/nvim-ts-context-commentstring",
-    config = config.comment,
+  ["preservim/nerdcommenter"] = {
     event = "BufReadPost",
+    setup = config.nerdcommenter,
   },
   ["ludovicchabant/vim-gutentags"] = {
     config = config.gutentags,

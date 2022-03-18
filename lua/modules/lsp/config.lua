@@ -30,6 +30,7 @@ config.keymaps = {
   },
   ["gK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
   ["gf"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format Buffer" },
+  ["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
   ["g"] = {
     ["f"] = {
       "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
@@ -61,7 +62,6 @@ config.keymaps = {
     "<cmd>lua vim.lsp.buf.rename()<CR>",
     "Rename Symbol",
   },
-  ["<space>ca"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
 }
 
 config.commands = {
