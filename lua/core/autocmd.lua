@@ -57,3 +57,18 @@ autocmd("BufWritePre", {
     )
   end,
 })
+
+augroup("autoclose", {})
+autocmd("BufEnter", {
+  desc = "Automatically close some windows",
+  group = "autoclose",
+  nested = true,
+  callback = function()
+    if
+      vim.fn.winnr("$") == 1
+      and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
+    then
+      vim.cmd("quit")
+    end
+  end,
+})
