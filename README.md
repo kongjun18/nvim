@@ -53,9 +53,9 @@ Host github
 ```
 3. Clone this repository to your Neovim configuration directory.
   ```shell
-git clone --depth 1 git@github.com/kongjun18/nvim <configuration directory>
-# git clone --depth 1 https://github.com/kongjun18/nvim <configuration directory>
-# git clone --depth 1 https://gitee.com/kongjun18/nvim <configuration directory>
+git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
+# git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
+# git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
   ```
 All plugins are automatically installed on first startup, do not close Neovim until the installation is complete. After installation, manually execute `:TSInstall maintained ` to install all treesitter parser under maintenance.
 
