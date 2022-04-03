@@ -49,7 +49,7 @@
 # 安装
 默认使用 SSH 从 Github 下载依赖插件，请先配置 SSH：
 1. [将 SSH 公钥添加到 Github 帐号](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)。
-2. 配置 ~/.ssh/config（Windows 平台：C:\Users\\<user\>\.ssh\config），添加以下代码（~/.ssh/id_rsa.pub 替换为你的你的 SSH 公钥文件）。
+2. 配置 \~/.ssh/config（Windows 平台：C:\Users\\<user\>\.ssh\config），添加以下代码（\~/.ssh/id_rsa.pub 替换为你的你的 SSH 公钥文件）。
 ```
 Host github
     Hostname github.com
@@ -58,9 +58,9 @@ Host github
 ```
 3. 克隆仓库到 Neovim 配置目录（Neovim 中执行`echo stdpath('config')`查看）。
 ```shell
-git clone --depth 1 git@github.com/kongjun18/nvim <配置目录>
-# git clone --depth 1 https://github.com/kongjun18/nvim <配置目录>
-# git clone --depth 1 https://gitee.com/kongjun18/nvim <配置目录>
+git clone --depth 1 git@github.com:kongjun18/nvim.git <配置目录>
+# git clone --depth 1 git@github.com:kongjun18/nvim.git <配置目录>
+# git clone --depth 1 git@github.com:kongjun18/nvim.git <配置目录>
 ```
 
 第一次启动时自动安装所有插件，安装完成前不要关闭 Neovim。安装完成后手动执行`:TSInstall maintained `安装所有维护中的 treesitter parser。
