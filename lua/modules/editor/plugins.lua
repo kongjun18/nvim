@@ -125,9 +125,14 @@ local editor = {
     event = "CmdlineEnter",
     config = config.asynctasks,
   },
+  ["ahmedkhalf/project.nvim"] = {
+    event = "BufEnter",
+    config = config.project,
+  },
   ["nvim-telescope/telescope.nvim"] = {
     requires = {
       "nvim-lua/plenary.nvim",
+      "ahmedkhalf/project.nvim",
       { "kyazdani42/nvim-web-devicons", opt = true },
       {
         "GustavoKatel/telescope-asynctasks.nvim",
@@ -135,15 +140,11 @@ local editor = {
           "nvim-lua/popup.nvim",
           "skywind3000/asynctasks.vim",
         },
-        after = "telescope.nvim",
+        opt = true,
       },
       {
-        "https://gitee.com/kongjun18/telescope-fzy-native.nvim",
-        after = "telescope.nvim",
-      },
-      {
-        "ahmedkhalf/project.nvim",
-        config = config.project,
+        "kongjun18/telescope-fzy-native.nvim",
+        opt = true,
       },
     },
     config = config.telescope,
@@ -159,12 +160,6 @@ local editor = {
   },
   ["ojroques/vim-oscyank"] = {
     cmd = "OSCYank",
-  },
-  ["ygm2/rooter.nvim"] = {
-    event = "BufReadPost",
-    setup = function()
-      vim.g.outermost_root = false
-    end,
   },
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",
