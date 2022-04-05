@@ -41,7 +41,7 @@
 
 **备注：**
 
-- Windows 用户可以通过 [chocolatey](https://chocolatey.org/install) 包管理器方便地安装依赖。
+- Windows 用户可以通过 [msys2](https://www.msys2.org/) 和 [chocolatey](https://chocolatey.org/install) 方便地安装依赖。
 - [scripts](./scripts) 目录中提供了 GNU/Linux 平台上的依赖安装脚本（C++/Lua/Bash）。安装脚本可能污染用户系统，请谨慎使用。
 
 
