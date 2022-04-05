@@ -37,8 +37,8 @@ This is my personal Neovim configuration, you can use it directly.
 
 **NOTE:**
 
-- Windows user can install dependencies via [chocolatey](https://chocolatey.org/install).
-- scripts in [scripts](./scripts) may help you install dependencies on GNU/Linux system. Installation scripts perhaps pollute your environment, please be **careful**!
+- Windows user can install dependencies using [msys2](https://www.msys2.org/) and [chocolatey](https://chocolatey.org/install).
+- Scripts in [scripts](./scripts) may help you install dependencies on GNU/Linux system. Installation scripts perhaps pollute your environment, please be **careful**!
 
 
 # Installation
