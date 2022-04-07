@@ -400,5 +400,32 @@ function config.lsp_signature()
     hint_prefix = "⤷",
   })
 end
+function config.goto_preview()
+  local conf = {
+    post_open_hook = function(buf)
+      vim.api.nvim_buf_set_keymap(
+        buf,
+        "n",
+        "q",
+        ":quit<CR>",
+        { noremap = true, silent = true }
+      )
+      vim.api.nvim_buf_set_keymap(
+        buf,
+        "n",
+        "<ESC>",
+        ":quit<CR>",
+        { noremap = true, silent = true }
+      )
+    end,
+  }
+  local ok, telescope = pcall(require, "telescope.themes")
+  if ok then
+    conf.references = {
+      telescope = telescope.get_ivy({ hide_preview = false }),
+    }
+  end
+  require("core.packer"):setup("goto-preview", conf)
+end
 
 return config

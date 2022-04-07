@@ -62,6 +62,10 @@ local completion = {
     after = "nvim-lspconfig",
     event = "CmdlineEnter",
   },
+  ["rmagatti/goto-preview"] = {
+    after = "nvim-lspconfig",
+    config = config.goto_preview,
+  },
 }
 
 return completion
