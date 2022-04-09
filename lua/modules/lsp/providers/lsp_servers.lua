@@ -1,5 +1,6 @@
 local M = {
   servers = {
+    go = "gopls",
     cpp = "ccls",
     cmake = "cmake",
     css = "cssls",
@@ -61,18 +62,10 @@ M.opts.ccls = {
       directory = ".cache/ccls-cache",
     },
     index = {
+      -- comments = 2,
       comments = 1,
     },
-    -- Only support GCC/Clang
-    clang = {
-      extraArgs = {
-        "-std=c++17",
-        "-Wall",
-        "-Wextra",
-        "-Wconversion",
-        "-Wsign-conversion",
-      },
-    },
+    compilationDatabaseDirectory = "Build",
   },
 }
 
