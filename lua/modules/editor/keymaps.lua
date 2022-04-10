@@ -1,13 +1,12 @@
 local M = {
-  -- " They will slow down <C-I> because <Tab> equals to <C-I>
-  [t("<Tab>")] = {
-    ["name"] = "+AsyncTask",
-    ["5"] = { ":AsyncTask file-build<CR>", "Compile File" },
-    ["6"] = { ":AsyncTask file-run<CR>", "Run File" },
-    ["7"] = { ":AsyncTask project-configure<CR>", "Configure CMake Project" },
-    ["8"] = { ":AsyncTask project-build<CR>", "Build CMake Project" },
-    ["9"] = { ":AsyncTask project-run<CR>", "Run CMake Project" },
-    ["0"] = { ":AsyncTask project-clean<CR>", "Clean CMake Binary Directory" },
+  ["<F5>"] = { ":AsyncTask file-build<CR>", "Compile File" },
+  ["<F6>"] = { ":AsyncTask file-run<CR>", "Run File" },
+  ["<F7>"] = { ":AsyncTask project-configure<CR>", "Configure CMake Project" },
+  ["<F8>"] = { ":AsyncTask project-build<CR>", "Build CMake Project" },
+  ["<F9>"] = { ":AsyncTask project-run<CR>", "Run CMake Project" },
+  ["<F1>"] = {
+    ":AsyncTask project-clean<CR>",
+    "Clean CMake Binary Directory",
   },
   ["<Leader>f"] = {
     ["name"] = "+Fuzzy Find",
