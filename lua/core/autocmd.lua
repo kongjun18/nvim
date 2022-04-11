@@ -11,7 +11,7 @@ autocmd("BufReadPre", {
 })
 
 augroup("format", {})
-autocmd("BufReadPre", {
+autocmd("BufWritePre", {
   desc = "Remove trailing space",
   group = "format",
   callback = function()
