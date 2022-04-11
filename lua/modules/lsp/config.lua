@@ -101,9 +101,9 @@ function config.on_attach(client, bufnr)
   customed = lsp_servers.commands[client.name]
   local commands = customed and vim.tbl_extend("force", default, customed)
     or default
-  add_command = vim.api.nvim_buf_add_user_command
+  create_command = vim.api.nvim_buf_create_user_command
   for _, command in pairs(commands) do
-    add_command(bufnr, command.name, command.command, command.opts or {})
+    create_command(bufnr, command.name, command.command, command.opts or {})
   end
 end
 
