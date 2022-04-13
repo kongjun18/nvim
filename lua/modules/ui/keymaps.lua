@@ -4,6 +4,7 @@ local M = {
 
     ["o"] = { "<C-w>o", "Open Window" },
     ["c"] = { "<C-w>c", "Close Window" },
+    ["q"] = { "<C-w>c", "Quit Window" },
     ["cj"] = {
       function()
         require("modules.ui.window").close_window("j")
@@ -89,16 +90,6 @@ local M = {
   ["<leader>-"] = { "gt<CR>", "Go To Next Buffer" },
   ["<leader>="] = { "gT<CR>", "Go To Previos Buffer" },
 
-  ["<Leader>t"] = {
-    ["name"] = "+tab",
-    ["c"] = {
-      function()
-        require("modules.ui.window").close_buffers()
-      end,
-      "Close Tab",
-    },
-  },
-
   ["<M-m>"] = {
     function()
       require("modules.ui.window").scroll_adjacent_window("down")
@@ -135,6 +126,12 @@ local M = {
     ["t"] = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
     ["o"] = { ":NvimTreeOpen<CR>", "Open NvimTree" },
     ["c"] = { ":NvimTreeClose<CR>", "Close NvimTree" },
+    ["q"] = {
+      function()
+        require("modules.ui.window").close_buffers()
+      end,
+      "Quit Tab",
+    },
   },
 }
 
