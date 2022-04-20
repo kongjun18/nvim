@@ -9,6 +9,25 @@ config.snippet_paths = {
 }
 
 config.keymaps = {
+  ["gp"] = {
+    ["name"] = "+Preview symbol",
+    ["i"] = {
+      "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+      "Preview Implementation",
+    },
+    ["d"] = {
+      "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+      "Preview Definition",
+    },
+    ["r"] = {
+      "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
+      "Preview References",
+    },
+    ["c"] = {
+      "<cmd>lua require('goto-preview').close_all_win()<CR>",
+      "Preview Close",
+    },
+  },
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
   ["gi"] = {
