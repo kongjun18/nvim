@@ -62,7 +62,7 @@ config.keymaps = {
     "Show Diagnostic Message In Float Window",
   },
   ["<space>q"] = {
-    "<cmd>lua vim.diagnostic.setloclist()<CR>",
+    "<cmd>lua vim.diagnostic.setqflist()<CR>",
     "Show Diagnostic Message In Location List",
   },
   ["<space>wa"] = {
