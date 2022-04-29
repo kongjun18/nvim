@@ -11,43 +11,41 @@ local M = {
   ["<Leader>f"] = {
     ["name"] = "+Fuzzy Find",
     ["f"] = {
-      "<Cmd>lua TelescopeBuiltin('find_files')<CR>",
+      ":Telescope find_files <CR>",
       "Find Files",
     },
     ["g"] = {
-      "<Cmd>lua TelescopeBuiltin('live_grep')<CR>",
+      ":Telescope live_grep <CR>",
       "Live Grep",
     },
     ["b"] = {
-      "<Cmd>lua TelescopeBuiltin('buffers')<CR>",
+      ":Telescope buffers <CR>",
       "Find Buffers",
     },
     ["h"] = {
-      "<Cmd>lua TelescopeBuiltin('help_tags')<CR>",
+      ":Telescope help_tags <CR>",
       "Find Help",
     },
     ["d"] = {
-      "<Cmd>lua TelescopeBuiltin('tags')<CR>",
+      ":Telescope tags <CR>",
       "Find Tags(definition)",
     },
     ["m"] = {
-      "<Cmd>lua TelescopeBuiltin('man_pages')<CR>",
+      ":Telescope man_pages<CR>",
       "Find Man Pages",
     },
     ["p"] = {
-      function()
-        vim.cmd([[PackerLoad telescope.nvim]])
-        vim.cmd([[Telescope projects]])
-      end,
+      ":Telescope projects<CR>",
       "Find projects",
     },
     ["a"] = {
-      function()
-        require("telescope").extensions.asynctasks.all()
-      end,
+      ":lua require('telescope').extensions.asynctasks.all()<CR>",
       "Find AsyncTask",
     },
-    ["t"] = { "<Cmd>TodoTelescope<CR>", "Find Todo Comments" },
+    ["t"] = {
+      ":TodoTelescope<CR>",
+      "Find Todo Comments",
+    },
   },
   -- Terminal
   ["<M-=>"] = {
@@ -99,10 +97,5 @@ vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
     snip.jump(-1)
   end
 end)
-
-function TelescopeBuiltin(cmd)
-  vim.cmd([[PackerLoad telescope.nvim]])
-  require("telescope.builtin")[cmd]()
-end
 
 return M
