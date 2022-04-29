@@ -155,9 +155,6 @@ local editor = {
     requires = "nvim-treesitter/nvim-treesitter",
     after = "nvim-treesitter",
   },
-  ["romainl/vim-qf"] = {
-    ft = "qf",
-  },
   ["ojroques/vim-oscyank"] = {
     cmd = "OSCYank",
   },
