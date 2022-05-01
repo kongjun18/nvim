@@ -2,7 +2,7 @@ local config = {}
 
 function config.neogit()
   vim.cmd([[silent! PackerLoad diffview.nvim]])
-  require("core.packer"):setup("neogit", {
+  GlobalPacker:setup("neogit", {
     disable_context_highlighting = true,
     integrations = {
       diffview = true,
@@ -11,7 +11,7 @@ function config.neogit()
 end
 
 function config.gitsigns()
-  require("core.packer"):setup("gitsigns")
+  GlobalPacker:setup("gitsigns")
 end
 
 function config.octo() end

@@ -99,4 +99,5 @@ function Packer:load(plugins)
 end
 
 local packer = Packer:new()
+GlobalPacker = packer
 return packer
