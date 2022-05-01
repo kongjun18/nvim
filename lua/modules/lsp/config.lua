@@ -375,11 +375,9 @@ function config.dictionary()
     end
   end
 
-  if
-    require("core.packer"):setup("cmp_dictionary", {
-      dic = dictionaries,
-    })
-  then
+  if GlobalPacker:setup("cmp_dictionary", {
+    dic = dictionaries,
+  }) then
     loaded_dictionaries = true
   end
 end
@@ -423,7 +421,7 @@ function config.null_ls()
 end
 
 function config.lsp_signature()
-  require("core.packer"):setup("lsp_signature", {
+  GlobalPacker:setup("lsp_signature", {
     bind = true,
     hint_prefix = "⤷",
   })
@@ -453,7 +451,7 @@ function config.goto_preview()
       telescope = telescope.get_ivy({ hide_preview = false }),
     }
   end
-  require("core.packer"):setup("goto-preview", conf)
+  GlobalPacker:setup("goto-preview", conf)
 end
 
 return config

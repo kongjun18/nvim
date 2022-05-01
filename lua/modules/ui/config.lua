@@ -1,7 +1,7 @@
 local config = {}
 function config.nvim_tree()
   vim.g.nvim_tree_respect_buf_cwd = 1
-  require("core.packer"):setup("nvim-tree", {
+  GlobalPacker:setup("nvim-tree", {
     disable_netrw = true,
     hijack_netrw = true,
     open_on_setup = false,
@@ -79,7 +79,7 @@ function config.lualine()
     end
   end
 
-  require("core.packer"):setup("lualine", opts)
+  GlobalPacker:setup("lualine", opts)
 end
 
 function config.lens()
@@ -101,11 +101,11 @@ function config.lens()
 end
 
 function config.numb()
-  require("core.packer"):setup("numb")
+  GlobalPacker:setup("numb")
 end
 
 function config.range_highlight()
-  require("core.packer"):setup("range-highlight")
+  GlobalPacker:setup("range-highlight")
 end
 
 function config.notify()
@@ -117,15 +117,15 @@ function config.notify()
 end
 
 function config.gps()
-  require("core.packer"):setup("nvim-gps")
+  GlobalPacker:setup("nvim-gps")
 end
 
 function config.luatab()
-  require("core.packer"):setup("luatab")
+  GlobalPacker:setup("luatab")
 end
 
 function config.indent_blankline()
-  local indent_blankline = require("core.packer"):setup("indent_blankline", {
+  local indent_blankline = GlobalPacker:setup("indent_blankline", {
     space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = true,
@@ -159,7 +159,7 @@ end
 
 -- FIXME: [Problem with make and quickfix list](https://github.com/folke/trouble.nvim/issues/87)
 function config.trouble()
-  require("core.packer"):setup()
+  GlobalPacker:setup()
 end
 
 function config.vista()
@@ -171,7 +171,7 @@ function config.vista()
 end
 
 function config.colorizer()
-  require("core.packer"):setup("colorizer", {
+  GlobalPacker:setup("colorizer", {
     "css",
     "javascript",
     "html",
@@ -179,7 +179,7 @@ function config.colorizer()
 end
 
 function config.dressing()
-  require("core.packer"):setup("dressing")
+  GlobalPacker:setup("dressing")
 end
 
 function config.bqf()
@@ -228,7 +228,7 @@ function config.bqf()
   end
   vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
 
-  require("core.packer"):setup("bqf", {
+  GlobalPacker:setup("bqf", {
     preview = {
       should_preview_cb = function(bufnr, qwinid)
         local bufname = vim.api.nvim_buf_get_name(bufnr)

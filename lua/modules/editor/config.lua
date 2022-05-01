@@ -17,18 +17,18 @@ function config.terminal_help()
 end
 
 function config.auto_session()
-  require("core.packer"):setup("auto-session", {
+  GlobalPacker:setup("auto-session", {
     auto_session_enabled = false,
     auto_session_enable_last_session = false,
   })
 end
 
 function config.ts_autotag()
-  require("core.packer"):setup("nvim-ts-autotag")
+  GlobalPacker:setup("nvim-ts-autotag")
 end
 
 function config.todo_comments()
-  require("core.packer"):setup("todo-comments")
+  GlobalPacker:setup("todo-comments")
 end
 
 function config.autopairs()
@@ -127,7 +127,7 @@ function config.treesitter()
   for _, p in pairs(parsers) do
     p.install_info.url = p.install_info.url:gsub(
       "https://github.com/",
-      require("core.packer").mirror
+      GlobalPacker.mirror
     )
   end
 
@@ -263,7 +263,7 @@ function config.telescope()
 end
 
 function config.neogen()
-  require("core.packer"):setup("neogen", {
+  GlobalPacker:setup("neogen", {
     snippet_engine = "luasnip",
     languages = {
       template = {
@@ -278,7 +278,7 @@ function config.sandwich()
 end
 
 function config.project()
-  require("core.packer"):setup("project_nvim")
+  GlobalPacker:setup("project_nvim")
 end
 
 -- TODO: comment and copy
@@ -295,10 +295,10 @@ function config.nerdcommenter()
 end
 
 function config.spellsitter()
-  require("core.packer"):setup("spellsitter")
+  GlobalPacker:setup("spellsitter")
 end
 
 function config.nvim_lastplace()
-  require("core.packer"):setup("nvim-lastplace")
+  GlobalPacker:setup("nvim-lastplace")
 end
 return config
