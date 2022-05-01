@@ -234,6 +234,7 @@ function config.cmp()
   end
 
   cmp.setup({
+    preselect = cmp.PreselectMode.None,
     completion = {
       keyword_length = 2,
     },
