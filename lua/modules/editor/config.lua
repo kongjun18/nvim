@@ -177,7 +177,7 @@ end
 -- TODO: Use ctags/gtags index code when LSP is disabled
 function config.gutentags()
   vim.g.gutentags_plus_nomap = 1
-  vim.cmd([[ PackerLoad gutentags_plus ]])
+  vim.cmd([[ silent! PackerLoad gutentags_plus ]])
   vim.g.load_gutentags_config = 1
   vim.g.gutentags_exclude_filetypes = {
     "text",
@@ -250,8 +250,8 @@ function config.telescope()
     return
   end
 
-  vim.cmd([[ PackerLoad telescope-fzy-native.nvim ]])
-  vim.cmd([[ PackerLoad telescope-asynctasks.nvim ]])
+  vim.cmd([[ silent! PackerLoad telescope-fzy-native.nvim ]])
+  vim.cmd([[ silent! PackerLoad telescope-asynctasks.nvim ]])
   local themes = require("telescope.themes")
   telescope.setup({
     defaults = themes.get_ivy(),
