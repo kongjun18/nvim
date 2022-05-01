@@ -294,6 +294,10 @@ function config.nerdcommenter()
   g.NERDAltDelims_asm = 1
 end
 
+function config.spellsitter()
+  require("core.packer"):setup("spellsitter")
+end
+
 function config.nvim_lastplace()
   require("core.packer"):setup("nvim-lastplace")
 end

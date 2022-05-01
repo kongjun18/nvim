@@ -162,6 +162,10 @@ local editor = {
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",
   },
+  ["lewis6991/spellsitter.nvim"] = {
+    config = config.spellsitter,
+    event = "BufReadPost",
+  },
 }
 
 return editor
