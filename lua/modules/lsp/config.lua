@@ -48,8 +48,20 @@ config.keymaps = {
     "Goto Previous  Diagnostic",
   },
   ["gK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-  ["gf"] = { "<cmd>lua vim.lsp.buf.format({async=true})<CR>", "Format Buffer" },
-  ["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+  ["gf"] = {
+    function()
+      GlobalPacker:ensure_loaded("null-ls.nvim")
+      vim.lsp.buf.format({ async = true })
+    end,
+    "Format Buffer",
+  },
+  ["ga"] = {
+    function()
+      GlobalPacker:ensure_loaded("null-ls.nvim")
+      vim.lsp.buf.code_action()
+    end,
+    "Code Action",
+  },
   ["g"] = {
     ["f"] = {
       "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
@@ -383,8 +395,6 @@ function config.dictionary()
   end
 end
 
--- TODO: configure linters
--- TODO: how to install linters automatically?
 function config.null_ls()
   local ok, null_ls = pcall(require, "null-ls")
   if not ok then
@@ -402,22 +412,8 @@ function config.null_ls()
       table.insert(sources, null_ls.builtins.formatting[formatter])
     end
   end
-
-  local linters = providers.linters
-  for _, linter in pairs(linters.linters) do
-    local opt = linters.opts[linter]
-    if opt then
-      table.insert(sources, null_ls.builtins.diagnostics[linter].with(opt))
-    else
-      table.insert(sources, null_ls.builtins.diagnostics[linter])
-    end
-  end
   null_ls.setup({
     sources = sources,
-    should_attach = function(bufnr)
-      local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-      return ft ~= "c" and ft ~= "cpp"
-    end,
   })
 end
 
@@ -453,6 +449,19 @@ function config.goto_preview()
     }
   end
   GlobalPacker:setup("goto-preview", conf)
+end
+
+function config.nvim_lint()
+  local ok, lint = pcall(require, "lint")
+  if not ok then
+    return
+  end
+  lint.linters_by_ft = require("modules.lsp.providers").linters.linters
+  vim.api.nvim_create_autocmd(
+    { "BufWritePost", "InsertLeave" },
+    { command = "lua require('lint').try_lint()" }
+  )
+  lint.try_lint()
 end
 
 return config
