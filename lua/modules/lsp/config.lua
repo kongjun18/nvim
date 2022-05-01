@@ -200,6 +200,11 @@ function config.lsp_installer()
           requested_server:setup(opts)
         end)
         if not requested_server:is_installed() then
+          vim.notify(
+            "Install Language Server : " .. server_name,
+            "WARN",
+            { title = "Language Servers" }
+          )
           requested_server:install()
         end
       end
