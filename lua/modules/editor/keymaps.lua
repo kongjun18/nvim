@@ -1,10 +1,13 @@
 local M = {
-  ["<F5>"] = { ":AsyncTask file-build<CR>", "Compile File" },
-  ["<F6>"] = { ":AsyncTask file-run<CR>", "Run File" },
-  ["<F7>"] = { ":AsyncTask project-configure<CR>", "Configure CMake Project" },
-  ["<F8>"] = { ":AsyncTask project-build<CR>", "Build CMake Project" },
-  ["<F9>"] = { ":AsyncTask project-run<CR>", "Run CMake Project" },
-  ["<F1>"] = {
+  ["<Tab>5"] = { ":AsyncTask file-build<CR>", "Compile File" },
+  ["<Tab>6"] = { ":AsyncTask file-run<CR>", "Run File" },
+  ["<Tab>7"] = {
+    ":AsyncTask project-configure<CR>",
+    "Configure CMake Project",
+  },
+  ["<Tab>8"] = { ":AsyncTask project-build<CR>", "Build CMake Project" },
+  ["<Tab>9"] = { ":AsyncTask project-run<CR>", "Run CMake Project" },
+  ["<Tab>0"] = {
     ":AsyncTask project-clean<CR>",
     "Clean CMake Binary Directory",
   },
@@ -97,5 +100,6 @@ vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
     snip.jump(-1)
   end
 end)
+vim.keymap.set("n", t("<C-I>"), t("<C-I>"))
 
 return M
