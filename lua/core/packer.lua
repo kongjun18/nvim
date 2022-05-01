@@ -98,6 +98,16 @@ function Packer:load(plugins)
   end
 end
 
+function Packer:ensure_loaded(plugin)
+  if not packer_plugins then
+    return
+  end
+  if packer_plugins[plugin] and not packer_plugins[plugin].loaded then
+    vim.cmd("silent! PackerLoad " .. plugin)
+  end
+end
+
 local packer = Packer:new()
 GlobalPacker = packer
+
 return packer

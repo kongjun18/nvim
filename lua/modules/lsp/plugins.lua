@@ -54,8 +54,11 @@ local completion = {
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
     config = config.null_ls,
-    event = { "InsertLeave", "BufWritePre" },
-    keys = "gf",
+    after = "nvim-lsp-installer",
+  },
+  ["mfussenegger/nvim-lint"] = {
+    config = config.nvim_lint,
+    event = { "BufWritePost", "InsertLeave" },
   },
   ["ii14/lsp-command"] = {
     requires = "nvim-lspconfig",
