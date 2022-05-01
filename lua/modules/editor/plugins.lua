@@ -18,8 +18,9 @@ local editor = {
     config = config.matchup,
     event = "BufReadPost",
   },
-  ["farmergreg/vim-lastplace"] = {
+  ["ethanholz/nvim-lastplace"] = {
     event = "BufReadPost",
+    config = config.nvim_lastplace,
   },
   ["tommcdo/vim-exchange"] = {
     event = "BufReadPost",
