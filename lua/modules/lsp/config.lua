@@ -48,7 +48,7 @@ config.keymaps = {
     "Goto Previous  Diagnostic",
   },
   ["gK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-  ["gf"] = { "<cmd>lua vim.lsp.buf.formatting()<CR>", "Format Buffer" },
+  ["gf"] = { "<cmd>lua vim.lsp.buf.format({async=true})<CR>", "Format Buffer" },
   ["ga"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
   ["g"] = {
     ["f"] = {
