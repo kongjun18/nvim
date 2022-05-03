@@ -1,16 +1,23 @@
--- NOTE: DAPInstall.nvim only supports Unix
+local config = require("modules.dap.config")
 local dap = {
   ["mfussenegger/nvim-dap"] = {
-    config = config.dap,
-  },
-  ["Pocco81/DAPInstall.nvim"] = {
-    config = config.dapinstall,
+    config = config.nvim_dap,
+    requires = {
+      {
+        "rcarriga/nvim-dap-ui",
+        opt = true,
+        config = config.nvim_dap_ui,
+      },
+    },
+    event = "CmdlineEnter",
   },
   ["theHamsta/nvim-dap-virtual-text"] = {
-    config = config.dap_virtual_text,
+    config = config.nvim_dap_virtual_text,
+    after = "nvim-dap",
   },
-  ["rcarriga/nvim-dap-ui"] = {
-    config = config.dap_ui,
+  ["leoluz/nvim-dap-go"] = {
+    config = config.nvim_dap_go,
+    after = "nvim-dap",
   },
 }
 
