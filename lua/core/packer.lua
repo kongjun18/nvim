@@ -85,9 +85,6 @@ function Packer:initialize()
       })
     end,
   })
-  vim.cmd(
-    [[autocmd User PackerComplete :lua require("core.packer").bootstrap = nil]]
-  )
 end
 
 function Packer:load(plugins)

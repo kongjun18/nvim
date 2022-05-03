@@ -72,3 +72,17 @@ autocmd("BufEnter", {
     end
   end,
 })
+
+augroup("packer_compile", {})
+autocmd("User PackerCompile", {
+  desc = "Compile plugins and clear bootstrap flag",
+  group = "packer_compile",
+  callback = function()
+    GlobalPacker.bootstrap = nil
+    vim.cmd("silent! NightfoxCompile")
+  end,
+})
+
+autocmd("BufEnter", {
+  command = "syntax on",
+})
