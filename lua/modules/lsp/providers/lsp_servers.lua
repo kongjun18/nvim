@@ -192,13 +192,13 @@ M.commands.ccls = {
     end,
   },
   {
-    name = "Callees",
+    name = "Callers",
     command = function()
       ccls_call(false)
     end,
   },
   {
-    name = "Callers",
+    name = "Callees",
     command = function()
       ccls_call(true)
     end,
