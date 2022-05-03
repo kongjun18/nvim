@@ -30,6 +30,28 @@ config.keymaps = {
   },
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
+  ["gc"] = {
+    function()
+      local ft = vim.api.nvim_buf_get_option(0, "filetype")
+      if ft == "c" or ft == "cpp" then
+        ccls_call(true)
+      else
+        vim.lsp.buf.outgoing_calls()
+      end
+    end,
+    "Outgoing Calls",
+  },
+  ["gC"] = {
+    function()
+      local ft = vim.api.nvim_buf_get_option(0, "filetype")
+      if ft == "c" or ft == "cpp" then
+        ccls_call(false)
+      else
+        vim.lsp.buf.incoming_calls()
+      end
+    end,
+    "Incoming Calls",
+  },
   ["gi"] = {
     "<cmd>lua vim.lsp.buf.implementation()<CR>",
     "Goto Implementation",
