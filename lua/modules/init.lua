@@ -1,7 +1,7 @@
 local M = {}
 
 -- TODO: make sure configuration works perfectly without LSP
-M.modules = { "ui", "editor", "lsp", "vcs" }
+M.modules = { "ui", "editor", "lsp", "vcs", "dap" }
 M.packer = require("core.packer")
 
 require("modules.custom")
