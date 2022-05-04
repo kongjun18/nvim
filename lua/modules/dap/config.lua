@@ -23,7 +23,11 @@ function config.nvim_dap()
   -- Set breakpoint icon
   vim.fn.sign_define(
     "DapBreakpoint",
-    { text = "⊚", texthl = "TodoFgFIX", linehl = "", numhl = "" }
+    { text = "●", texthl = "DapUIWatchesError" }
+  )
+  vim.fn.sign_define(
+    "DapStopped",
+    { text = "→", texthl = "DapUIBreakpointsCurrentLine", linehl = "debugPC" }
   )
   -- Load dap configurations
   local daps = require("modules.dap.providers")
