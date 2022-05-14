@@ -286,7 +286,7 @@ function config.cmp()
     },
     formatting = {
       format = lspkind.cmp_format({
-        with_text = false,
+        mode = "text",
         maxwidth = 50,
       }),
     },
