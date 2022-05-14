@@ -73,6 +73,7 @@ local ui = {
   ["kevinhwang91/nvim-bqf"] = {
     ft = "qf",
     config = config.bqf,
+    setup = config.setup_bqf,
   },
   ["folke/trouble.nvim"] = {
     event = "CmdlineEnter",
