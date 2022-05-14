@@ -182,7 +182,7 @@ function config.dressing()
   GlobalPacker:setup("dressing")
 end
 
-function config.bqf()
+function config.setup_bqf()
   local fn = vim.fn
   function _G.qftf(info)
     local items
@@ -217,8 +217,15 @@ function config.bqf()
         end
         local lnum = e.lnum > 99999 and -1 or e.lnum
         local col = e.col > 999 and -1 or e.col
-        local qtype = e.type == "" and "" or " " .. e.type:sub(1, 1):upper()
-        str = validFmt:format(fname, lnum, col, qtype, e.text)
+        local qtype = e.type == "" and "" or e.type:sub(1, 1):upper()
+
+        local icons = {
+          E = "",
+          W = "",
+          I = "",
+        }
+        local icon = icons[qtype]
+        str = validFmt:format(fname, lnum, col, icon and icon or qtype, e.text)
       else
         str = e.text
       end
@@ -227,7 +234,9 @@ function config.bqf()
     return ret
   end
   vim.o.qftf = "{info -> v:lua._G.qftf(info)}"
+end
 
+function config.bqf()
   GlobalPacker:setup("bqf", {
     preview = {
       should_preview_cb = function(bufnr, qwinid)
