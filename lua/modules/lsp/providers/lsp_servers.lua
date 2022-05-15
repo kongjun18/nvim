@@ -8,12 +8,11 @@ local M = {
     javascript = "tssserver",
     eslint = "eslint",
     bash = "bashls",
-    sql = "sqlls",
+    sql = "sqls",
     lua = "sumneko_lua",
     vim = "vimls",
 
     json = "jsonls",
-    toml = "taplo",
     xml = "lemminx",
     yaml = "yamlls",
     docker = "dockerls",
