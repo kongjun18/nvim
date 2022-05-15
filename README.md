@@ -17,7 +17,8 @@ This is my personal Neovim configuration, you can use it directly.
 # Prerequisites
 
 **Must**:
-- [latest neovim nightly](https://github.com/neovim/neovim/releases/tag/nightly).
+
+- [Latest neovim nightly](https://github.com/neovim/neovim/releases/tag/nightly).
 
 - [SourceCodePro Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip): Display icons and default fonts for nvim-qt.
 
@@ -43,20 +44,19 @@ This is my personal Neovim configuration, you can use it directly.
 
 # Installation
 By default, download plugins from Github via SSH. Please configure SSH under the guidance of the following.
-1. [Add your SSH public key to Github account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-2. Configure ~/.ssh/config (Windows: C:\Users\\<user\>\.ssh\config). Add the following code(substitute ~/.ssh/id_rsa.pub with your SSH public key):
-```
-Host github
-    Hostname github.com
-    User git
-    IdentityFile ~/.ssh/id_rsa.pub
-```
-3. Clone this repository to your Neovim configuration directory.
-  ```shell
-git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
-# git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
-# git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
-  ```
+
+1. Add github to your ~/.ssh/known_hosts.
+
+   ```shell
+   ssh-keyscan github.com >> ~/.ssh/known_hosts
+   ```
+
+2. Clone this repository to your Neovim configuration directory.
+
+   ```shell
+   git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
+   ```
+
 All plugins are automatically installed on first startup, do not close Neovim until the installation is complete. After installation, manually execute `:TSInstall maintained ` to install all treesitter parser under maintenance.
 
 **NOTE:**
