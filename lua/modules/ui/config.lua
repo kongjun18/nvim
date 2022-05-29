@@ -1,6 +1,6 @@
 local config = {}
 function config.nvim_tree()
-  vim.g.nvim_tree_respect_buf_cwd = 1
+  vim.g.respect_buf_cwd = 1
   GlobalPacker:setup("nvim-tree", {
     disable_netrw = true,
     hijack_netrw = true,
