@@ -204,4 +204,9 @@ M.commands.ccls = {
   },
 }
 
+local ok, yaml_cfg = pcall(require, "yaml-companion")
+if ok then
+  M.opts.yamlls = yaml_cfg.setup()
+end
+
 return M
