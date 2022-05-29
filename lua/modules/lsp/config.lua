@@ -224,13 +224,18 @@ function config.lsp_installer()
         )
       if server_available then
         requested_server:on_ready(function()
-          local customed = lsp_servers.opts[server]
-          local default = {
-            on_attach = config.on_attach,
-            capabilities = vim.lsp.protocol.make_client_capabilities(),
-          }
-          local opts = customed and vim.tbl_extend("force", default, customed)
-            or default
+          local customed = lsp_servers.opts[server] or {}
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          require("cmp_nvim_lsp").update_capabilities(capabilities)
+          local opts = vim.tbl_extend("force", {
+            capabilities = capabilities,
+          }, customed)
+          opts.on_attach = function(client, bufnr)
+            config.on_attach(client, bufnr)
+            if customed.on_attach then
+              customed.on_attach(client, bufnr)
+            end
+          end
           requested_server:setup(opts)
         end)
         if not requested_server:is_installed() then

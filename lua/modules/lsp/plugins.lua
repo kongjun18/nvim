@@ -69,6 +69,9 @@ local completion = {
     after = "nvim-lspconfig",
     config = config.goto_preview,
   },
+  ["someone-stole-my-name/yaml-companion.nvim"] = {
+    requires = "nvim-lua/plenary.nvim",
+  },
 }
 
 return completion
