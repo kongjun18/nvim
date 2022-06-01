@@ -7,7 +7,7 @@ local completion = {
   },
   -- FIXME: display errorneous function comment
   ["neovim/nvim-lspconfig"] = {
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
   },
   ["williamboman/nvim-lsp-installer"] = {
     config = config.lsp_installer,
