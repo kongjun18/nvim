@@ -62,6 +62,13 @@ end
 function config.lualine()
   local opts = {
     sections = {
+      lualine_a = {
+        "mode",
+        {
+          "filename",
+          path = 1,
+        },
+      },
       lualine_c = {
         "lsp_progress",
       },
