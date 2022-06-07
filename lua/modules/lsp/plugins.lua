@@ -72,6 +72,10 @@ local completion = {
   ["someone-stole-my-name/yaml-companion.nvim"] = {
     requires = "nvim-lua/plenary.nvim",
   },
+  ["ray-x/go.nvim"] = {
+    ft = "go",
+    config = config.go,
+  },
 }
 
 return completion

@@ -495,4 +495,8 @@ function config.nvim_lint()
   lint.try_lint()
 end
 
+function config.go()
+  GlobalPacker:setup("go", {})
+end
+
 return config
