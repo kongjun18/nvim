@@ -1,5 +1,8 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local fn = vim.fn
+local api = vim.api
+
 augroup("machit", {})
 autocmd("BufReadPre", {
   desc = "Add machit git conflict marker",
@@ -70,16 +73,35 @@ autocmd("BufWritePre", {
 })
 
 augroup("autoclose", {})
-autocmd("BufEnter", {
+autocmd("WinEnter", {
   desc = "Automatically close some windows",
   group = "autoclose",
   nested = true,
   callback = function()
-    if
-      vim.fn.winnr("$") == 1
-      and vim.fn.bufname() == "NvimTree_" .. vim.fn.tabpagenr()
-    then
+    local is_nvimtree = function(win)
+      return fn.bufname(fn.winbufnr(win)) == "NvimTree_" .. fn.tabpagenr()
+    end
+    local is_vista = function(win)
+      return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "vista_kind"
+    end
+    local is_nofile = function(win)
+      return api.nvim_buf_get_option(fn.winbufnr(win), "buftype") == "nofile"
+    end
+    local should_delete = function(win)
+      return is_nvimtree(win) or is_vista(win) or is_nofile(win)
+    end
+
+    local tabpages = fn.tabpagenr("$")
+    local wins = api.nvim_tabpage_list_wins(0)
+    for _, win in ipairs(wins) do
+      if not should_delete(win) then
+        return
+      end
+    end
+    if tabpages == 1 then
       vim.cmd("quit")
+    else
+      vim.cmd("tabclose")
     end
   end,
 })
