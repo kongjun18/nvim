@@ -101,5 +101,5 @@ vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
   end
 end)
 vim.keymap.set("n", t("<C-I>"), t("<C-I>"))
-
+vim.keymap.set({ "n", "i" }, t("<C-S>"), "<Cmd>w<CR>")
 return M
