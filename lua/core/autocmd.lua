@@ -1,6 +1,5 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-
 augroup("machit", {})
 autocmd("BufReadPre", {
   desc = "Add machit git conflict marker",
@@ -85,10 +84,11 @@ autocmd("BufEnter", {
   end,
 })
 
-augroup("packer_compile", {})
-autocmd("User PackerCompile", {
+augroup("packer_complete", {})
+autocmd("User PackerComplete", {
   desc = "Compile plugins and clear bootstrap flag",
-  group = "packer_compile",
+  group = "packer_complete",
+  once = true,
   callback = function()
     GlobalPacker.bootstrap = nil
     vim.cmd("silent! NightfoxCompile")
