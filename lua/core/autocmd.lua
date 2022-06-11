@@ -84,11 +84,8 @@ autocmd("WinEnter", {
     local is_vista = function(win)
       return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "vista_kind"
     end
-    local is_nofile = function(win)
-      return api.nvim_buf_get_option(fn.winbufnr(win), "buftype") == "nofile"
-    end
     local should_delete = function(win)
-      return is_nvimtree(win) or is_vista(win) or is_nofile(win)
+      return is_nvimtree(win) or is_vista(win)
     end
 
     local tabpages = fn.tabpagenr("$")
