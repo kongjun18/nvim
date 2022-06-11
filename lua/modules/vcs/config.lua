@@ -8,6 +8,13 @@ function config.neogit()
       diffview = true,
     },
   })
+  -- Close Neogit after git push
+  local group = vim.api.nvim_create_augroup("NeogitEvents", { clear = true })
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "NeogitPushComplete",
+    group = group,
+    callback = require("neogit").close,
+  })
 end
 
 function config.gitsigns()
