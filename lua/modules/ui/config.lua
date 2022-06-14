@@ -60,6 +60,9 @@ function config.nightfox()
 end
 
 function config.lualine()
+  vim.cmd("PackerLoad nvim-navic")
+  vim.cmd("PackerLoad nvim-web-devicons")
+  local navic = require("nvim-navic")
   local opts = {
     sections = {
       lualine_a = {
@@ -70,23 +73,15 @@ function config.lualine()
         },
       },
       lualine_c = {
-        "lsp_progress",
+        { navic.get_location, cond = navic.is_available },
       },
     },
   }
-
-  if pcall(require, "treesitter") then
-    local ok, gps = pcall(require, "nvim-gps")
-    if ok then
-      table.insert(
-        opts.sections.lualine_c,
-        #opts.sections.lualine_c,
-        { gps.get_location, cond = gps.is_available }
-      )
-    end
-  end
-
   GlobalPacker:setup("lualine", opts)
+end
+
+function config.fidget()
+  GlobalPacker:setup("fidget")
 end
 
 function config.lens()
@@ -123,11 +118,8 @@ function config.notify()
   end
 end
 
-function config.gps()
-  GlobalPacker:setup("nvim-gps")
-end
-
 function config.luatab()
+  vim.cmd("PackerLoad nvim-web-devicons")
   GlobalPacker:setup("luatab")
 end
 

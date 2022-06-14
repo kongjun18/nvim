@@ -129,8 +129,14 @@ config.commands = {
 }
 -- TODO: Refine lspconfig diagnostics UI
 function config.on_attach(client, bufnr)
-  require("lsp_signature").on_attach()
-
+  local ok, lsp_signature = pcall(require, "lsp_signature")
+  if ok then
+    lsp_signature.on_attach()
+  end
+  local ok, navic = pcall(require, "nvim-navic")
+  if ok then
+    navic.attach(client, bufnr)
+  end
   local function buf_set_option(...)
     vim.api.nvim_buf_set_option(bufnr, ...)
   end
