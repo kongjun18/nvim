@@ -7,18 +7,21 @@ local ui = {
   ["EdenEast/nightfox.nvim"] = {
     config = config.nightfox,
   },
-  ["arkav/lualine-lsp-progress"] = {
-    after = "nvim-gps",
-  },
-  ["SmiteshP/nvim-gps"] = {
-    config = config.gps,
-    requires = "nvim-treesitter/nvim-treesitter",
-    after = "nvim-treesitter",
+  ["j-hui/fidget.nvim"] = {
+    config = config.fidget,
+    after = "nvim-lsp-installer",
   },
   ["nvim-lualine/lualine.nvim"] = {
     config = config.lualine,
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    after = { "nvim-gps" },
+    requires = {
+      {
+        "SmiteshP/nvim-navic",
+        opt = true,
+        config = config.navic,
+      },
+      { "kyazdani42/nvim-web-devicons", opt = true },
+    },
+    event = { "BufReadPost", "InsertLeave" },
   },
   ["alvarosevilla95/luatab.nvim"] = {
     requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -93,6 +96,15 @@ local ui = {
   },
   ["kristijanhusak/vim-dadbod-ui"] = {
     event = "CmdlineEnter",
+  },
+  ["ldelossa/litee-calltree.nvim"] = {
+    requires = "ldelossa/litee.nvim",
+    config = function()
+      -- configure the litee.nvim library
+      require("litee.lib").setup({})
+      -- configure litee-calltree.nvim
+      require("litee.calltree").setup({})
+    end,
   },
 }
 return ui
