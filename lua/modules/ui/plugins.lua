@@ -97,14 +97,5 @@ local ui = {
   ["kristijanhusak/vim-dadbod-ui"] = {
     event = "CmdlineEnter",
   },
-  ["ldelossa/litee-calltree.nvim"] = {
-    requires = "ldelossa/litee.nvim",
-    config = function()
-      -- configure the litee.nvim library
-      require("litee.lib").setup({})
-      -- configure litee-calltree.nvim
-      require("litee.calltree").setup({})
-    end,
-  },
 }
 return ui
