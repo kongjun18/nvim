@@ -117,3 +117,5 @@ autocmd("User PackerComplete", {
 autocmd("BufEnter", {
   command = "syntax on",
 })
+
+vim.cmd("autocmd DiffUpdated * call git#diff_updated_handler()")
