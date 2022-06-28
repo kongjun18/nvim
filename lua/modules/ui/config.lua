@@ -76,6 +76,13 @@ function config.lualine()
         { navic.get_location, cond = navic.is_available },
       },
     },
+    extensions = {
+      "quickfix",
+      "nvim-dap-ui",
+      "fugitive",
+      "nvim-tree",
+      "man",
+    },
   }
   GlobalPacker:setup("lualine", opts)
 end
