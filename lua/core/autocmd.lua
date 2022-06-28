@@ -84,6 +84,9 @@ autocmd("WinEnter", {
     local is_vista = function(win)
       return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "vista_kind"
     end
+    local is_quickfix = function(win)
+      return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "qf"
+    end
     local should_delete = function(win)
       return is_nvimtree(win) or is_vista(win)
     end
