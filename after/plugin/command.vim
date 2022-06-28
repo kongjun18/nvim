@@ -1,3 +1,4 @@
+command -nargs=0 GMerge :call git#gmerge()
 command -nargs=0 Gconflict :call asyncrun#run('', {'errorformat': '%f'}, "git diff --name-only --diff-filter=U")
 command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
           \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
