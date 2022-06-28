@@ -47,8 +47,21 @@ end
 
 function config.nvim_dap_ui()
   GlobalPacker:setup("dapui", {
-    sidebar = {
-      position = "right",
+    layouts = {
+      {
+        elements = {
+          { id = "breakpoints", size = 0.30 },
+          { id = "scopes", size = 0.45 },
+          { id = "watches", size = 0.25 },
+        },
+        size = 0.30,
+        position = "right",
+      },
+      {
+        elements = { "repl" },
+        size = 0.30,
+        position = "bottom",
+      },
     },
     theme = false, -- Disable default color
     render = {
