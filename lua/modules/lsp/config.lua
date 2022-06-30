@@ -465,7 +465,8 @@ function config.lsp_signature()
 end
 function config.goto_preview()
   local conf = {
-    post_open_hook = function(buf)
+    post_open_hook = function(buf, win)
+      print(buf)
       vim.api.nvim_buf_set_keymap(
         buf,
         "n",
@@ -480,6 +481,14 @@ function config.goto_preview()
         ":quit<CR>",
         { noremap = true, silent = true }
       )
+      vim.api.nvim_create_autocmd("WinLeave", {
+        once = true,
+        callback = function()
+          vim.cmd([[echomsg "enter"]])
+          vim.api.nvim_buf_del_keymap(buf, "n", "q")
+          vim.api.nvim_buf_del_keymap(buf, "n", "<ESC>")
+        end,
+      })
     end,
   }
   local ok, telescope = pcall(require, "telescope.themes")
