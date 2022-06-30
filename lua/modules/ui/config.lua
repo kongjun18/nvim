@@ -229,6 +229,7 @@ function config.setup_bqf()
           E = "",
           W = "",
           I = "",
+          N = "",
         }
         local icon = icons[qtype]
         str = validFmt:format(fname, lnum, col, icon and icon or qtype, e.text)
