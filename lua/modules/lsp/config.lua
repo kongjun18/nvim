@@ -480,6 +480,13 @@ function config.goto_preview()
         ":quit<CR>",
         { noremap = true, silent = true }
       )
+      vim.api.nvim_create_autocmd("WinLeave", {
+        once = true,
+        callback = function()
+          vim.api.nvim_buf_del_keymap(buf, "n", "q")
+          vim.api.nvim_buf_del_keymap(buf, "n", "<ESC>")
+        end,
+      })
     end,
   }
   local ok, telescope = pcall(require, "telescope.themes")
