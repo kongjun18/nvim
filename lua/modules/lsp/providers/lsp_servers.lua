@@ -31,8 +31,9 @@ M.opts.gopls = {
         return vim.lsp.handlers.hover(err, result, ctx, config)
       end
       local refine = function(contents)
-        local pattern = "\\[\"./-:;'`(){}]"
+        local pattern = "\\[\"./_%-:;'`(){}]"
         local sub_tbl = {
+          ["\\_"] = "_",
           ["\\."] = ".",
           ["\\/"] = "/",
           ["\\-"] = "-",
