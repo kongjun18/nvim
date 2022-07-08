@@ -75,6 +75,11 @@ local completion = {
   ["ray-x/go.nvim"] = {
     ft = "go",
     config = config.go,
+    requires = {
+      "ray-x/guihua.lua",
+      run = "cd lua/fzy && make",
+      after = "go.nvim",
+    },
   },
 }
 

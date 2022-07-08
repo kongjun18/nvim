@@ -512,7 +512,9 @@ function config.nvim_lint()
 end
 
 function config.go()
-  GlobalPacker:setup("go", {})
+  GlobalPacker:setup("go", {
+    lsp_keymaps = false,
+  })
 end
 
 return config
