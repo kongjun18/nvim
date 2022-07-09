@@ -57,7 +57,7 @@ By default, download plugins from Github via SSH. Please configure SSH under the
    git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
    ```
 
-All plugins are automatically installed on first startup, do not close Neovim until the installation is complete. After installation, manually execute `:TSInstall maintained ` to install all treesitter parser under maintenance.
+All plugins are automatically installed on first startup, do not close Neovim until the installation is complete.
 
 **NOTE:**
 
