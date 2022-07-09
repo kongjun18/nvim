@@ -56,12 +56,12 @@ ssh-keyscan github.com >> ~/.ssh/known_hosts
 ```
 
 1. 克隆仓库到 Neovim 配置目录（Neovim 中执行`echo stdpath('config')`查看）。
-   
+
    ```shell
    git clone --depth 1 git@github.com:kongjun18/nvim.git <配置目录>
    ```
 
-第一次启动时自动安装所有插件，安装完成前不要关闭 Neovim。安装完成后手动执行`:TSInstall maintained `安装所有维护中的 treesitter parser。
+第一次启动时自动安装所有插件，安装完成前不要关闭 Neovim。
 
 启动时检测预配置的 LSP 是否安装，未安装则自动异步安装。nvim-lsp-installer 从 Github 下载 ccls 源代码并编译安装，无法访问 Github 导致安装失败。手动安装 ccls，并在 nvim-lsp-installer LSP 安装目录（Neovim 中执行`echo stdpath('data') .. '/lsp_servers'`查看）中创建目录 ccls，nvim-lsp-installer 会通过 PATH 变量查询 ccls 可执行文件并配置 nvim-lspconfig。
 
@@ -69,7 +69,7 @@ GNU/Linux 上创建目录：
 ```shell
 mkdir -p ~/.local/share/nvim/lsp_servers/ccls
 ```
-Windows 
+Windows
 ```cmd
 md C:\Users\<user>\AppData\Local\nvim-data\lsp_servers\ccls
 ```

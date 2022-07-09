@@ -131,6 +131,7 @@ function config.treesitter()
   end
 
   treesitter.setup({
+    auto_install = true,
     highlight = {
       enable = true,
     },
