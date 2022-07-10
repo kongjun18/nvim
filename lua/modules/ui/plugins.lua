@@ -23,10 +23,37 @@ local ui = {
     },
     event = { "BufReadPost", "InsertLeave" },
   },
-  ["alvarosevilla95/luatab.nvim"] = {
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = config.luatab,
-    event = "BufReadPost",
+  ["akinsho/bufferline.nvim"] = {
+    -- TODO: <Leader><Tab> jumps to the buffer in the other tab if the alternative buffer
+    --       located in the other tab.
+    config = function()
+      local bufferline = require("modules.ui.internal.bufferline")
+      GlobalPacker:setup("bufferline", {
+        options = {
+          offsets = {
+            {
+              filetype = "NvimTree",
+              text = "File Explorer",
+              highlight = "Directory",
+              text_align = "center",
+            },
+          },
+          custom_filter = function(buf)
+            return bufferline.in_tab(buf) and not bufferline.in_blacklist(buf)
+          end,
+          close_command = function(buf)
+            -- The buffer is modified?
+            if vim.api.nvim_buf_get_option(buf, "modified") then
+              vim.notify("This buffer is modified!", vim.log.levels.WARN)
+              return
+            end
+            -- Removes the buffer from the tab.
+            local tab = vim.api.nvim_get_current_tabpage()
+            bufferline.remove_buf(buf, tab)
+          end,
+        },
+      })
+    end,
   },
   ["jeffkreeftmeijer/vim-numbertoggle"] = {
     event = "BufReadPost",
