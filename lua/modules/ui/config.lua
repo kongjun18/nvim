@@ -268,4 +268,42 @@ function config.bqf()
     },
   })
 end
+
+config.bufferline = function()
+  local bufferline = require("modules.ui.internal.bufferline")
+  GlobalPacker:setup("bufferline", {
+    options = {
+      offsets = {
+        {
+          filetype = "NvimTree",
+          text = "File Explorer",
+          highlight = "Directory",
+          text_align = "center",
+        },
+      },
+      custom_filter = function(buf)
+        return bufferline.in_tab(buf) and not bufferline.in_blacklist(buf)
+      end,
+      close_command = function(buf)
+        -- The buffer is modified?
+        if vim.api.nvim_buf_get_option(buf, "modified") then
+          vim.notify("This buffer is modified!", vim.log.levels.WARN)
+          return
+        end
+        -- Removes the buffer from the tab.
+        local tab = vim.api.nvim_get_current_tabpage()
+        bufferline.remove_buf(buf, tab)
+      end,
+    },
+  })
+  -- Both buffer and tab number are ascending. Thus it is safe to don't remove
+  -- non-existed entries in the buf2tab dict. This timer is used to delete
+  -- auxiliary buffers like TelescopePrompt.
+  vim.fn.timer_start(
+    15 * 60 * 1000, -- 15m
+    bufferline.remove_nonexisted_entries,
+    { ["repeat"] = -1 }
+  )
+end
+
 return config
