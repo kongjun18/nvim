@@ -23,10 +23,9 @@ local ui = {
     },
     event = { "BufReadPost", "InsertLeave" },
   },
-  ["alvarosevilla95/luatab.nvim"] = {
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
-    config = config.luatab,
-    event = "BufReadPost",
+  ["akinsho/bufferline.nvim"] = {
+    config = config.bufferline,
+    event = {"BufReadPost", "BufCreate"},
   },
   ["jeffkreeftmeijer/vim-numbertoggle"] = {
     event = "BufReadPost",
