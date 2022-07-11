@@ -118,7 +118,6 @@ autocmd("User PackerComplete", {
 })
 
 -- FIXME: autocmd goes wrong when add it into a augroup.
--- TODO: add a timer to clear non-existed buf2tab buf entries.
 autocmd("BufEnter", {
   desc = "Inserts the buffer into the buf2tab dict",
   callback = function()
@@ -144,29 +143,3 @@ autocmd("WinClosed", {
     local buf = vim.api.nvim_win_get_buf(vim.api.nvim_get_current_win())
   end,
 })
-
--- NOTE: This autocmd is not necessary because tabpage id is ascending.
-autocmd("TabClosed", {
-  desc = "Removes buffers from the buf2tab dic",
-  callback = function()
-    -- print(vim.api.nvim_get_current_tabpage())
-  end,
-})
-
--- NOTE: is necessary?
--- -- FIXME: this autocmd is not triggerd
--- vim.api.nvim_create_autocmd("BufDelete", {
---   desc = "Deletes tabpage handle from buf2tab",
---   callback = function()
---     local tabs = buf2tab[vim.api.nvim_get_current_buf()]
---     local curr_tab = vim.api.nvim_get_current_tabpage()
---     if tabs then
---       for i, tab in ipairs(tabs) do
---         if curr_tab == tab then
---           table.remove(tabs, i)
---           )
---         end
---       end
---     end
---   end,
--- })

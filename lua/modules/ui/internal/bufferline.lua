@@ -4,23 +4,20 @@ M.ft_blacklist = { "qf", "vista_kind" }
 M.bt_blacklist = {}
 
 M.in_blacklist = function(buf)
-  local bt_blacklist =
-    require("modules.ui.internal.bufferline").bt_blacklist
-  local ft_blacklist =
-    require("modules.ui.internal.bufferline").ft_blacklist
+  local bt_blacklist = M.bt_blacklist
+  local ft_blacklist = M.ft_blacklist
   return vim.tbl_contains(ft_blacklist, vim.api.nvim_buf_get_option(buf, "ft"))
     or vim.tbl_contains(bt_blacklist, vim.api.nvim_buf_get_option(buf, "bt"))
 end
 
 M.in_tab = function(buf)
-  local buf2tab = require("modules.ui.internal.bufferline").buf2tab
+  local buf2tab = M.buf2tab
   return not buf2tab[buf] -- new buffer
     or vim.tbl_contains(buf2tab[buf], vim.api.nvim_get_current_tabpage())
 end
 
 M.remove_buf = function(buf, tab)
-  local bufferline = require("modules.ui.internal.bufferline")
-  local buf2tab = bufferline.buf2tab
+  local buf2tab = M.buf2tab
   for i, t in ipairs(buf2tab[buf]) do
     if t == tab then
       table.remove(buf2tab[buf], i)
@@ -32,7 +29,7 @@ M.remove_buf = function(buf, tab)
         end
         vim.api.nvim_buf_delete(buf, { force = true })
       else
-        local bufs = bufferline.get_current_tabpage_buffers()
+        local bufs = M.get_current_tabpage_buffers()
         -- quits vim or tabpage depending on whether the buffer is the last active buffer.
         if #bufs == 1 and bufs[1] == buf then
           return (#vim.api.nvim_list_tabpages() == 1) and vim.cmd("quit")
@@ -43,7 +40,7 @@ M.remove_buf = function(buf, tab)
     end
   end
   local tabs = vim.api.nvim_list_tabpages()
-  local bufs = bufferline.get_current_tabpage_buffers()
+  local bufs = M.get_current_tabpage_buffers()
   if #tabs == 1 and #bufs == 1 then
     if
       vim.api.nvim_buf_get_option(bufs[1], "ft") == ""
@@ -59,8 +56,12 @@ M.get_current_tabpage_windows = function()
 end
 
 M.get_current_tabpage_buffers = function()
+  return M.get_tabpage_buffers(vim.api.nvim_get_current_tabpage())
+end
+
+M.get_tabpage_buffers = function(tabpage)
   local bufs = {}
-  local wins = M.get_current_tabpage_windows()
+  local wins = vim.api.nvim_tabpage_list_wins(tabpage)
   for _, win in ipairs(wins) do
     local buf = vim.api.nvim_win_get_buf(win)
     if not vim.tbl_contains(bufs, buf) then
@@ -68,6 +69,20 @@ M.get_current_tabpage_buffers = function()
     end
   end
   return bufs
+end
+
+M.remove_nonexisted_entries = function()
+  local buf2tab = {}
+  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
+    for _, buf in ipairs(M.get_tabpage_buffers(tab)) do
+      if not buf2tab[buf] then
+        buf2tab[buf] = {}
+      end
+      table.insert(buf2tab[buf], tab)
+    end
+  end
+  M.buf2tab = nil -- trigger GC
+  M.buf2tab = buf2tab
 end
 
 return M
