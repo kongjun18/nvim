@@ -117,9 +117,10 @@ autocmd("User PackerComplete", {
   end,
 })
 
--- FIXME: autocmd goes wrong when add it into a augroup.
+augroup("bufferline", {})
 autocmd("BufEnter", {
   desc = "Inserts the buffer into the buf2tab dict",
+  group = "bufferline",
   callback = function()
     local buf2tab = require("modules.ui.internal.bufferline").buf2tab
     local buf = vim.api.nvim_get_current_buf()
