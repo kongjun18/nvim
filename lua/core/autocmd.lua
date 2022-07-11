@@ -117,6 +117,30 @@ autocmd("User PackerComplete", {
   end,
 })
 
+augroup("bufferline", {})
 autocmd("BufEnter", {
-  command = "syntax on",
+  desc = "Inserts the buffer into the buf2tab dict",
+  group = "bufferline",
+  callback = function()
+    local buf2tab = require("modules.ui.internal.bufferline").buf2tab
+    local buf = vim.api.nvim_get_current_buf()
+    local tab = vim.api.nvim_get_current_tabpage()
+    if not buf2tab[buf] then
+      buf2tab[buf] = {}
+    end
+    for _, t in ipairs(buf2tab[buf]) do
+      if t == tab then
+        goto exit
+      end
+    end
+    table.insert(buf2tab[buf], tab)
+    ::exit::
+  end,
+})
+
+-- TODO: remove the buffer if it only associates with the closed window.
+autocmd("WinClosed", {
+  callback = function()
+    local buf = vim.api.nvim_win_get_buf(vim.api.nvim_get_current_win())
+  end,
 })
