@@ -1,7 +1,7 @@
 local M = {}
 M.buf2tab = {}
 M.ft_blacklist = { "qf", "vista_kind" }
-M.bt_blacklist = {}
+M.bt_blacklist = { "nofile" }
 
 M.in_blacklist = function(buf)
   local bt_blacklist = M.bt_blacklist
@@ -41,11 +41,17 @@ M.remove_buf = function(buf, tab)
   end
   local tabs = vim.api.nvim_list_tabpages()
   local bufs = M.get_current_tabpage_buffers()
-  if #tabs == 1 and #bufs == 1 then
-    if
-      vim.api.nvim_buf_get_option(bufs[1], "ft") == ""
-      and vim.api.nvim_buf_get_option(bufs[1], "bt") == ""
-    then
+  if #tabs == 1 then
+    if #bufs == 1 then
+      if M.is_no_name_buf(bufs[1]) then
+        vim.cmd("quit")
+      end
+    else
+      for _, b in ipairs(bufs) do
+        if not (M.in_blacklist(b) or M.is_no_name_buf(b)) then
+          return
+        end
+      end
       vim.cmd("quit")
     end
   end
@@ -69,6 +75,13 @@ M.get_tabpage_buffers = function(tabpage)
     end
   end
   return bufs
+end
+
+-- Whether the buffer is [No Name]
+M.is_no_name_buf = function(buf)
+  return vim.api.nvim_buf_get_option(buf, "ft") == ""
+    and vim.api.nvim_buf_get_option(buf, "bt") == ""
+    and vim.api.nvim_buf_get_option(buf, "modified") == false
 end
 
 M.remove_nonexisted_entries = function()
