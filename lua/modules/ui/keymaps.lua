@@ -77,19 +77,26 @@ local M = {
   },
 
   ["<Leader><Tab>"] = { "<C-^>", "Edit Alternate File" },
-
-  ["<leader>1"] = { "1gt<CR>", "Go To Tab 1" },
-  ["<leader>2"] = { "2gt<CR>", "Go To Tab 2" },
-  ["<leader>3"] = { "3gt<CR>", "Go To Tab 3" },
-  ["<leader>4"] = { "4gt<CR>", "Go To Tab 4" },
-  ["<leader>5"] = { "5gt<CR>", "Go To Tab 5" },
-  ["<leader>6"] = { "6gt<CR>", "Go To Tab 6" },
-  ["<leader>7"] = { "7gt<CR>", "Go To Tab 7" },
-  ["<leader>8"] = { "8gt<CR>", "Go To Tab 8" },
-  ["<leader>9"] = { "9gt<CR>", "Go To Tab 9" },
-  ["<leader>-"] = { "gt<CR>", "Go To Next Buffer" },
-  ["<leader>="] = { "gT<CR>", "Go To Previos Buffer" },
-
+  ["<leader>-"] = { "gt<CR>", "Go To Next Tab" },
+  ["<leader>="] = { "gT<CR>", "Go To Previos Tab" },
+  ["<Leader>"] = {
+    ["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Go to Buffer 1" },
+    ["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Go to Buffer 2" },
+    ["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Go to Buffer 3" },
+    ["4"] = { "<Cmd>BufferLineGoToBuffer 4<CR>", "Go to Buffer 4" },
+    ["5"] = { "<Cmd>BufferLineGoToBuffer 5<CR>", "Go to Buffer 5" },
+    ["6"] = { "<Cmd>BufferLineGoToBuffer 6<CR>", "Go to Buffer 6" },
+    ["7"] = { "<Cmd>BufferLineGoToBuffer 7<CR>", "Go to Buffer 7" },
+    ["8"] = { "<Cmd>BufferLineGoToBuffer 8<CR>", "Go to Buffer 8" },
+    ["9"] = { "<Cmd>BufferLineGoToBuffer 9<CR>", "Go to Buffer 9" },
+    ["$"] = { "Cmd>BufferLineGoToBuffer -1<CR>", "Go to Last Buffer" },
+  },
+  ["]"] = {
+    ["b"] = { "<Cmd>BufferLineCycleNext<CR>", "Go to Next Buffer" },
+  },
+  ["["] = {
+    ["b"] = { "<Cmd>BufferLineCyclePrev<CR>", "Go to Previous Buffer" },
+  },
   ["<M-m>"] = {
     function()
       require("modules.ui.window").scroll_adjacent_window("down")
