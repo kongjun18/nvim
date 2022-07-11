@@ -20,7 +20,6 @@ M.remove_buf = function(buf, tab)
   local buf2tab = M.buf2tab
   for i, t in ipairs(buf2tab[buf]) do
     if t == tab then
-      table.remove(buf2tab[buf], i)
       if #buf2tab[buf] == 0 then
         -- Moves to the previous buffer if `buf` is the current buffer.
         -- And then, deletes it.
@@ -36,6 +35,7 @@ M.remove_buf = function(buf, tab)
             or vim.cmd("tabclose")
         end
       end
+      table.remove(buf2tab[buf], i)
       break
     end
   end
