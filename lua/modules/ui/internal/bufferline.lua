@@ -1,7 +1,7 @@
 local M = {}
 M.buf2tab = {}
 M.ft_blacklist = { "qf", "vista_kind" }
-M.bt_blacklist = { "nofile" }
+M.bt_blacklist = { "nofile", "terminal" }
 
 M.in_blacklist = function(buf)
   local bt_blacklist = M.bt_blacklist
