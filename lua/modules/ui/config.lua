@@ -285,12 +285,6 @@ config.bufferline = function()
         return bufferline.in_tab(buf) and not bufferline.in_blacklist(buf)
       end,
       close_command = function(buf)
-        -- The buffer is modified?
-        if vim.api.nvim_buf_get_option(buf, "modified") then
-          vim.notify("This buffer is modified!", vim.log.levels.WARN)
-          return
-        end
-        -- Removes the buffer from the tab.
         local tab = vim.api.nvim_get_current_tabpage()
         bufferline.remove_buf(buf, tab)
       end,

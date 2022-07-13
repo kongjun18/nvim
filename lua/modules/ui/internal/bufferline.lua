@@ -17,10 +17,16 @@ M.in_tab = function(buf)
 end
 
 M.remove_buf = function(buf, tab)
+  -- The buffer is modified?
+  if vim.api.nvim_buf_get_option(buf, "modified") then
+    vim.notify("This buffer is modified!", vim.log.levels.WARN)
+    return
+  end
+
   local buf2tab = M.buf2tab
   for i, t in ipairs(buf2tab[buf]) do
     if t == tab then
-      if #buf2tab[buf] == 0 then
+      if #buf2tab[buf] == 1 then -- Current buffer
         -- Moves to the previous buffer if `buf` is the current buffer.
         -- And then, deletes it.
         if vim.api.nvim_get_current_buf() == buf then
@@ -28,17 +34,21 @@ M.remove_buf = function(buf, tab)
         end
         vim.api.nvim_buf_delete(buf, { force = true })
       else
+        -- Ignore buffers in the blacklist.
         local bufs = M.get_current_tabpage_buffers()
-        -- quits vim or tabpage depending on whether the buffer is the last active buffer.
+        bufs = vim.tbl_filter(function(b)
+          return not M.in_blacklist(b)
+        end, bufs)
         if #bufs == 1 and bufs[1] == buf then
-          return (#vim.api.nvim_list_tabpages() == 1) and vim.cmd("quit")
-            or vim.cmd("tabclose")
+          return (#vim.api.nvim_list_tabpages() == 1) and vim.cmd("tabclose")
+            or vim.cmd("quit")
         end
       end
       table.remove(buf2tab[buf], i)
       break
     end
   end
+  -- Quits the default [No Name] buffer.
   local tabs = vim.api.nvim_list_tabpages()
   local bufs = M.get_current_tabpage_buffers()
   if #tabs == 1 then
