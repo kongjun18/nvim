@@ -113,7 +113,6 @@ autocmd("User PackerComplete", {
   once = true,
   callback = function()
     GlobalPacker.bootstrap = nil
-    vim.cmd("silent! NightfoxCompile")
   end,
 })
 
