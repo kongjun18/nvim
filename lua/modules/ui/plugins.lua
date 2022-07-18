@@ -6,6 +6,7 @@ local ui = {
   },
   ["EdenEast/nightfox.nvim"] = {
     config = config.nightfox,
+    run = ":NightfoxCompile",
   },
   ["j-hui/fidget.nvim"] = {
     config = config.fidget,
