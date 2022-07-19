@@ -143,3 +143,5 @@ autocmd("WinClosed", {
     local buf = vim.api.nvim_win_get_buf(vim.api.nvim_get_current_win())
   end,
 })
+
+vim.cmd("autocmd DiffUpdated * call git#diff_updated_handler()")
