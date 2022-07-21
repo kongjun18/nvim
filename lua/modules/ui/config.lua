@@ -299,4 +299,8 @@ config.bufferline = function()
   )
 end
 
+config.navic = function()
+  vim.g.navic_silence = true
+end
+
 return config
