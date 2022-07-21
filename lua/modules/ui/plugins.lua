@@ -26,7 +26,7 @@ local ui = {
   },
   ["akinsho/bufferline.nvim"] = {
     config = config.bufferline,
-    event = {"BufReadPost", "BufCreate"},
+    event = { "BufReadPost", "BufCreate" },
   },
   ["jeffkreeftmeijer/vim-numbertoggle"] = {
     event = "BufReadPost",
