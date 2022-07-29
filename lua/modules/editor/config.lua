@@ -243,7 +243,6 @@ function config.asynctasks()
   vim.g.asyncrun_rootmarks = { ".git", "compile_commands.json", ".root" }
 end
 
--- TODO: remap to LeaderF keymaps
 function config.telescope()
   local ok, telescope = pcall(require, "telescope")
   if not ok then
@@ -252,9 +251,28 @@ function config.telescope()
 
   vim.cmd([[ silent! PackerLoad telescope-fzy-native.nvim ]])
   vim.cmd([[ silent! PackerLoad telescope-asynctasks.nvim ]])
+  -- Uses ivy theme
   local themes = require("telescope.themes")
+  local defaults = themes.get_ivy()
+  local previewers = require("telescope.previewers")
+  -- Ignores files bigger than 100K
+  local new_maker = function(filepath, bufnr, opts)
+    opts = opts or {}
+    filepath = vim.fn.expand(filepath)
+    vim.loop.fs_stat(filepath, function(_, stat)
+      if not stat then
+        return
+      end
+      if stat.size > 100000 then
+        return
+      else
+        previewers.buffer_previewer_maker(filepath, bufnr, opts)
+      end
+    end)
+  end
+  defaults.buffer_previewer_maker = new_maker
   telescope.setup({
-    defaults = themes.get_ivy(),
+    defaults = defaults,
   })
   local extensions = require("modules.editor.config").telescope_extensions
   for _, extension in ipairs(extensions) do
