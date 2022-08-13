@@ -1,11 +1,6 @@
 local config = {}
-
 config.dictionaries = {
   ["*"] = "word.dict",
-}
-
-config.snippet_paths = {
-  "./my-snippets",
 }
 
 config.keymaps = {
@@ -405,9 +400,12 @@ function config.luasnip()
         },
       },
     })
-    luasnip.filetype_extend("all", { "_" })
-    luasnip.filetype_extend("cpp", { "c" })
-    require("luasnip.loaders.from_vscode").lazy_load()
+    require("luasnip.loaders.from_vscode").load({
+      paths = {
+        "./snippets",
+        path(packer_dir, "start", "friendly-snippets"),
+      },
+    })
   end
 end
 

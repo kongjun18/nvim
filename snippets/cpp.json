@@ -1,0 +1,11 @@
+{
+  "leetcode": {
+    "prefix": "leetcode",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "$0"
+    ],
+    "description": "Leetcode C++ header"
+  }
+}
