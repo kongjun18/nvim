@@ -22,6 +22,10 @@ config.keymaps = {
       "<cmd>lua require('goto-preview').close_all_win()<CR>",
       "Preview Close",
     },
+    ["t"] = {
+      "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
+      "Preview Type Definition",
+    },
   },
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
