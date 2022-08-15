@@ -404,11 +404,8 @@ function config.luasnip()
         },
       },
     })
-    require("luasnip.loaders.from_vscode").load({
-      paths = {
-        "./snippets",
-        path(packer_dir, "start", "friendly-snippets"),
-      },
+    require("luasnip.loaders.from_vscode").lazy_load({
+      paths = { "./snippets" },
     })
   end
 end
