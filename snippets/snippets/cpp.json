@@ -27,19 +27,5 @@
       "}"
     ],
     "description": "C/C++ main function with arguments"
-  },
-  "TreeNode": {
-    "prefix": "TreeNode",
-    "body": [
-      "struct TreeNode {",
-      "\tint val;",
-      "\tTreeNode *left;",
-      "\tTreeNode *right;",
-      "\tTreeNode() : val(0), left(nullptr), right(nullptr) {}",
-      "\tTreeNode(int x) : val(x), left(nullptr), right(nullptr) {}",
-      "\tTreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}",
-      "};"
-    ],
-    "description": "Leetcode TreeNode definition"
   }
 }
