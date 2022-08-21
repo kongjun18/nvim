@@ -12,8 +12,8 @@
     "prefix": "main",
     "body": [
       "int main() {",
-      "$1",
-      "return 0;",
+      "\t$0",
+      "\treturn 0;",
       "}"
     ],
     "description": "C/C++ main function without arguments"
@@ -22,8 +22,8 @@
     "prefix": "maina",
     "body": [
       "int main(int argc, char **argv) {",
-      "$0",
-      "return 0;",
+      "\t$0",
+      "\treturn 0;",
       "}"
     ],
     "description": "C/C++ main function with arguments"
