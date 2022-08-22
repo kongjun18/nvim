@@ -41,5 +41,75 @@
       "};"
     ],
     "description": "Leetcode TreeNode definition"
+  },
+  "inorder": {
+    "prefix": "inorder",
+    "body": [
+      "void inorder(TreeNode *root) {",
+      "\tif (root) {",
+      "\t\tinorder(root->left);",
+      "\t\tcout << root->val << \" \";",
+      "\t\tinorder(root->right);",
+      "\t}",
+      "\tcout << endl;",
+      "}",
+      "$0"
+    ],
+    "description": "Inorder traverse"
+  },
+  "preorder": {
+    "prefix": "preorder",
+    "body": [
+      "void preorder(TreeNode *root) {",
+      "\tif (root) {",
+      "\t\tcout << root->val << \" \";",
+      "\t\tpreorder(root->left);",
+      "\t\tpreorder(root->right);",
+      "\t}",
+      "\tcout << endl;",
+      "}",
+      "$0"
+    ],
+    "description": "Preorder traverse"
+  },
+  "postorder": {
+    "prefix": "postorder",
+    "body": [
+      "void postorder(TreeNode *root) {",
+      "\tif (root) {",
+      "\t\tpostorder(root->left);",
+      "\t\tpostorder(root->right);",
+      "\t\tcout << root->val << \" \";",
+      "\t}",
+      "\tcout << endl;",
+      "}",
+      "$0"
+    ],
+    "description": "Postorder traverse"
+  },
+  "level_traverse": {
+    "prefix": "level_traverse",
+    "body": [
+      "void level_traverse(TreeNode *root) {",
+      "\tqueue<TreeNode *> q;",
+      "\tif (root) {",
+      "\t\tq.push(root);",
+      "\t}",
+      "\twhile (!q.empty()) {",
+      "\t\tconst auto node = q.front();",
+      "\t\tq.pop();",
+      "\t\tif (node->left) {",
+      "\t\t\tq.push(node->left);",
+      "\t\t}",
+      "\t\tif (node->right) {",
+      "\t\t\tq.push(node->right);",
+      "\t\t}",
+      "\t\tcout << node->val << \" \";",
+      "\t}",
+      "\tcout << endl;",
+      "}",
+      "$0"
+    ],
+    "description": "Level traverse"
   }
 }
