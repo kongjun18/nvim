@@ -58,7 +58,7 @@ M.opts.sumneko_lua = {
 M.opts.ccls = {
   init_options = {
     cache = {
-      directory = ".cache/ccls-cache",
+      directory = path(data_dir, "ccls-cache"),
     },
     index = {
       -- comments = 2,
