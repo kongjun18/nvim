@@ -31,9 +31,11 @@ function config.nvim_dap()
   )
   -- Load dap configurations
   local daps = require("modules.dap.providers")
-  for name, opt in pairs(daps) do
-    dap.adapters[name] = opt.adapters
-    dap.configurations[name] = opt.configurations
+  for name, opt in pairs(daps.adapters) do
+    dap.adapters[name] = opt
+  end
+  for name, opt in pairs(daps.configurations) do
+    dap.configurations[name] = opt
   end
 end
 
