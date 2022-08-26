@@ -17,7 +17,7 @@ local dap = {
   },
   ["leoluz/nvim-dap-go"] = {
     config = config.nvim_dap_go,
-    after = "nvim-dap",
+    ft = "go",
   },
 }
 

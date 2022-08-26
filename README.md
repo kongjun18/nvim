@@ -6,7 +6,7 @@ This is my personal Neovim configuration, you can use it directly.
 
 # Features
 
-- Install plugins and LSP automatically
+- Install plugins andLSP automatically
 - Pure Lua configuration
 - Modular design
 - Focus on core programming functionalities
@@ -23,12 +23,16 @@ This is my personal Neovim configuration, you can use it directly.
 - [SourceCodePro Nerd Font](https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip): Display icons and default fonts for nvim-qt.
 
 - Install LSP automatically:
+  
   - GNU/Linux: git(1), curl(1) or wget(1), unzip(1), tar(1), gzip(1)
   - Windows:  powershell, git, tar, and [7zip](https://www.7-zip.org/) or [peazip](https://peazip.github.io/) or [archiver](https://github.com/mholt/archiver) or [winzip](https://www.winzip.com/) or [WinRAR](https://www.win-rar.com/)
   - Other: Lsp specific Prerequisites such as CMake. Please read LSP's document.
 
 - Compile [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)：
+  
   - C toolchain, Windows user see [this](https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support).
+
+- [Debug Adapter](https://microsoft.github.io/debug-adapter-protocol/): lldb-vscode for C++, Delve for Golang.
 
 **Optional**
 
@@ -41,18 +45,18 @@ This is my personal Neovim configuration, you can use it directly.
 - Windows user can install dependencies using [msys2](https://www.msys2.org/) and [chocolatey](https://chocolatey.org/install).
 - Scripts in [scripts](./scripts) may help you install dependencies on GNU/Linux system. Installation scripts perhaps pollute your environment, please be **careful**!
 
-
 # Installation
+
 By default, download plugins from Github via SSH. Please configure SSH under the guidance of the following.
 
 1. Add github to your ~/.ssh/known_hosts.
-
+   
    ```shell
    ssh-keyscan github.com >> ~/.ssh/known_hosts
    ```
 
 2. Clone this repository to your Neovim configuration directory.
-
+   
    ```shell
    git clone --depth 1 git@github.com:kongjun18/nvim.git <configuration directory>
    ```

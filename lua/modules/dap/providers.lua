@@ -1,60 +1,43 @@
 local M = {}
 
--- M.go = {
---   adapters = function(callback, _)
---     local stdout = vim.loop.new_pipe(false)
---     local handle
---     local pid_or_err
---     local port = 38697
---     local opts = {
---       stdio = { nil, stdout },
---       args = { "dap", "-l", "127.0.0.1:" .. port },
---       detached = true,
---     }
---     handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
---       stdout:close()
---       handle:close()
---       if code ~= 0 then
---         print("dlv exited with code", code)
---       end
---     end)
---     assert(handle, "Error running dlv: " .. tostring(pid_or_err))
---     stdout:read_start(function(err, chunk)
---       assert(not err, err)
---       if chunk then
---         vim.schedule(function()
---           require("dap.repl").append(chunk)
---         end)
---       end
---     end)
---     -- Wait for delve to start
---     vim.defer_fn(function()
---       callback({ type = "server", host = "127.0.0.1", port = port })
---     end, 100)
---   end,
---   configurations = {
---     {
---       type = "go",
---       name = "Debug",
---       request = "launch",
---       program = "${file}",
---     },
---     {
---       type = "go",
---       name = "Debug test", -- configuration for debugging test files
---       request = "launch",
---       mode = "test",
---       program = "${file}",
---     },
---     -- works with go.mod packages and sub packages
---     {
---       type = "go",
---       name = "Debug test (go.mod)",
---       request = "launch",
---       mode = "test",
---       program = "./${relativeFileDirname}",
---     },
---   },
--- }
+local function exepath(exe, default_path)
+  local path = vim.fn.exepath(exe)
+  return #path == 0 and path or default_path
+end
 
+M.adapters = {
+  lldb = {
+    type = "executable",
+    command = exepath("lldb-vscode", "/usr/bin/lldb-vscode-14"), -- adjust as needed, must be absolute path
+    name = "lldb",
+  },
+}
+M.configurations = {
+  cpp = {
+    {
+      name = "Launch executable",
+      type = "lldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input(
+          "Path to executable: ",
+          vim.fn.expand("%:p:r") .. ".out",
+          "file"
+        )
+      end,
+      cwd = "${workspaceFolder}",
+      preRunCommands = "break main",
+      args = {},
+    },
+    {
+      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+      name = "Attach to process",
+      type = "lldb",
+      request = "attach",
+      pid = require("dap.utils").pick_process,
+      args = {},
+    },
+  },
+}
 return M
