@@ -1,19 +1,49 @@
 local M = {}
 M.buf2tab = {}
-M.ft_blacklist = { "qf", "vista_kind" }
-M.bt_blacklist = { "nofile", "terminal" }
+M.ft_blacklist = { "qf", "vista_kind", "help" }
+M.bt_blacklist = { "prompt", "nofile", "terminal" }
+
+M.in_ft_blacklist = function(buf)
+  return vim.tbl_contains(M.ft_blacklist, vim.bo[buf].filetype)
+end
+
+M.in_bt_blacklist = function(buf)
+  return vim.tbl_contains(M.bt_blacklist, vim.bo[buf].filetype)
+end
 
 M.in_blacklist = function(buf)
-  local bt_blacklist = M.bt_blacklist
-  local ft_blacklist = M.ft_blacklist
-  return vim.tbl_contains(ft_blacklist, vim.api.nvim_buf_get_option(buf, "ft"))
-    or vim.tbl_contains(bt_blacklist, vim.api.nvim_buf_get_option(buf, "bt"))
+  return M.in_ft_blacklist(buf) or M.in_bt_blacklist(buf)
 end
 
 M.in_tab = function(buf)
   local buf2tab = M.buf2tab
   return not buf2tab[buf] -- new buffer
     or vim.tbl_contains(buf2tab[buf], vim.api.nvim_get_current_tabpage())
+end
+
+-- Closes the buffer
+M.close_buf = function(buf, tab)
+  local buf2tab = M.buf2tab
+  -- Moves to the previous buffer if `buf` is the current buffer.
+  -- Notice! BufferLineGoToBuffer changes the current buffer.
+  if vim.api.nvim_get_current_buf() == buf then
+    vim.cmd("BufferLineCyclePrev")
+  end
+  if #buf2tab[buf] == 1 then -- If this buffer only used in one tab, deletes it.
+    vim.api.nvim_buf_delete(buf, { force = true })
+  else
+    -- Closes the windows of the buffer in the current tabpage. This is to
+    -- handle split screen situations. If the buffer in the last buffer in the
+    -- tab, close the tab automatically by vim.
+    for _, w in ipairs(vim.fn.win_findbuf(buf)) do
+      if
+        vim.api.nvim_win_get_tabpage(w) == tab
+        and vim.api.nvim_win_get_buf(w) == buf
+      then
+        vim.fn.win_execute(w, "quit", "silent")
+      end
+    end
+  end
 end
 
 M.remove_buf = function(buf, tab)
@@ -26,28 +56,12 @@ M.remove_buf = function(buf, tab)
   local buf2tab = M.buf2tab
   for i, t in ipairs(buf2tab[buf]) do
     if t == tab then
-      if #buf2tab[buf] == 1 then -- Current buffer
-        -- Moves to the previous buffer if `buf` is the current buffer.
-        -- And then, deletes it.
-        if vim.api.nvim_get_current_buf() == buf then
-          vim.cmd("BufferLineCyclePrev")
-        end
-        vim.api.nvim_buf_delete(buf, { force = true })
-      else
-        -- Ignore buffers in the blacklist.
-        local bufs = M.get_current_tabpage_buffers()
-        bufs = vim.tbl_filter(function(b)
-          return not M.in_blacklist(b)
-        end, bufs)
-        if #bufs == 1 and bufs[1] == buf then
-          return (#vim.api.nvim_list_tabpages() == 1) and vim.cmd("tabclose")
-            or vim.cmd("quit")
-        end
-      end
+      M.close_buf(buf, tab)
       table.remove(buf2tab[buf], i)
       break
     end
   end
+
   -- Quits the default [No Name] buffer.
   local tabs = vim.api.nvim_list_tabpages()
   local bufs = M.get_current_tabpage_buffers()
@@ -62,7 +76,7 @@ M.remove_buf = function(buf, tab)
           return
         end
       end
-      vim.cmd("quit")
+      vim.cmd("tabclose")
     end
   end
 end
@@ -95,17 +109,11 @@ M.is_no_name_buf = function(buf)
 end
 
 M.remove_nonexisted_entries = function()
-  local buf2tab = {}
-  for _, tab in ipairs(vim.api.nvim_list_tabpages()) do
-    for _, buf in ipairs(M.get_tabpage_buffers(tab)) do
-      if not buf2tab[buf] then
-        buf2tab[buf] = {}
-      end
-      table.insert(buf2tab[buf], tab)
+  for buf, _ in pairs(M.buf2tab) do
+    if not vim.fn.bufexists(buf) then
+      M.buf2tab[buf] = nil
     end
   end
-  M.buf2tab = nil -- trigger GC
-  M.buf2tab = buf2tab
 end
 
 return M
