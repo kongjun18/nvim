@@ -280,7 +280,7 @@ config.bufferline = function()
           text_align = "center",
         },
       },
-      custom_filter = function(buf)
+      custom_filter = function(buf, _)
         return bufferline.in_tab(buf) and not bufferline.in_blacklist(buf)
       end,
       close_command = function(buf)
@@ -289,11 +289,12 @@ config.bufferline = function()
       end,
     },
   })
+
   -- Both buffer and tab number are ascending. Thus it is safe to don't remove
   -- non-existed entries in the buf2tab dict. This timer is used to delete
   -- auxiliary buffers like TelescopePrompt.
   vim.fn.timer_start(
-    15 * 60 * 1000, -- 15m
+    5 * 60 * 1000, -- 5m
     bufferline.remove_nonexisted_entries,
     { ["repeat"] = -1 }
   )
