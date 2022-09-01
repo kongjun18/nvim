@@ -272,6 +272,43 @@ config.bufferline = function()
   local bufferline = require("modules.ui.internal.bufferline")
   GlobalPacker:setup("bufferline", {
     options = {
+      groups = {
+        options = {
+          toggle_hidden_on_enter = true, -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
+        },
+        items = {
+          {
+            name = "syslib",
+            auto_close = true,
+            matcher = function(buf)
+              return buf.path:match("/usr/include/.*")
+            end,
+          },
+          {
+            name = "golib",
+            auto_close = true,
+            matcher = function(buf)
+              return buf.path:match(path(vim.env.GOROOT, "src", ".*.go"))
+            end,
+          },
+          {
+            name = "gopkg",
+            auto_close = true,
+            matcher = function(buf)
+              return buf.path:match(path(vim.env.GOPATH, "pkg", ".*.go"))
+            end,
+          },
+          {
+            name = "docs",
+            matcher = function(buf)
+              return buf.path:match("man://.*")
+                or buf.path:match("%.md")
+                or buf.path:match("%.txt")
+                  and buf.filename ~= "CMakeLists.txt"
+            end,
+          },
+        },
+      },
       offsets = {
         {
           filetype = "NvimTree",
