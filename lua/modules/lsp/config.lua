@@ -29,7 +29,7 @@ config.keymaps = {
   },
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
-  ["gc"] = {
+  ["gC"] = {
     function()
       local ft = vim.api.nvim_buf_get_option(0, "filetype")
       if ft == "c" or ft == "cpp" then
@@ -40,7 +40,7 @@ config.keymaps = {
     end,
     "Outgoing Calls",
   },
-  ["gC"] = {
+  ["gc"] = {
     function()
       local ft = vim.api.nvim_buf_get_option(0, "filetype")
       if ft == "c" or ft == "cpp" then
