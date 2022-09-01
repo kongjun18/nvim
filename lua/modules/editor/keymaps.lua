@@ -33,6 +33,10 @@ local M = {
       ":Telescope tags <CR>",
       "Find Tags(definition)",
     },
+    ["n"] = {
+      ":Telescope current_buffer_tags <CR>",
+      "Find Tags In Current Buffer",
+    },
     ["m"] = {
       ":Telescope man_pages<CR>",
       "Find Man Pages",
@@ -102,4 +106,26 @@ vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
 end)
 vim.keymap.set("n", t("<C-I>"), t("<C-I>"))
 vim.keymap.set({ "n", "i" }, t("<C-S>"), "<Cmd>w<CR>")
+
+function smart_dd()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end
+
+vim.keymap.set("n", "dd", smart_dd, { desc = "Smart dd", expr = true })
+
+vim.cmd([[
+  noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
+  noremap <silent> <leader>gd :GscopeFind g <C-R><C-W><cr>
+  noremap <silent> <leader>gC :GscopeFind c <C-R><C-W><cr>
+  noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
+  noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
+  noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
+  noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
+  noremap <silent> <leader>gc :GscopeFind d <C-R><C-W><cr>
+  noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
+  ]])
 return M
