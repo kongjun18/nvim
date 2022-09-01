@@ -68,7 +68,7 @@ config.keymaps = {
     "<cmd>lua vim.diagnostic.goto_prev()<CR>",
     "Goto Previous  Diagnostic",
   },
-  ["gK"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
+  ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
   ["gf"] = {
     function()
       GlobalPacker:ensure_loaded("null-ls.nvim")
