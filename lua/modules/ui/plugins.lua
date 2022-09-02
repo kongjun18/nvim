@@ -39,7 +39,7 @@ local ui = {
     requires = "animate.vim",
     event = "WinEnter",
   },
-  ["pocco81/truezen.nvim"] = {
+  ["Pocco81/truezen.nvim"] = {
     cmd = {
       "TZMinimalist",
       "TZFocus",
