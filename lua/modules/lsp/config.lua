@@ -136,14 +136,7 @@ function config.on_attach(client, bufnr)
   if ok then
     navic.attach(client, bufnr)
   end
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
   local lsp_servers = require("modules.lsp.providers").lsp_servers
-
-  -- Enable completion triggered by <c-x><c-o>
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   -- Mappings.
   local opts = { buffer = bufnr }
