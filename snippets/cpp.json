@@ -141,5 +141,14 @@
 			"}",
 			"$0"
 		]
+	},
+	"hello": {
+		"prefix": "hello",
+		"body": [
+			"#include <iostream>",
+			"int main() {",
+			"\tstd::cout << \"hello world!\" << std::endl;",
+			"}"
+		]
 	}
 }
