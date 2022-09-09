@@ -24,7 +24,7 @@ function config.nvim_dap()
   local api = vim.api
   local keymap_restore = {}
   dap.listeners.after["event_initialized"]["me"] = function()
-    local overrided_keymaps = { "K", "<2-LeftMouse>" }
+    local overrided_keymaps = { "K", t("<2-LeftMouse>") }
     for _, buf in pairs(api.nvim_list_bufs()) do
       local keymaps = api.nvim_buf_get_keymap(buf, "n")
       for _, keymap in pairs(keymaps) do
@@ -54,7 +54,7 @@ function config.nvim_dap()
         keymap.mode,
         keymap.lhs,
         keymap.rhs,
-        { silent = keymap.silent == 1, replace_keycodes = 1 }
+        { silent = keymap.silent == 1 }
       )
     end
     keymap_restore = {}
