@@ -7,11 +7,11 @@ local M = {
     ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
     "Toggle Conditional Breakpoint",
   },
-  ["<F3>"] = { ":lua require'dap'.continue()<CR>", "Continue" },
-  ["<F9>"] = { ":lua require'dap'.step_into()<CR>", "Step Into" },
-  ["<F10>"] = { ":lua require'dap'.step_over()<CR>", "Step Over" },
-  ["<F8>"] = { ":lua require'dap'.step_out()<CR>", "Step Out" },
-  ["<C-S-F5>"] = { ":lua require'dap'.run_last()<CR>", "Restart Debug" },
+  ["<F3>"] = { "<Cmd>lua require'dap'.continue()<CR>", "Continue" },
+  ["<F9>"] = { "<Cmd>lua require'dap'.step_into()<CR>", "Step Into" },
+  ["<F10>"] = { "<Cmd>lua require'dap'.step_over()<CR>", "Step Over" },
+  ["<F8>"] = { "<Cmd>lua require'dap'.step_out()<CR>", "Step Out" },
+  ["<C-S-F5>"] = { "<Cmd>lua require'dap'.run_last()<CR>", "Restart Debug" },
   ["<F1>"] = {
     function()
       require("dap").close()
