@@ -65,6 +65,14 @@ function config.nvim_dap()
     { text = "●", texthl = "DapUIWatchesError" }
   )
   vim.fn.sign_define(
+    "DapBreakpointCondition",
+    { text = "⊜", texthl = "DapUIWatchesError" }
+  )
+  vim.fn.sign_define(
+    "DapLogPoint",
+    { text = "◆", texthl = "DapUIWatchesError" }
+  )
+  vim.fn.sign_define(
     "DapStopped",
     { text = "→", texthl = "DapUIBreakpointsCurrentLine", linehl = "debugPC" }
   )
