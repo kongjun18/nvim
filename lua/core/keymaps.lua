@@ -73,3 +73,7 @@ end
 map_jump()
 map_registers()
 map_unimpaired()
+vim.keymap.set("n", "<2-LeftMouse>", "<cmd>lua vim.lsp.buf.definition()<CR>")
+vim.keymap.set("n", "<RightMouse>", "<C-O>")
+vim.keymap.set("n", "<2-RightMouse>", "<C-O><C-O>")
+vim.keymap.set("n", "<M-RightMouse>", "<C-I>")
