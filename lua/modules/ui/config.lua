@@ -96,14 +96,12 @@ function config.lens()
     "list",
     "gitcommit",
     "fugitive",
+    "dap-repl",
     "man",
-    "tagbar",
     "qf",
     "",
     "help",
     "diff",
-    "undotree",
-    "leaderf",
   }
   vim.g["lens#disabled_buftypes"] = { "nofile", "", "terminal", "nowrite" }
 end
