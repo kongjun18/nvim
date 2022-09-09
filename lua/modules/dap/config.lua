@@ -99,6 +99,7 @@ function config.nvim_dap_ui()
     layouts = {
       {
         elements = {
+          { id = "stacks", size = 0.30 },
           { id = "breakpoints", size = 0.30 },
           { id = "scopes", size = 0.45 },
           { id = "watches", size = 0.25 },
