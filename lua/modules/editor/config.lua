@@ -291,10 +291,6 @@ function config.neogen()
   })
 end
 
-function config.sandwich()
-  vim.cmd([[runtime macros/sandwich/keymap/surround.vim]])
-end
-
 function config.project()
   GlobalPacker:setup("project_nvim")
 end
@@ -319,4 +315,9 @@ end
 function config.nvim_lastplace()
   GlobalPacker:setup("nvim-lastplace")
 end
+
+function config.nvim_surround()
+  GlobalPacker:setup("nvim-surround")
+end
+
 return config
