@@ -38,14 +38,8 @@ local editor = {
   ["tpope/vim-rsi"] = {
     event = "CmdlineEnter",
   },
-  ["machakann/vim-sandwich"] = {
-    -- Disable sandwich.vim keymaps and use surround.vim keymaps
-    setup = function()
-      vim.g.sandwich_no_default_key_mappings = 1
-      vim.g.operator_sandwich_no_default_key_mappings = 1
-      vim.g.textobj_sandwich_no_default_key_mappings = 1
-    end,
-    config = config.sandwich,
+  ["kylechui/nvim-surround"] = {
+    config = config.nvim_surround,
     event = "BufReadPost",
   },
   ["tpope/vim-projectionist"] = {

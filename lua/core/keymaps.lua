@@ -58,7 +58,6 @@ local function map_registers()
   vmap("'0", '"0')
   vmap("'0", '"0')
   imap("<C-R>'", '<C-R>"')
-  xmap("q", '"')
 end
 
 local function map_unimpaired()
