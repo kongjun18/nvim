@@ -107,15 +107,14 @@ end)
 vim.keymap.set("n", t("<C-I>"), t("<C-I>"))
 vim.keymap.set({ "n", "i" }, t("<C-S>"), "<Cmd>w<CR>")
 
-function smart_dd()
+-- Smart dd
+vim.keymap.set("n", "dd", function()
   if vim.api.nvim_get_current_line():match("^%s*$") then
     return '"_dd'
   else
     return "dd"
   end
-end
-
-vim.keymap.set("n", "dd", smart_dd, { desc = "Smart dd", expr = true })
+end, { desc = "Smart dd", expr = true })
 
 vim.cmd([[
   noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
