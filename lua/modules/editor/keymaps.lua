@@ -116,15 +116,4 @@ vim.keymap.set("n", "dd", function()
   end
 end, { desc = "Smart dd", expr = true })
 
-vim.cmd([[
-  noremap <silent> <leader>gs :GscopeFind s <C-R><C-W><cr>
-  noremap <silent> <leader>gd :GscopeFind g <C-R><C-W><cr>
-  noremap <silent> <leader>gC :GscopeFind c <C-R><C-W><cr>
-  noremap <silent> <leader>gt :GscopeFind t <C-R><C-W><cr>
-  noremap <silent> <leader>ge :GscopeFind e <C-R><C-W><cr>
-  noremap <silent> <leader>gf :GscopeFind f <C-R>=expand("<cfile>")<cr><cr>
-  noremap <silent> <leader>gi :GscopeFind i <C-R>=expand("<cfile>")<cr><cr>
-  noremap <silent> <leader>gc :GscopeFind d <C-R><C-W><cr>
-  noremap <silent> <leader>ga :GscopeFind a <C-R><C-W><cr>
-  ]])
 return M
