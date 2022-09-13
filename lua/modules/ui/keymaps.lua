@@ -76,7 +76,19 @@ local M = {
     ["d"] = { ":bdelete<CR>", "Delete Buffer" },
   },
 
-  ["<Leader><Tab>"] = { "<C-^>", "Edit Alternate File" },
+  ["<Leader><Tab>"] = {
+    function()
+      local in_blacklist =
+        require("modules.ui.internal.bufferline").in_blacklist
+      if
+        not (in_blacklist(vim.fn.bufnr("#")) or in_blacklist(vim.fn.bufnr()))
+      then
+        return t("<C-^>")
+      end
+    end,
+    expr = true,
+    "Edit Alternate File",
+  },
   ["<leader>-"] = { "gt<CR>", "Go To Next Tab" },
   ["<leader>="] = { "gT<CR>", "Go To Previos Tab" },
   ["<Leader>"] = {
