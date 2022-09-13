@@ -8,7 +8,7 @@ M.in_ft_blacklist = function(buf)
 end
 
 M.in_bt_blacklist = function(buf)
-  return vim.tbl_contains(M.bt_blacklist, vim.bo[buf].filetype)
+  return vim.tbl_contains(M.bt_blacklist, vim.bo[buf].buftype)
 end
 
 M.in_blacklist = function(buf)
