@@ -4,7 +4,12 @@ local M = {
     "Toggle Breakpoint",
   },
   ["<Leader><F6>"] = {
-    ":lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+    function()
+      local condition = vim.fn.input("Breakpoint condition: ")
+      if condition ~= "" then
+        require("dap").set_breakpoint(condition)
+      end
+    end,
     "Toggle Conditional Breakpoint",
   },
   ["<F3>"] = { "<Cmd>lua require'dap'.continue()<CR>", "Continue" },
