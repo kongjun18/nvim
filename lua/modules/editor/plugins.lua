@@ -108,10 +108,6 @@ local editor = {
     config = config.gutentags,
     event = "BufReadPost",
   },
-  ["skywind3000/gutentags_plus"] = {
-    requires = "vim-gutentags",
-    after = "vim-gutentags",
-  },
   ["skywind3000/asyncrun.vim"] = {
     event = "CmdlineEnter",
   },
