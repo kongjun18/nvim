@@ -174,11 +174,7 @@ function config.treesitter()
   })
 end
 
--- TODO: Use ctags/gtags index code when LSP is disabled
 function config.gutentags()
-  vim.g.gutentags_plus_nomap = 1
-  vim.cmd([[ silent! PackerLoad gutentags_plus ]])
-  vim.g.load_gutentags_config = 1
   vim.g.gutentags_exclude_filetypes = {
     "text",
     "markdown",
@@ -191,18 +187,14 @@ function config.gutentags()
     "help",
     "man",
   }
-  -- Use pygment to extend gtags
-  vim.env.GTAGSLABEL = "native-pygments"
-  vim.g.gutentags_project_root = { ".git", "compile_commands.json", ".root" }
+  vim.g.gutentags_project_root = {
+    ".git",
+    "compile_commands.json",
+    ".root",
+    "go.mod",
+  }
   -- All ctags files suffixed with .tag'
   vim.g.gutentags_ctags_tagfile = ".tag"
-  -- Use ctags and gtags
-  local gutentags_modules = {}
-  if vim.fn.executable("ctags") > 0 then
-    table.insert(gutentags_modules, "ctags")
-  end
-  -- Fail to modify VimL global list. Create Lua variable and then convert to VimL.
-  vim.g.gutentags_modules = gutentags_modules
   -- Only support universal-ctags
   vim.g.gutentags_ctags_extra_args = {
     "--fields=+niazS",
@@ -217,11 +209,7 @@ function config.gutentags()
     "--output-format=e-ctags",
   }
   -- Set cache directory
-  vim.g.gutentags_cache_dir = cache_dir .. path_sep .. "tags"
-  -- Don't load gtags_cscope database automatically
-  vim.g.gutentags_auto_add_gtags_cscope = 0
-  vim.g.gutentags_plus_switch = 0
-  vim.g.gutentags_plus_nomap = 1
+  vim.g.gutentags_cache_dir = path(cache_dir, "tags")
 end
 
 function config.projectionist()
