@@ -224,10 +224,7 @@ function config.lsp_installer()
         requested_server:on_ready(function()
           local customed = lsp_servers.opts[server] or {}
           vim.cmd("PackerLoad cmp-nvim-lsp")
-          local capabilities = require("cmp_nvim_lsp").update_capabilities(
-            vim.lsp.protocol.make_client_capabilities()
-          )
-          require("cmp_nvim_lsp").update_capabilities(capabilities)
+          local capabilities = require("cmp_nvim_lsp").default_capabilities()
           local opts = vim.tbl_extend("force", {
             capabilities = capabilities,
           }, customed)
