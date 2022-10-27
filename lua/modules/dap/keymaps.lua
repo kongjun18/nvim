@@ -27,11 +27,5 @@ local M = {
     "Exit Debug",
   },
 }
--- Evaluate expression
-vim.keymap.set(
-  { "n", "v" },
-  "<M-k>",
-  ":lua require('dapui').eval()<CR>",
-  { silent = true }
-)
+
 return M
