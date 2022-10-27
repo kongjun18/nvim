@@ -71,24 +71,16 @@ config.keymaps = {
   ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
   ["gf"] = {
     function()
-      GlobalPacker:ensure_loaded("null-ls.nvim")
-      vim.lsp.buf.format({ async = true })
+      vim.lsp.buf.format()
     end,
-    "Format Buffer",
+    "Format Buffer or Range",
+    mode = { "n", "v" },
   },
   ["ga"] = {
     function()
-      GlobalPacker:ensure_loaded("null-ls.nvim")
       vim.lsp.buf.code_action()
     end,
     "Code Action",
-  },
-  ["g"] = {
-    ["f"] = {
-      "<cmd>lua vim.lsp.buf.range_formatting()<CR>",
-      "Format Range",
-      mode = "v",
-    },
   },
   ["<space>e"] = {
     "<cmd>lua vim.diagnostic.open_float()<CR>",
