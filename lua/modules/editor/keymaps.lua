@@ -90,30 +90,26 @@ local M = {
       "File Annotation",
     },
   },
+  ["<C-S>"] = {
+    "<Cmd>w<CR>",
+    "Save File",
+  },
+  ["<C-I>"] = {
+    "<C-I>",
+    expr = true,
+    "Help Neovim Distinguish <C-I>",
+  },
+  ["dd"] = {
+    function()
+      if vim.api.nvim_get_current_line():match("^%s*$") then
+        return '"_dd'
+      else
+        return "dd"
+      end
+    end,
+    expr = true,
+    "Smart dd",
+  },
 }
-
-vim.keymap.set({ "i", "s" }, t("<C-j>"), function()
-  local snip = require("luasnip")
-  if snip.expand_or_jumpable() then
-    snip.expand_or_jump()
-  end
-end)
-vim.keymap.set({ "i", "s" }, t("<C-k>"), function()
-  local snip = require("luasnip")
-  if snip.jumpable(-1) then
-    snip.jump(-1)
-  end
-end)
-vim.keymap.set("n", t("<C-I>"), t("<C-I>"))
-vim.keymap.set({ "n", "i" }, t("<C-S>"), "<Cmd>w<CR>")
-
--- Smart dd
-vim.keymap.set("n", "dd", function()
-  if vim.api.nvim_get_current_line():match("^%s*$") then
-    return '"_dd'
-  else
-    return "dd"
-  end
-end, { desc = "Smart dd", expr = true })
 
 return M
