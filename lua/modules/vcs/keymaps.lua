@@ -21,12 +21,14 @@ local vcs = {
       function()
         require("gitsigns").stage_hunk()
       end,
+      mode = { "n", "v" },
       "Stage Hunk",
     },
     ["r"] = {
       function()
         require("gitsigns").reset_hunk()
       end,
+      mode = { "n", "v" },
       "Reset Hunk",
     },
     ["S"] = {
@@ -72,30 +74,13 @@ local vcs = {
       "Diff Against The Last Commit",
     },
   },
-  -- Map in different modes
-  ["ghs"] = {
-    function()
-      require("gitsigns").stage_hunk()
-    end,
-    "Stage Hunk",
-    mode = "v",
-  },
-  ["ghr"] = {
-    function()
-      require("gitsigns").reset_hunk()
-    end,
-    "Reset Hunk",
-    mode = "v",
-  },
-  -- which-key.nvim only maps one mode mapping
   ["i"] = {
     ["h"] = {
       "<Cmd>:<C-U>Gitsigns select_hunk<CR>",
+      mode = { "o", "x" },
       "Inner Hunk",
-      mode = "o",
     },
   },
-  ["ih"] = { "<Cmd>:<C-U>Gitsigns select_hunk<CR>", "Inner Hunk", mode = "x" },
 }
 
 return vcs
