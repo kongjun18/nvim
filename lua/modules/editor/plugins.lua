@@ -10,7 +10,6 @@ local editor = {
   ["lambdalisue/suda.vim"] = {
     cmd = { "SudaRead", "SudaWrite" },
   },
-  ["nathom/filetype.nvim"] = {},
   ["bronson/vim-visual-star-search"] = {
     keys = { "*", "#" },
   },
