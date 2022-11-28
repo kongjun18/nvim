@@ -296,10 +296,6 @@ function config.nerdcommenter()
   g.NERDAltDelims_asm = 1
 end
 
-function config.spellsitter()
-  GlobalPacker:setup("spellsitter")
-end
-
 function config.nvim_lastplace()
   GlobalPacker:setup("nvim-lastplace")
 end
