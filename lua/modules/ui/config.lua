@@ -322,6 +322,40 @@ config.bufferline = function()
         local tab = vim.api.nvim_get_current_tabpage()
         bufferline.remove_buf(buf, tab)
       end,
+      -- Avoid auxiliary windows switching to the target buffer.
+      --
+      -- The typical situation:
+      -- 1. Open(go to) vista window.
+      -- 2. Click other buffer, the vista window switch to the target buffer.
+      --
+      -- left_mouse_command funciton avoids this embarrassing situation.
+      --     1. If the current window's buffer is not in the black list, switch
+      --        to the target buffer normally.
+      --     2. Otherwise,
+      --            1. For vista window, the left adjacent window switch to the target buffer.
+      --            2. For other window, do nothing.
+      left_mouse_command = function(buf)
+        local current = vim.fn.bufnr()
+        if bufferline.in_blacklist(current) then
+          local winnr = vim.fn.winnr
+          local win_nr = winnr()
+          if
+            winnr("k") == win_nr
+            and winnr("j") == win_nr
+            and winnr("l") == win_nr
+            and winnr("h") ~= win_nr
+          then -- The leftmost window
+            local win_id = vim.fn.win_getid(winnr("h"))
+            local buf_id = vim.api.nvim_win_get_buf(win_id)
+            if not bufferline.in_blacklist(buf_id) then
+              vim.fn.win_execute(win_id, "buffer " .. buf)
+              vim.fn.win_gotoid(win_id)
+            end
+          end
+        else -- Normal code path
+          vim.cmd("buffer " .. buf)
+        end
+      end,
     },
   })
 
