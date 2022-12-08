@@ -8,6 +8,10 @@
       {
         "language": "cpp",
         "path": "./cpp.json"
+      },
+      {
+        "language": "c",
+        "path": "./c.json"
       }
     ]
   }
