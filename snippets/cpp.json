@@ -8,26 +8,6 @@
 		],
 		"description": "Leetcode C++ header"
 	},
-	"main": {
-		"prefix": "main",
-		"body": [
-			"int main() {",
-			"\t$0",
-			"\treturn 0;",
-			"}"
-		],
-		"description": "C/C++ main function without arguments"
-	},
-	"maina": {
-		"prefix": "maina",
-		"body": [
-			"int main(int argc, char **argv) {",
-			"\t$0",
-			"\treturn 0;",
-			"}"
-		],
-		"description": "C/C++ main function with arguments"
-	},
 	"TreeNode": {
 		"prefix": "TreeNode",
 		"body": [
