@@ -168,10 +168,35 @@ end
 function config.vista()
   vim.g.vista_default_executive = "ctags"
   vim.g.vista_stay_on_open = 0
+  vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
   if packer_plugins and packer_plugins["nvim-lspconfig"] then
     vim.g.vista_default_executive = "nvim_lsp"
   end
   vim.g["vista#renderer#enable_icon"] = 1
+  -- Vscode-like icons
+  local overrided_icons = {
+    var = "",
+    variable = "",
+    variables = "",
+    const = "",
+    constant = "",
+    constructor = "",
+    enum = "",
+    enummember = "",
+    enumerator = "",
+    module = "",
+    modules = "",
+    struct = "פּ",
+    class = "ﴯ",
+    field = "ﰠ",
+    fields = "ﰠ",
+    interface = "",
+  }
+  vim.g["vista#renderer#icons"] = vim.tbl_extend(
+    "force",
+    vim.g["vista#renderer#icons"],
+    overrided_icons
+  )
 end
 
 function config.colorizer()
