@@ -167,6 +167,7 @@ end
 
 function config.vista()
   vim.g.vista_default_executive = "ctags"
+  vim.g.vista_stay_on_open = 0
   if packer_plugins and packer_plugins["nvim-lspconfig"] then
     vim.g.vista_default_executive = "nvim_lsp"
   end
