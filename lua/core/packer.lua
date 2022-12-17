@@ -7,7 +7,8 @@ function Packer:new()
   setmetatable(o, self)
   self.__index = self
   -- Install plugins via ssh to pass China's Great Firewall
-  self.mirror = "git@github.com:"
+  -- self.mirror = "git@github.com:"
+  self.mirror = "https://github.com/"
   self.repo = self.mirror .. "wbthomason/packer.nvim"
   self.path = path(data_dir, "site", "pack", "packer")
   self.install_path = path(self.path, "start", "packer.nvim")
