@@ -80,9 +80,11 @@ local M = {
     function()
       local in_blacklist =
         require("modules.ui.internal.bufferline").in_blacklist
-      if
-        not (in_blacklist(vim.fn.bufnr("#")) or in_blacklist(vim.fn.bufnr()))
-      then
+      local alternate_buf = vim.fn.bufnr("#")
+      if alternate_buf < 1 then
+        return
+      end
+      if not (in_blacklist(alternate_buf) or in_blacklist(vim.fn.bufnr())) then
         return t("<C-^>")
       end
     end,
