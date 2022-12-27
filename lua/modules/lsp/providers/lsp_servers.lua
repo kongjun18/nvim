@@ -6,6 +6,7 @@ local M = {
     css = "cssls",
     html = "html",
     javascript = "tsserver",
+    vue = "vuels",
     python = "pyright",
     eslint = "eslint",
     bash = "bashls",
