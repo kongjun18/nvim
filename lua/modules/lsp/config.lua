@@ -284,7 +284,7 @@ function config.luasnip()
       },
     })
     require("luasnip.loaders.from_vscode").lazy_load({
-      paths = { "./snippets" },
+      paths = { "./snippets", path(packer_dir, "start", "friendly-snippets") },
     })
     luasnip.filetype_extend("cpp", { "c" })
   end
