@@ -151,6 +151,10 @@ local editor = {
   ["dstein64/vim-startuptime"] = {
     cmd = "StartupTime",
   },
+  ["ray-x/web-tools.nvim"] = {
+    event = "CmdlineEnter",
+    run = "npm install -g browser-sync",
+  },
 }
 
 return editor
