@@ -304,4 +304,8 @@ function config.nvim_surround()
   GlobalPacker:setup("nvim-surround")
 end
 
+function config.web_tools()
+  GlobalPacker:setup("web-tools")
+end
+
 return config
