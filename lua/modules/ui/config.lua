@@ -204,6 +204,7 @@ function config.colorizer()
     "css",
     "javascript",
     "html",
+    "vue",
   })
 end
 
