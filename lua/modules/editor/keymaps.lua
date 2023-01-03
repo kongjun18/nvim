@@ -94,10 +94,6 @@ local M = {
     "<Cmd>w<CR>",
     "Save File",
   },
-  ["<C-I>"] = { -- Neovim can't distinguish <Tab> and <C-I> if we don't remap it.
-    t("<C-I>"),
-    "Help Neovim Distinguish <C-I>",
-  },
   ["dd"] = {
     function()
       if vim.api.nvim_get_current_line():match("^%s*$") then
