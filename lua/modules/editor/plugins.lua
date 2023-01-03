@@ -10,9 +10,6 @@ local editor = {
   ["lambdalisue/suda.vim"] = {
     cmd = { "SudaRead", "SudaWrite" },
   },
-  ["bronson/vim-visual-star-search"] = {
-    keys = { "*", "#" },
-  },
   ["andymass/vim-matchup"] = {
     config = config.matchup,
     event = "BufReadPost",
