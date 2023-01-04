@@ -52,6 +52,17 @@ function config.nightfox()
         inverse = {
           match_paren = true,
         },
+        modules = {
+          cmp = true,
+          dap_ui = true,
+          fidget = true,
+          gitsign = true,
+          notify = true,
+          telescope = true,
+          tsrainbow = true,
+          whichkey = true,
+          navic = true,
+        },
       },
     })
     vim.cmd("colorscheme dayfox")
