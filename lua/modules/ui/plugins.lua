@@ -64,7 +64,7 @@ local ui = {
   ["machakann/vim-highlightedyank"] = {
     event = "BufReadPost",
   },
-  ["https://sr.ht/~p00f/nvim-ts-rainbow"] = {
+  ["https://git.sr.ht/~p00f/nvim-ts-rainbow"] = {
     requires = "nvim-treesitter/nvim-treesitter",
     after = "nvim-treesitter",
     event = "BufReadPost",
