@@ -6,6 +6,7 @@ local M = {
     cmake = "cmake",
     css = "cssls",
     html = "html",
+    htmldjango = "html",
     javascript = "tsserver",
     vue = "vuels",
     python = "pylsp",
