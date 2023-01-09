@@ -238,6 +238,30 @@ function config.luasnip()
       paths = { "./snippets", path(packer_dir, "start", "friendly-snippets") },
     })
     luasnip.filetype_extend("cpp", { "c" })
+    luasnip_keymaps = {
+      ["<C-j>"] = {
+        function()
+          local snip = require("luasnip")
+          if snip.expand_or_jumpable() then
+            snip.expand_or_jump()
+          end
+        end,
+        mode = { "i", "s" },
+        "Jump to Next Snippet Location",
+      },
+      ["<C-k>"] = {
+        function()
+          local snip = require("luasnip")
+          if snip.jumpable(-1) then
+            snip.jump(-1)
+          end
+        end,
+        mode = { "i", "s" },
+        "Jump to Previous Snippet Location",
+      },
+    }
+    local wk = require("which-key")
+    wk.register(luasnip_keymaps)
   end
 end
 

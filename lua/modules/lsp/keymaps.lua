@@ -101,26 +101,6 @@ local M = {
     "<cmd>lua vim.lsp.buf.rename()<CR>",
     "Rename Symbol",
   },
-  ["<C-j>"] = {
-    function()
-      local snip = require("luasnip")
-      if snip.expand_or_jumpable() then
-        snip.expand_or_jump()
-      end
-    end,
-    mode = { "i", "s" },
-    "Jump to Next Snippet Location",
-  },
-  ["<C-k>"] = {
-    function()
-      local snip = require("luasnip")
-      if snip.jumpable(-1) then
-        snip.jump(-1)
-      end
-    end,
-    mode = { "i", "s" },
-    "Jump to Previous Snippet Location",
-  },
 }
 
 return M
