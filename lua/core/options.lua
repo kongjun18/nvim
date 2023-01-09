@@ -24,6 +24,7 @@ disabled_plugins = {
 
 basic_options = {
   compatible = false,
+  exrc = true, -- Enable .nvimrc
   backspace = "eol,start,indent",
   autoindent = true,
   cindent = true,

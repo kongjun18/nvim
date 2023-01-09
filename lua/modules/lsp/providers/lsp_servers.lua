@@ -1,6 +1,7 @@
 local M = {
   servers = {
     go = "gopls",
+    c = "ccls",
     cpp = "ccls",
     cmake = "cmake",
     css = "cssls",
