@@ -137,11 +137,6 @@ local M = {
     "Scroll Quickfix Down",
   },
 
-  ["<C-H>"] = { "<C-w>h", "Move Cursor To Left Window" },
-  ["<C-L>"] = { "<C-w>l", "Move Cursor To Right Window" },
-  ["<C-J>"] = { "<C-w>j", "Move Cursor To Window Below" },
-  ["<C-K>"] = { "<C-w>k", "Move Cursor To Window Above" },
-
   ["<leader>t"] = {
     ["name"] = "+tree/translate",
     ["t"] = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
