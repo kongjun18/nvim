@@ -5,12 +5,14 @@ local completion = {
     after = "nvim-lspconfig",
     config = config.lsp_signature,
   },
-  -- FIXME: display errorneous function comment
   ["neovim/nvim-lspconfig"] = {
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufRead", "BufNewFile" },
   },
-  ["williamboman/nvim-lsp-installer"] = {
-    config = config.lsp_installer,
+  ["williamboman/mason.nvim"] = {
+    opt = true,
+  },
+  ["williamboman/mason-lspconfig.nvim"] = {
+    config = config.mason_lspconfig,
     after = "nvim-lspconfig",
   },
   ["L3MON4D3/LuaSnip"] = {
@@ -54,7 +56,7 @@ local completion = {
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
     config = config.null_ls,
-    after = "nvim-lsp-installer",
+    after = "nvim-lspconfig",
   },
   ["mfussenegger/nvim-lint"] = {
     config = config.nvim_lint,
