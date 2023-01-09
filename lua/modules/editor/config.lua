@@ -197,7 +197,7 @@ function config.gutentags()
   -- All ctags files suffixed with .tag'
   vim.g.gutentags_ctags_tagfile = ".tag"
   -- Only support universal-ctags
-  vim.g.gutentags_ctags_extra_args = {
+  local gutentags_ctags_extra_args = {
     "--fields=+niazS",
     "--extras=+q",
     "--c++-kinds=+px",
@@ -207,8 +207,14 @@ function config.gutentags()
     "--exclude=Build",
     "--exclude=.cache",
     "--exclude=doc",
-    "--output-format=e-ctags",
   }
+  -- ctags_extra_args is defined in .nvimrc in order to extend g:gutentags_ctags_extra_args
+  if ctags_extra_args then
+    for _, arg in ipairs(ctags_extra_args) do
+      table.insert(gutentags_ctags_extra_args, arg)
+    end
+  end
+  vim.g.gutentags_ctags_extra_args = gutentags_ctags_extra_args
   -- Set cache directory
   vim.g.gutentags_cache_dir = path(cache_dir, "tags")
 end
