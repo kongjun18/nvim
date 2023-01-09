@@ -149,6 +149,7 @@ local editor = {
     cmd = "StartupTime",
   },
   ["ray-x/web-tools.nvim"] = {
+    config = config.web_tools,
     event = "CmdlineEnter",
     run = "npm install -g browser-sync",
   },
