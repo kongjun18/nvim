@@ -10,7 +10,7 @@ local ui = {
   },
   ["j-hui/fidget.nvim"] = {
     config = config.fidget,
-    after = "nvim-lsp-installer",
+    after = "nvim-lspconfig",
   },
   ["nvim-lualine/lualine.nvim"] = {
     config = config.lualine,
