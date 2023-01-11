@@ -70,9 +70,6 @@ local editor = {
   ["tpope/vim-sleuth"] = {
     event = "BufReadPost",
   },
-  ["gpanders/editorconfig.nvim"] = {
-    event = "BufReadPost",
-  },
   ["junegunn/vim-easy-align"] = {
     cmd = "EasyAlign",
   },
