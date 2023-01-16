@@ -105,6 +105,52 @@ local M = {
     expr = true,
     "Smart dd",
   },
+  ["<2-LeftMouse>"] = {
+    function()
+      vim.lsp.buf.definition()
+    end,
+    "Jump to Definition",
+  },
+  ["<RightMouse>"] = {
+    t("<C-O>"),
+    noremap = false,
+    "Jump to Older Location",
+  },
+  ["<2-RightMouse>"] = {
+    t("<C-O><C-O>"),
+    noremap = false,
+    "Jump to Older Location",
+  },
+  ["<3-RightMouse>"] = {
+    t("<C-O><C-O><C-O>"),
+    noremap = false,
+    "Jump to Older Location",
+  },
+  ["<4-RightMouse>"] = {
+    t("<C-O><C-O><C-O><C-O>"),
+    noremap = false,
+    "Jump to Older Location",
+  },
+  ["<M-RightMouse>"] = {
+    t("<C-I>"),
+    noremap = false,
+    "Jump to Newer Location",
+  },
+  ["<M-2-RightMouse>"] = {
+    t("<C-I><C-I>"),
+    noremap = false,
+    "Jump to Newer Location",
+  },
+  ["<M-3-RightMouse>"] = {
+    t("<C-I><C-I><C-I>"),
+    noremap = false,
+    "Jump to Newer Location",
+  },
+  ["<M-4-RightMouse>"] = {
+    t("<C-I><C-I><C-I><C-I>"),
+    noremap = false,
+    "Jump to Newer Location",
+  },
 }
 
 return M
