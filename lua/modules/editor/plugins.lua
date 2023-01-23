@@ -1,6 +1,3 @@
--- TODO: database support: tpope/vim-dadbod
--- TODO: doc comment support: vim-doge
--- TODO: substitue fcitx.vim with fcitx.nvim
 local config = require("modules.editor.config")
 local editor = {
   ["kongjun18/vim-unimpaired"] = {
@@ -73,7 +70,7 @@ local editor = {
   ["junegunn/vim-easy-align"] = {
     cmd = "EasyAlign",
   },
-  ["lilydjwg/fcitx.vim"] = {
+  ["h-hg/fcitx.nvim"] = {
     event = "InsertEnter",
   },
   ["folke/todo-comments.nvim"] = {
