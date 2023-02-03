@@ -1,9 +1,5 @@
 local config = {}
 
-config.dictionaries = {
-  ["*"] = "word.dict",
-}
-
 config.keymaps = require("modules.lsp.keymaps")
 
 config.commands = {
@@ -178,9 +174,6 @@ function config.cmp()
       { name = "buffer" },
       { name = "calc" },
       { name = "path" },
-    }, {
-      -- { name = "dictionary" },
-      -- { name = "spell" },
     }),
   })
   cmp.setup.filetype({ "mysql", "plsql", "sql" }, {
@@ -266,23 +259,8 @@ function config.luasnip()
 end
 
 function config.dictionary()
-  local dict2path = function(dict)
-    return dict_dir .. path_sep .. dict
-  end
-
-  local dictionaries = require("modules.lsp.config").dictionaries
-  -- Avoid re-modifying the dictionaries path after :PackerCompile
-  if not loaded_dictionaries then
-    for ft, dict in pairs(dictionaries) do
-      dictionaries[ft] = dict2path(dict)
-    end
-  end
-
-  if GlobalPacker:setup("cmp_dictionary", {
-    dic = dictionaries,
-  }) then
-    loaded_dictionaries = true
-  end
+  vim.opt.dict:append({ path(dict_dir, "word.dict") })
+  require("cmp_dictionary").update()
 end
 
 function config.null_ls()

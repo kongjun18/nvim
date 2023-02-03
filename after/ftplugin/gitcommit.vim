@@ -6,8 +6,3 @@
 
 setlocal wrap           " Wrap line
 setlocal spell          " Enable spell checking
-" Initialize cmp-dictionary manually.
-" Because cmp-dictionary is loaded later than BufEnter event, cmp-dictionary's
-" BufEnter autocmds are not triggered.
-lua require("cmp").register_source("dictionary", require("cmp_dictionary").new())
-lua require("cmp_dictionary.caches").update()
