@@ -13,7 +13,7 @@ local M = {
     eslint = "eslint",
     bash = "bashls",
     sql = "sqls",
-    lua = "sumneko_lua",
+    lua = "lua_ls",
     vim = "vimls",
 
     json = "jsonls",
