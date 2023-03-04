@@ -259,8 +259,11 @@ function config.luasnip()
 end
 
 function config.dictionary()
-  vim.opt.dict:append({ path(dict_dir, "word.dict") })
-  require("cmp_dictionary").update()
+  if not DictionaryLoaded then
+    vim.opt.dict:append({ path(dict_dir, "word.dict") })
+    require("cmp_dictionary").update()
+  end
+  DictionaryLoaded = true
 end
 
 function config.null_ls()
