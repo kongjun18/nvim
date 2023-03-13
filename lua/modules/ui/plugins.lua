@@ -76,7 +76,6 @@ local ui = {
   ["kevinhwang91/nvim-bqf"] = {
     ft = "qf",
     config = config.bqf,
-    setup = config.setup_bqf,
   },
   ["folke/trouble.nvim"] = {
     event = "CmdlineEnter",
@@ -96,6 +95,9 @@ local ui = {
   },
   ["kristijanhusak/vim-dadbod-ui"] = {
     event = "CmdlineEnter",
+  },
+  ["https://gitlab.com/yorickpeterse/nvim-pqf"] = {
+    config = config.pqf,
   },
 }
 return ui
