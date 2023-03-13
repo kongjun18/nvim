@@ -99,5 +99,9 @@ local ui = {
   ["https://gitlab.com/yorickpeterse/nvim-pqf"] = {
     config = config.pqf,
   },
+  ["nyngwang/murmur.lua"] = {
+    event = "BufReadPost",
+    config = config.murmur,
+  },
 }
 return ui
