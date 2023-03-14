@@ -106,16 +106,6 @@ autocmd("WinEnter", {
   end,
 })
 
-augroup("packer_complete", {})
-autocmd("User PackerComplete", {
-  desc = "Compile plugins and clear bootstrap flag",
-  group = "packer_complete",
-  once = true,
-  callback = function()
-    GlobalPacker.bootstrap = nil
-  end,
-})
-
 augroup("bufferline", {})
 autocmd("VimEnter", {
   callback = function()

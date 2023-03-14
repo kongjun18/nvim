@@ -2,85 +2,80 @@
 local config = require("modules.lsp.config")
 local completion = {
   ["ray-x/lsp_signature.nvim"] = {
-    after = "nvim-lspconfig",
+    dependencies = { "nvim-lspconfig" },
     config = config.lsp_signature,
   },
   ["neovim/nvim-lspconfig"] = {
-    event = { "BufRead", "BufNewFile" },
+    event = "VeryLazy",
   },
   ["williamboman/mason.nvim"] = {
-    opt = true,
+
+    event = "VeryLazy",
   },
   ["williamboman/mason-lspconfig.nvim"] = {
     config = config.mason_lspconfig,
-    after = "nvim-lspconfig",
+    dependencies = { "nvim-lspconfig", "mason.nvim" },
   },
   ["L3MON4D3/LuaSnip"] = {
     config = config.luasnip,
-    requires = {
-      "hrsh7th/nvim-cmp",
+    event = "VeryLazy",
+    dependencies = {
       "rafamadriz/friendly-snippets",
     },
-    event = "InsertEnter",
   },
   ["hrsh7th/nvim-cmp"] = {
     config = config.cmp,
-    event = { "InsertEnter", "CmdlineEnter" }, -- Will make first insert slow
-    after = "LuaSnip",
-    requires = {
+    event = "InsertEnter",
+    dependencies = {
       "onsails/lspkind-nvim",
       "lukas-reineke/cmp-under-comparator",
-      { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-      { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
-      { "hrsh7th/cmp-path", after = "nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lsp", opt = true },
-      { "hrsh7th/cmp-calc", after = "nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-      { "f3fora/cmp-spell", after = "nvim-cmp" },
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-calc",
+      "hrsh7th/cmp-nvim-lua",
+      "f3fora/cmp-spell",
+      "saadparwaiz1/cmp_luasnip",
       {
         "uga-rosa/cmp-dictionary",
-        after = "nvim-cmp",
         config = config.dictionary,
+        event = "VeryLazy",
       },
       {
         "kristijanhusak/vim-dadbod-completion",
-        requires = "tpope/vim-dadbod",
-        after = "nvim-cmp",
-      },
-      {
-        "saadparwaiz1/cmp_luasnip",
-        requires = "LuaSnip",
-        after = "nvim-cmp",
+        event = "VeryLazy",
+        dependencies = "tpope/vim-dadbod",
       },
     },
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
     config = config.null_ls,
-    after = "nvim-lspconfig",
+    dependencies = { "nvim-lspconfig" },
   },
   ["mfussenegger/nvim-lint"] = {
     config = config.nvim_lint,
-    event = { "BufWritePost", "InsertLeave" },
+    event = "VeryLazy",
   },
   ["ii14/lsp-command"] = {
-    requires = "nvim-lspconfig",
-    after = "nvim-lspconfig",
-    event = "CmdlineEnter",
+    dependencies = "nvim-lspconfig",
   },
   ["rmagatti/goto-preview"] = {
-    after = "nvim-lspconfig",
+    event = "VeryLazy",
+    dependencies = { "nvim-lspconfig" },
     config = config.goto_preview,
   },
   ["someone-stole-my-name/yaml-companion.nvim"] = {
-    requires = "nvim-lua/plenary.nvim",
+    event = "VeryLazy",
+    dependencies = "nvim-lua/plenary.nvim",
   },
   ["ray-x/go.nvim"] = {
     ft = "go",
     config = config.go,
-    requires = {
+    dependencies = {
       "ray-x/guihua.lua",
-      run = "cd lua/fzy && make",
-      after = "go.nvim",
+      build = "cd lua/fzy && make",
+      event = "VeryLazy",
     },
   },
 }

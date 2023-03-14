@@ -293,7 +293,7 @@ function config.null_ls()
 end
 
 function config.lsp_signature()
-  GlobalPacker:setup("lsp_signature", {
+  require("lsp_signature").setup({
     bind = true,
     hint_prefix = "⤷",
   })
@@ -331,7 +331,7 @@ function config.goto_preview()
       telescope = telescope.get_ivy({ hide_preview = false }),
     }
   end
-  GlobalPacker:setup("goto-preview", conf)
+  require("goto-preview").setup(conf)
 end
 
 function config.nvim_lint()
@@ -348,13 +348,12 @@ function config.nvim_lint()
 end
 
 function config.go()
-  GlobalPacker:setup("go", {
+  require("go").setup({
     lsp_keymaps = false,
   })
 end
 
 function config.mason_lspconfig()
-  vim.cmd("PackerLoad mason.nvim")
   require("mason").setup({
     ui = {
       icons = {
@@ -386,7 +385,6 @@ function config.mason_lspconfig()
         if _G[server .. "_opts"] then
           customed = _G[server .. "_opts"]
         end
-        vim.cmd("PackerLoad cmp-nvim-lsp")
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
         local opts = vim.tbl_extend("force", {
           capabilities = capabilities,

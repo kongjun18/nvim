@@ -5,8 +5,6 @@ function config.nvim_dap()
   if not ok then
     return
   end
-  -- GlobalPacker:ensure_loaded("nvim-dap-ui")
-  vim.cmd("PackerLoad nvim-dap-ui")
   -- Toggle dap ui automatically
   local dapui = require("dapui")
   dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -87,15 +85,15 @@ function config.nvim_dap()
 end
 
 function config.nvim_dap_virtual_text()
-  GlobalPacker:setup("nvim-dap-virtual-text")
+  require("nvim-dap-virtual-text").setup()
 end
 
 function config.nvim_dap_go()
-  GlobalPacker:setup("dap-go")
+  require("dap-go").setup()
 end
 
 function config.nvim_dap_ui()
-  GlobalPacker:setup("dapui", {
+  require("dapui").setup({
     layouts = {
       {
         elements = {

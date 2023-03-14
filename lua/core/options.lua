@@ -1,27 +1,3 @@
-disabled_plugins = {
-  "gzip",
-  "tar",
-  "tarPlugin",
-  "zip",
-  "zipPlugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-  "2html_plugin",
-  "logiPat",
-  "matchit",
-  "matchparen",
-  "rrhelper",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "rplugin",
-  "spellfile",
-  "tohtml",
-  "tutor.vim",
-}
-
 basic_options = {
   compatible = false,
   exrc = true, -- Enable .nvimrc
@@ -116,10 +92,6 @@ local function bind_option(opts)
       o[k] = v
     end
   end
-end
-
-for _, v in ipairs(disabled_plugins) do
-  vim.g["loaded_" .. v] = 1
 end
 
 bind_option(basic_options)

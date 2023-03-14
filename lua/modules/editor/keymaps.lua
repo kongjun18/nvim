@@ -57,7 +57,6 @@ local M = {
   -- Terminal
   ["<M-=>"] = {
     function()
-      vim.cmd([[silent! PackerLoad vim-terminal-help]])
       vim.fn.TerminalToggle()
     end,
     "Toggle Terminal",

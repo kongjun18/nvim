@@ -1,6 +1,6 @@
 local M = {}
 M.buf2tab = {}
-M.ft_blacklist = { "qf", "vista_kind", "help" }
+M.ft_blacklist = { "qf", "vista", "help" }
 M.bt_blacklist = { "prompt", "nofile", "terminal" }
 
 M.in_ft_blacklist = function(buf)
@@ -31,6 +31,7 @@ M.close_buf = function(buf, tab)
   end
   if #buf2tab[buf] == 1 then -- If this buffer only used in one tab, deletes it.
     vim.api.nvim_buf_delete(buf, { force = true })
+    require("bufferline.ui").refresh()
   else
     -- Closes the windows of the buffer in the current tabpage. This is to
     -- handle split screen situations. If the buffer in the last buffer in the
