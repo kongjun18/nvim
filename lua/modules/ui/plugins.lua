@@ -2,106 +2,102 @@ local config = require("modules.ui.config")
 local ui = {
   ["kyazdani42/nvim-tree.lua"] = {
     config = config.nvim_tree,
-    event = "CmdlineEnter",
+    event = "VeryLazy",
   },
   ["EdenEast/nightfox.nvim"] = {
+    lazy = false,
     config = config.nightfox,
-    run = ":NightfoxCompile",
+    priority = 1000,
+    build = ":NightfoxCompile",
   },
   ["j-hui/fidget.nvim"] = {
     config = config.fidget,
-    after = "nvim-lspconfig",
+    event = "VeryLazy",
+    dependencies = { "nvim-lspconfig" },
   },
   ["nvim-lualine/lualine.nvim"] = {
+    event = "VeryLazy",
     config = config.lualine,
-    requires = {
+    dependencies = {
       {
         "SmiteshP/nvim-navic",
-        opt = true,
         config = config.navic,
       },
-      { "kyazdani42/nvim-web-devicons", opt = true },
+      { "kyazdani42/nvim-web-devicons" },
     },
-    event = { "BufReadPost", "InsertLeave" },
   },
   ["akinsho/bufferline.nvim"] = {
+    event = "VeryLazy",
     config = config.bufferline,
-    event = { "BufReadPost", "BufCreate" },
   },
   ["jeffkreeftmeijer/vim-numbertoggle"] = {
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["camspiers/animate.vim"] = {
-    opt = true,
+    event = "VeryLazy",
   },
   ["camspiers/lens.vim"] = {
     config = config.lens,
-    requires = "animate.vim",
-    event = "WinEnter",
+    event = "VeryLazy",
+    dependencies = { "animate.vim" },
   },
   ["Pocco81/truezen.nvim"] = {
-    cmd = {
-      "TZMinimalist",
-      "TZFocus",
-      "TZAtaraxis",
-      "TZBottom",
-      "TZTop",
-      "TZLeft",
-    },
+    event = "VeryLazy",
   },
   ["nacro90/numb.nvim"] = {
     config = config.numb,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["winston0410/range-highlight.nvim"] = {
-    requires = { "winston0410/cmd-parser.nvim", opt = true },
+    event = "VeryLazy",
+    dependencies = { "winston0410/cmd-parser.nvim" },
     config = config.range_highlight,
-    event = "BufReadPost",
   },
   ["rcarriga/nvim-notify"] = {
     config = config.notify,
+    event = "VeryLazy",
   },
   ["machakann/vim-highlightedyank"] = {
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["https://git.sr.ht/~p00f/nvim-ts-rainbow"] = {
-    requires = "nvim-treesitter/nvim-treesitter",
-    after = "nvim-treesitter",
-    event = "BufReadPost",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    event = "VeryLazy",
   },
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["kevinhwang91/nvim-bqf"] = {
-    ft = "qf",
     config = config.bqf,
+    event = "VeryLazy",
   },
   ["folke/trouble.nvim"] = {
-    event = "CmdlineEnter",
     config = config.trouble,
+    event = "VeryLazy",
   },
   ["liuchengxu/vista.vim"] = {
     config = config.vista,
-    event = "CmdlineEnter",
+    event = "VeryLazy",
   },
   ["norcalli/nvim-colorizer.lua"] = {
     config = config.colorizer,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["stevearc/dressing.nvim"] = {
     config = config.dressing,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["kristijanhusak/vim-dadbod-ui"] = {
-    event = "CmdlineEnter",
+    ft = "qf",
   },
   ["https://gitlab.com/yorickpeterse/nvim-pqf"] = {
     config = config.pqf,
+    event = "VeryLazy",
   },
   ["nyngwang/murmur.lua"] = {
-    event = "BufReadPost",
     config = config.murmur,
+    event = "VeryLazy",
   },
 }
 return ui

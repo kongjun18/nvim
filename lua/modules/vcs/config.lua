@@ -1,7 +1,7 @@
 local config = {}
 
 function config.gitsigns()
-  GlobalPacker:setup("gitsigns", {
+  require("gitsigns").setup({
     yadm = {
       enable = true,
     },
@@ -9,7 +9,7 @@ function config.gitsigns()
 end
 
 function config.git_conflict()
-  GlobalPacker:setup("git-conflict")
+  require("git-conflict").setup()
 end
 
 return config

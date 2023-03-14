@@ -17,18 +17,18 @@ function config.terminal_help()
 end
 
 function config.auto_session()
-  GlobalPacker:setup("auto-session", {
+  require("auto-session").setup({
     auto_session_enabled = false,
     auto_session_enable_last_session = false,
   })
 end
 
 function config.ts_autotag()
-  GlobalPacker:setup("nvim-ts-autotag")
+  require("nvim-ts-autotag").setup()
 end
 
 function config.todo_comments()
-  GlobalPacker:setup("todo-comments")
+  require("todo-comments").setup()
 end
 
 function config.autopairs()
@@ -124,12 +124,12 @@ function config.treesitter()
   require("nvim-treesitter.install").prefer_git = true
   -- Download packages from mirror
   local parsers = require("nvim-treesitter.parsers").get_parser_configs()
-  for _, p in pairs(parsers) do
-    p.install_info.url = p.install_info.url:gsub(
-      "https://github.com/",
-      GlobalPacker.mirror
-    )
-  end
+  -- for _, p in pairs(parsers) do
+  -- p.install_info.url = p.install_info.url:gsub(
+  -- "https://github.com/",
+  -- GlobalPacker.mirror
+  -- )
+  -- end
 
   treesitter.setup({
     auto_install = true,
@@ -244,8 +244,6 @@ function config.telescope()
     return
   end
 
-  vim.cmd([[ silent! PackerLoad telescope-fzy-native.nvim ]])
-  vim.cmd([[ silent! PackerLoad telescope-asynctasks.nvim ]])
   -- Uses ivy theme
   local themes = require("telescope.themes")
   local defaults = themes.get_ivy()
@@ -276,7 +274,7 @@ function config.telescope()
 end
 
 function config.neogen()
-  GlobalPacker:setup("neogen", {
+  require("neogen").setup({
     snippet_engine = "luasnip",
     languages = {
       template = {
@@ -287,7 +285,7 @@ function config.neogen()
 end
 
 function config.project()
-  GlobalPacker:setup("project_nvim")
+  require("project_nvim").setup()
 end
 
 -- TODO: comment and copy
@@ -304,15 +302,15 @@ function config.nerdcommenter()
 end
 
 function config.nvim_lastplace()
-  GlobalPacker:setup("nvim-lastplace")
+  require("nvim-lastplace").setup()
 end
 
 function config.nvim_surround()
-  GlobalPacker:setup("nvim-surround")
+  require("nvim-surround").setup()
 end
 
 function config.web_tools()
-  GlobalPacker:setup("web-tools")
+  require("web-tools").setup()
 end
 
 return config

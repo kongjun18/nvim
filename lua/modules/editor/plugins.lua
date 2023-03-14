@@ -1,51 +1,52 @@
 local config = require("modules.editor.config")
 local editor = {
-  ["kongjun18/vim-unimpaired"] = {
-    event = { "BufReadPost", "BufNewFile" },
-    ft = "qf",
+  ["folke/which-key.nvim"] = {
+    event = "VeryLazy",
+    opts = {
+      key_labels = {
+        ["<Space>"] = "SPC",
+        ["Cr>"] = "RET",
+        ["<Tab>"] = "TAB",
+      },
+    },
   },
   ["lambdalisue/suda.vim"] = {
-    cmd = { "SudaRead", "SudaWrite" },
+    event = "VeryLazy",
   },
   ["andymass/vim-matchup"] = {
     config = config.matchup,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["ethanholz/nvim-lastplace"] = {
-    event = "BufReadPost",
     config = config.nvim_lastplace,
+    event = "VeryLazy",
   },
   ["tommcdo/vim-exchange"] = {
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["rmagatti/auto-session"] = {
     config = config.auto_session,
-    cmd = { "SaveSession", "RestoreSession", "DeleteSession" },
+    event = "VeryLazy",
   },
   ["wellle/targets.vim"] = {
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
-  ["skywind3000/vim-terminal-help"] = {
-    cmd = { "H", "TerminalToggle" },
-  },
+  ["skywind3000/vim-terminal-help"] = {},
   ["tpope/vim-rsi"] = {
-    event = "CmdlineEnter",
+    event = "VeryLazy",
   },
   ["kylechui/nvim-surround"] = {
     config = config.nvim_surround,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["tpope/vim-projectionist"] = {
-    setup = config.projectionist,
-    event = "CmdlineEnter",
-  },
-  ["tpope/vim-repeat"] = {
-    event = "BufReadPost",
+    init = config.projectionist,
+    event = "VeryLazy",
   },
   ["yianwillis/vimcdoc"] = {},
   ["milisims/nvim-luaref"] = {},
   ["lfv89/vim-interestingwords"] = {
-    keys = { "<Leader>k", "<leader>K" },
+    event = "VeryLazy",
   },
   ["windwp/nvim-ts-autotag"] = {
     ft = {
@@ -60,92 +61,88 @@ local editor = {
       "php",
     },
     config = config.ts_autotag,
-    requires = "nvim-treesitter/nvim-treesitter",
-    after = "nvim-treesitter",
-    event = "InsertEnter",
+    event = "VeryLazy",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
   ["tpope/vim-sleuth"] = {
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["junegunn/vim-easy-align"] = {
-    cmd = "EasyAlign",
+    event = "VeryLazy",
   },
   ["h-hg/fcitx.nvim"] = {
-    event = "InsertEnter",
+    event = "VeryLazy",
   },
   ["folke/todo-comments.nvim"] = {
-    requires = "nvim-lua/plenary.nvim",
+    event = "VeryLazy",
+    dependencies = "nvim-lua/plenary.nvim",
     config = config.todo_comments,
-    cmd = { "TodoQuickFix", "TodoLocList", "TodoTrouble", "TodoTelescope" },
   },
   ["windwp/nvim-autopairs"] = {
-    requires = "hrsh7th/nvim-cmp",
+    event = "VeryLazy",
+    dependencies = { "hrsh7th/nvim-cmp" },
     config = config.autopairs,
-    after = "nvim-cmp",
   },
   ["nvim-treesitter/nvim-treesitter"] = {
     config = config.treesitter,
     event = { "BufReadPost", "BufNewFile" },
   },
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
-    after = "nvim-treesitter",
+    dependencies = { "nvim-treesitter" },
   },
   ["preservim/nerdcommenter"] = {
-    event = "BufReadPost",
-    setup = config.nerdcommenter,
+    init = config.nerdcommenter,
+    event = "VeryLazy",
   },
   ["ludovicchabant/vim-gutentags"] = {
     config = config.gutentags,
-    event = "BufReadPost",
+    event = "VeryLazy",
   },
   ["skywind3000/asyncrun.vim"] = {
-    event = "CmdlineEnter",
+    event = "VeryLazy",
   },
   ["skywind3000/asynctasks.vim"] = {
-    requires = "asyncrun.vim",
-    event = "CmdlineEnter",
+    dependencies = "asyncrun.vim",
     config = config.asynctasks,
   },
   ["ahmedkhalf/project.nvim"] = {
-    event = "BufEnter",
     config = config.project,
+    event = "VeryLazy",
   },
   ["nvim-telescope/telescope.nvim"] = {
-    requires = {
+    event = "VeryLazy",
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "ahmedkhalf/project.nvim",
-      { "kyazdani42/nvim-web-devicons", opt = true },
+      { "kyazdani42/nvim-web-devicons" },
       {
         "GustavoKatel/telescope-asynctasks.nvim",
-        requires = {
+        dependencies = {
           "nvim-lua/popup.nvim",
           "skywind3000/asynctasks.vim",
         },
-        opt = true,
       },
       {
         "kongjun18/telescope-fzy-native.nvim",
-        opt = true,
       },
     },
     config = config.telescope,
-    event = "CmdlineEnter",
+    event = "VeryLazy",
   },
   ["danymat/neogen"] = {
     config = config.neogen,
-    requires = "nvim-treesitter/nvim-treesitter",
-    after = "nvim-treesitter",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
   ["ojroques/vim-oscyank"] = {
-    cmd = "OSCYank",
+    event = "VeryLazy",
   },
   ["dstein64/vim-startuptime"] = {
-    cmd = "StartupTime",
+    event = "VeryLazy",
   },
   ["ray-x/web-tools.nvim"] = {
     config = config.web_tools,
-    event = "CmdlineEnter",
-    run = "npm install -g browser-sync",
+    event = "VeryLazy",
+    build = "npm install -g browser-sync",
   },
 }
 
