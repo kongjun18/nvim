@@ -1,7 +1,7 @@
 local config = {}
 function config.nvim_tree()
   vim.g.respect_buf_cwd = 1
-  GlobalPacker:setup("nvim-tree", {
+  require("nvim-tree").setup({
     hijack_netrw = true,
     open_on_setup = false,
     ignore_ft_on_setup = {},
@@ -70,8 +70,6 @@ function config.nightfox()
 end
 
 function config.lualine()
-  vim.cmd("PackerLoad nvim-navic")
-  vim.cmd("PackerLoad nvim-web-devicons")
   local navic = require("nvim-navic")
   local opts = {
     sections = {
@@ -94,15 +92,14 @@ function config.lualine()
       "man",
     },
   }
-  GlobalPacker:setup("lualine", opts)
+  require("lualine").setup(opts)
 end
 
 function config.fidget()
-  GlobalPacker:setup("fidget")
+  require("fidget").setup()
 end
 
 function config.lens()
-  vim.cmd([[silent! PackerLoad animate.vim]])
   vim.g["lens#disabled_filetypes"] = {
     "list",
     "gitcommit",
@@ -118,11 +115,11 @@ function config.lens()
 end
 
 function config.numb()
-  GlobalPacker:setup("numb")
+  require("numb").setup()
 end
 
 function config.range_highlight()
-  GlobalPacker:setup("range-highlight")
+  require("range-highlight").setup()
 end
 
 function config.notify()
@@ -134,12 +131,11 @@ function config.notify()
 end
 
 function config.luatab()
-  vim.cmd("PackerLoad nvim-web-devicons")
-  GlobalPacker:setup("luatab")
+  require("luatab").setup()
 end
 
 function config.indent_blankline()
-  local indent_blankline = GlobalPacker:setup("indent_blankline", {
+  local indent_blankline = require("indent_blankline").setup({
     space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = true,
@@ -173,17 +169,14 @@ end
 
 -- FIXME: [Problem with make and quickfix list](https://github.com/folke/trouble.nvim/issues/87)
 function config.trouble()
-  GlobalPacker:setup()
+  require("trouble").setup()
 end
 
+-- FIXME: ctags 无法在 cpp 头文件使用
 function config.vista()
-  vim.g.vista_default_executive = "ctags"
   vim.g.vista_stay_on_open = 0
   vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
-  if packer_plugins and packer_plugins["nvim-lspconfig"] then
-    vim.g.vista_default_executive = "nvim_lsp"
-  end
-  vim.g["vista#renderer#enable_icon"] = 1
+  vim.g["vista#executive#ctags#support_json_format"] = 1
   -- Vscode-like icons
   local overrided_icons = {
     var = "",
@@ -211,7 +204,7 @@ function config.vista()
 end
 
 function config.colorizer()
-  GlobalPacker:setup("colorizer", {
+  require("colorizer").setup({
     "css",
     "javascript",
     "html",
@@ -220,11 +213,11 @@ function config.colorizer()
 end
 
 function config.dressing()
-  GlobalPacker:setup("dressing")
+  require("dressing").setup()
 end
 
 function config.bqf()
-  GlobalPacker:setup("bqf", {
+  require("bqf").setup({
     preview = {
       should_preview_cb = function(bufnr, qwinid)
         local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -251,7 +244,7 @@ end
 
 config.bufferline = function()
   local bufferline = require("modules.ui.internal.bufferline")
-  GlobalPacker:setup("bufferline", {
+  require("bufferline").setup({
     options = {
       groups = {
         options = {

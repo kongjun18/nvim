@@ -4,7 +4,7 @@ M.linters = {
   sh = { "shellcheck" },
   go = { "golangcilint" },
   cpp = { "cppcheck" },
-  lua = { "luacheck" },
+  -- lua = { "luacheck" },
   javascript = { "eslint" },
   dockerfile = { "hadolint" },
 }
