@@ -34,30 +34,22 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- vim-unimpaired-like mappings adapted from vim-unimpaired
-map("n", "[os", function()
-  Util.enable("spell")
-end, { desc = "Enable Spelling" })
-map("n", "]os", function()
-  Util.disable("spell")
-end, { desc = "Disable Spelling" })
-map("n", "[ow", function()
-  Util.enable("wrap")
-end, { desc = "Enable Line Wrap" })
-map("n", "]ow", function()
-  Util.disable("wrap")
-end, { desc = "Disable Line Wrap" })
-map("n", "[ol", function()
-  Util.enable("list")
-end, { desc = "Enable List" })
-map("n", "]ol", function()
-  Util.disable("list")
-end, { desc = "Disable List" })
-map("n", "[op", function()
-  Util.enable("paste")
-end, { desc = "Enable Paste" })
-map("n", "]op", function()
-  Util.disable("paste")
-end, { desc = "Disable Paste" })
+local option_pairs = {
+  ["s"] = "spell",
+  ["w"] = "wrap",
+  ["l"] = "list",
+  ["p"] = "paste",
+  ["h"] = "hlsearch",
+}
+for key, option in pairs(option_pairs) do
+  map("n", "[o" .. key, function()
+    Util.enable(option)
+  end, { desc = "Enable " .. option })
+  map("n", "]o" .. key, function()
+    Util.disable(option)
+  end, { desc = "Disable " .. option })
+end
+
 map("n", "[oq", "<Cmd>copen<CR>", { desc = "Open Quickfix" })
 map("n", "]oq", "<Cmd>cclose<CR>", { desc = "Close Quickfix" })
 map("n", "[a", "<Cmd>previous<CR>")
