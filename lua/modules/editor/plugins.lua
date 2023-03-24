@@ -110,7 +110,7 @@ local editor = {
     event = "VeryLazy",
   },
   ["nvim-telescope/telescope.nvim"] = {
-    event = "VeryLazy",
+    event = "CmdlineEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "ahmedkhalf/project.nvim",
@@ -127,7 +127,6 @@ local editor = {
       },
     },
     config = config.telescope,
-    event = "VeryLazy",
   },
   ["danymat/neogen"] = {
     config = config.neogen,
