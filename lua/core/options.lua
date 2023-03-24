@@ -54,6 +54,7 @@ options = {
   mouse = "a",
   laststatus = 2,
   number = true,
+  relativenumber = true,
   showtabline = 2,
   diffopt = "internal,filler,closeoff,vertical,algorithm:histogram,indent-heuristic",
   errorbells = false,
