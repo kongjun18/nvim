@@ -19,9 +19,9 @@ function M.column()
     end
   end
   local components = {
-    sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or " ",
+    sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or "  ",
     [[%=]],
-    [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
+    [[%3{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
     git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*")
       or "  ",
   }
