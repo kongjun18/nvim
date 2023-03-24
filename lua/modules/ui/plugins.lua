@@ -30,9 +30,6 @@ local ui = {
     event = "VeryLazy",
     config = config.bufferline,
   },
-  ["jeffkreeftmeijer/vim-numbertoggle"] = {
-    event = "VeryLazy",
-  },
   ["camspiers/animate.vim"] = {
     event = "VeryLazy",
   },
