@@ -74,30 +74,51 @@ map("n", "[T", "<Cmd>tfirst<CR>")
 map("n", "]T", "<Cmd>tlast<CR>")
 
 -- Line operations
-map("n", "<Plug>(unimpaired-blank-up)", function()
-  local cmd = "put!=repeat(nr2char(10), v:count1)|silent '']+"
-  if vim.o.modified then
-    cmd = cmd
-      .. [[|silent! call repeat#set("<Plug>(unimpaired-blank-up)", v:count1)]]
-  end
-  return cmd
-end, { expr = true })
-map("n", "<Plug>(unimpaired-blank-down)", function()
-  local cmd = "put =repeat(nr2char(10), v:count1)|silent ''[-"
+function BlankUp()
+  local cmd = "put!=repeat(nr2char(10), v:count1)|silent ']+"
   if vim.o.modifiable then
     cmd = cmd
-      .. [[|silent! call repeat#set("<Plug>(unimpaired-blank-down)", v:count1)]]
+      .. [[|silent! call repeat#set("\<Plug>(unimpaired-blank-up)", v:count1)]]
   end
   return cmd
-end, { expr = true })
-map("n", "[<Space>", "<Plug>(unimpaired-blank-up)")
-map("n", "]<Space>", "<Plug>(unimpaired-blank-down)")
+end
 
-map("n", "ZA", "<Cmd>wqa<CR>", { desc = "Quit all buffers" })
+function BlankDown()
+  local cmd = "put =repeat(nr2char(10), v:count1)|silent '[-"
+  if vim.o.modifiable then
+    cmd = cmd
+      .. [[|silent! call repeat#set("\<Plug>(unimpaired-blank-down)", v:count1)]]
+  end
+  return cmd
+end
 
+map("n", "<Plug>(unimpaired-blank-up)", ":<C-U>exe v:lua.BlankUp()<CR>")
+map("n", "<Plug>(unimpaired-blank-down)", ":<C-U>exe v:lua.BlankDown()<CR>")
+map("n", "<Plug>unimpairedBlankUp", ":<C-U>exe v:lua.BlankUp()<CR>")
+map("n", "<Plug>unimpairedBlankDown", ":<C-U>exe v:lua.BlankDown()<CR>")
+
+map(
+  "n",
+  "[<Space>",
+  "<Plug>(unimpaired-blank-up)",
+  { desc = "Add [count] blank lines above the cursor" }
+)
+map(
+  "n",
+  "]<Space>",
+  "<Plug>(unimpaired-blank-down)",
+  { desc = "Add [count] blank lines below the cursor" }
+)
+
+-- Keep view centered on screen
 map("n", "<C-d>", "<C-d>zz", {})
 map("n", "<C-u>", "<C-u>zz", {})
 map("n", "<C-o>", "<C-o>zz", {})
 map("n", "<C-]>", "<C-]>zz", {})
+
+-- Distinguish <C-I> and <Tab>
 map("n", "<C-I>", "<C-I>")
 map("n", "<Tab>", "<Tab>")
+
+-- Quit Vim
+map("n", "ZA", "<Cmd>wqa<CR>", { desc = "Quit all buffers" })
