@@ -143,6 +143,9 @@ local editor = {
     event = "VeryLazy",
     build = "npm install -g browser-sync",
   },
+  ["pechorin/any-jump.vim"] = {
+    event = "CmdlineEnter",
+  },
 }
 
 return editor
