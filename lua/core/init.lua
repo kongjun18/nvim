@@ -1,5 +1,3 @@
--- TODO: add custom functions
--- TODO: add comments
 local core = {}
 require("core.global")
 require("core.autocmd")

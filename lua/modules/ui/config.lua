@@ -172,7 +172,6 @@ function config.trouble()
   require("trouble").setup()
 end
 
--- FIXME: ctags 无法在 cpp 头文件使用
 function config.vista()
   vim.g.vista_stay_on_open = 0
   vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }

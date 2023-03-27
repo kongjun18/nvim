@@ -1,5 +1,3 @@
--- TODO: Handle Windows path
-
 os_name = vim.loop.os_uname().sysname
 is_linux = os_name == "Linux"
 is_windows = os_name == "Windows_NT"

@@ -61,7 +61,6 @@ M.opts.lua_ls = {
 --
 -- ccls configuration
 --
--- TODO: Cached in standard vim cache dir
 M.opts.ccls = {
   init_options = {
     cache = {
