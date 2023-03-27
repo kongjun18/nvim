@@ -35,6 +35,9 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 M.opts.lua_ls = {
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+  end,
   settings = {
     Lua = {
       workspace = {
