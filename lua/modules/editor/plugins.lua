@@ -86,6 +86,7 @@ local editor = {
   ["nvim-treesitter/nvim-treesitter"] = {
     config = config.treesitter,
     event = { "BufReadPost", "BufNewFile" },
+    build = ":TSUpdate",
   },
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
     dependencies = { "nvim-treesitter" },
