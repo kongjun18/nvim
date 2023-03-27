@@ -1,4 +1,3 @@
--- TODO: configure kristijanhusak/vim-dadbod-completion
 local config = require("modules.lsp.config")
 local completion = {
   ["ray-x/lsp_signature.nvim"] = {

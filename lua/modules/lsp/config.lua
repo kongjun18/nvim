@@ -13,7 +13,6 @@ config.commands = {
   },
 }
 
--- TODO: Refine lspconfig diagnostics UI
 function config.on_attach(client, bufnr)
   local ok, lsp_signature = pcall(require, "lsp_signature")
   if ok then
@@ -88,8 +87,6 @@ function config.custom_ui()
 end
 
 -- TODO: deduplicate repeated items. See nvim-cmp issues [Feature Request: Dedup items #511]
--- TODO: use ctags source when LSP is disabled
--- TODO: wrap require
 function config.cmp()
   local ok, cmp = pcall(require, "cmp")
   if not ok then

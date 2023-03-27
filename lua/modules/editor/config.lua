@@ -288,8 +288,6 @@ function config.project()
   require("project_nvim").setup()
 end
 
--- TODO: comment and copy
--- TODO: uncomment consecutive // block
 function config.nerdcommenter()
   local g = vim.g
   g.NERDSpaceDelims = 1
