@@ -28,13 +28,13 @@ local M = {
 }
 
 --
--- sumneko_lua configuration
+-- lua_ls configuration
 --
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-M.opts.sumneko_lua = {
+M.opts.lua_ls = {
   settings = {
     Lua = {
       workspace = {
