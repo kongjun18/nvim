@@ -248,6 +248,7 @@ function config.telescope()
   local themes = require("telescope.themes")
   local defaults = themes.get_ivy()
   local previewers = require("telescope.previewers")
+  local actions = require("telescope.actions")
   -- Ignores files bigger than 100K
   local new_maker = function(filepath, bufnr, opts)
     opts = opts or {}
@@ -264,6 +265,12 @@ function config.telescope()
     end)
   end
   defaults.buffer_previewer_maker = new_maker
+  defaults.mappings = {
+    i = {
+      ["<Down>"] = actions.cycle_history_next,
+      ["<Up>"] = actions.cycle_history_prev,
+    },
+  }
   telescope.setup({
     defaults = defaults,
   })
