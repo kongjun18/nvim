@@ -167,6 +167,7 @@ function config.cmp()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "nvim_lua" },
+      { name = "codeium" },
     }, {
       { name = "buffer" },
       { name = "calc" },

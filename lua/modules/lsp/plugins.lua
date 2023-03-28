@@ -8,7 +8,7 @@ local completion = {
     event = "VeryLazy",
   },
   ["williamboman/mason.nvim"] = {
-
+    build = ":MasonUpdate", -- :MasonUpdate updates registry contents
     event = "VeryLazy",
   },
   ["williamboman/mason-lspconfig.nvim"] = {
@@ -39,12 +39,14 @@ local completion = {
       {
         "uga-rosa/cmp-dictionary",
         config = config.dictionary,
-        event = "VeryLazy",
       },
       {
         "kristijanhusak/vim-dadbod-completion",
-        event = "VeryLazy",
         dependencies = "tpope/vim-dadbod",
+      },
+      {
+        "jcdickinson/codeium.nvim",
+        config = true,
       },
     },
   },
