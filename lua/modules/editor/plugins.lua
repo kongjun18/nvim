@@ -19,7 +19,7 @@ local editor = {
   },
   ["ethanholz/nvim-lastplace"] = {
     config = config.nvim_lastplace,
-    event = "VeryLazy",
+    event = "BufReadPost",
   },
   ["tommcdo/vim-exchange"] = {
     event = "VeryLazy",
