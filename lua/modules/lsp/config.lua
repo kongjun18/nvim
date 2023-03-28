@@ -299,7 +299,7 @@ end
 
 function config.goto_preview()
   local conf = {
-    post_open_hook = function(buf)
+    post_open_hook = function(buf, win)
       vim.api.nvim_buf_set_keymap(
         buf,
         "n",
@@ -317,8 +317,12 @@ function config.goto_preview()
       vim.api.nvim_create_autocmd("WinLeave", {
         once = true,
         callback = function()
-          vim.api.nvim_buf_del_keymap(buf, "n", "q")
-          vim.api.nvim_buf_del_keymap(buf, "n", "<ESC>")
+          if vim.fn.maparg("q", "n") ~= "" then
+            vim.api.nvim_buf_del_keymap(buf, "n", "q")
+          end
+          if vim.fn.maparg("<ESC>", "n") ~= "" then
+            vim.api.nvim_buf_del_keymap(buf, "n", "<ESC>")
+          end
         end,
       })
     end,
