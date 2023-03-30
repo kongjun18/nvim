@@ -1,6 +1,6 @@
 local config = require("modules.ui.config")
 local ui = {
-  ["kyazdani42/nvim-tree.lua"] = {
+  ["nvim-tree/nvim-tree.lua"] = {
     config = config.nvim_tree,
     event = "VeryLazy",
   },
@@ -19,11 +19,8 @@ local ui = {
     event = "VeryLazy",
     config = config.lualine,
     dependencies = {
-      {
-        "SmiteshP/nvim-navic",
-        config = config.navic,
-      },
-      { "kyazdani42/nvim-web-devicons" },
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
     },
   },
   ["akinsho/bufferline.nvim"] = {
@@ -95,6 +92,15 @@ local ui = {
   ["nyngwang/murmur.lua"] = {
     config = config.murmur,
     event = "VeryLazy",
+  },
+  ["utilyre/barbecue.nvim"] = {
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = config.barbecue,
   },
 }
 return ui

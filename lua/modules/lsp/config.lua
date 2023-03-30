@@ -18,9 +18,8 @@ function config.on_attach(client, bufnr)
   if ok then
     lsp_signature.on_attach()
   end
-  local ok, navic = pcall(require, "nvim-navic")
-  if ok then
-    navic.attach(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
   end
 
   local lsp_servers = require("modules.lsp.providers").lsp_servers
