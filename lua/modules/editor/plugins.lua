@@ -146,6 +146,10 @@ local editor = {
   },
   ["pechorin/any-jump.vim"] = {
     event = "CmdlineEnter",
+    init = function()
+      vim.g.any_jump_disable_default_keybindings = 1
+    end,
+  },
   },
 }
 
