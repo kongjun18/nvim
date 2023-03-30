@@ -80,9 +80,6 @@ function config.lualine()
           path = 1,
         },
       },
-      lualine_c = {
-        { navic.get_location, cond = navic.is_available },
-      },
     },
     extensions = {
       "quickfix",
@@ -344,10 +341,6 @@ config.bufferline = function()
   )
 end
 
-function config.navic()
-  vim.g.navic_silence = true
-end
-
 function config.pqf()
   require("pqf").setup({
     signs = {
@@ -392,4 +385,22 @@ function config.murmur()
   })
 end
 
+function config.barbecue()
+  require("barbecue").setup({
+    attach_navic = false, -- Prevent barbecue from automatically attaching nvim-navic
+    create_autocmd = false, -- Prevent barbecue from updating itself automatically
+  })
+  -- Get better performance
+  vim.api.nvim_create_autocmd({
+    "WinResized",
+    "BufWinEnter",
+    "CursorHold",
+    "InsertLeave",
+  }, {
+    group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+    callback = function()
+      require("barbecue.ui").update()
+    end,
+  })
+end
 return config

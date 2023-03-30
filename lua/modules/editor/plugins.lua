@@ -115,7 +115,7 @@ local editor = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "ahmedkhalf/project.nvim",
-      { "kyazdani42/nvim-web-devicons" },
+      { "nvim-tree/nvim-web-devicons" },
       {
         "GustavoKatel/telescope-asynctasks.nvim",
         dependencies = {
