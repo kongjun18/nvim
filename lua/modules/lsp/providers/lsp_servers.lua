@@ -67,8 +67,7 @@ M.opts.ccls = {
       directory = path(data_dir, "ccls-cache"),
     },
     index = {
-      -- comments = 2,
-      comments = 1,
+      comments = 2,
     },
     compilationDatabaseDirectory = "Build",
   },
