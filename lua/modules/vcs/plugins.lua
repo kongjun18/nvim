@@ -25,6 +25,9 @@ local vcs = {
     config = config.gitsigns,
     event = "VeryLazy",
   },
+  ["wintermute-cell/gitignore.nvim"] = {
+    event = "VeryLazy",
+  },
 }
 
 return vcs
