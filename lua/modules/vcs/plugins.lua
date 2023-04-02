@@ -2,13 +2,12 @@ local config = require("modules.vcs.config")
 
 local vcs = {
   ["tpope/vim-fugitive"] = {
+    dependencies = {
+      "kongjun18/yadm-git.vim",
+      "tpope/vim-rhubarb",
+      "shumphrey/fugitive-gitlab.vim",
+    },
     event = "VeryLazy",
-  },
-  ["tpope/vim-rhubarb"] = {
-    dependencies = { "vim-fugitive" },
-  },
-  ["shumphrey/fugitive-gitlab.vim"] = {
-    dependencies = { "vim-fugitive" },
   },
   ["tpope/vim-git"] = {},
   ["junegunn/gv.vim"] = {
