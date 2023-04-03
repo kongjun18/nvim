@@ -292,7 +292,13 @@ function config.neogen()
 end
 
 function config.project()
-  require("project_nvim").setup()
+  require("project_nvim").setup({
+    patterns = {
+      ".git",
+      "package.json",
+      "go.mod",
+    },
+  })
 end
 
 function config.nerdcommenter()
