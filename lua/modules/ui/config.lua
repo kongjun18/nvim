@@ -70,7 +70,6 @@ function config.nightfox()
 end
 
 function config.lualine()
-  local navic = require("nvim-navic")
   local opts = {
     sections = {
       lualine_a = {
@@ -80,6 +79,7 @@ function config.lualine()
           path = 1,
         },
       },
+      lualine_c = {},
     },
     extensions = {
       "quickfix",
