@@ -13,6 +13,10 @@ local M = {
   },
   ["<Leader>f"] = {
     ["name"] = "+Fuzzy Find",
+    ["j"] = {
+      ":Telescope jumplist<CR>",
+      "Find Jumplist",
+    },
     ["f"] = {
       ":Telescope find_files <CR>",
       "Find Files",
