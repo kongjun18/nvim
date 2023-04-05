@@ -321,7 +321,13 @@ function config.nvim_surround()
 end
 
 function config.web_tools()
-  require("web-tools").setup()
+  require("web-tools").setup({
+    -- avoid web-tools.nvim breaking dot '.'
+    keymaps = {
+      repeat_rename = "",
+      rename = "",
+    },
+  })
 end
 
 return config
