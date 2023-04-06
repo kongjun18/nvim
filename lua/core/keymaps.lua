@@ -38,7 +38,6 @@ local option_pairs = {
   ["s"] = "spell",
   ["w"] = "wrap",
   ["l"] = "list",
-  ["p"] = "paste",
   ["h"] = "hlsearch",
 }
 for key, option in pairs(option_pairs) do
