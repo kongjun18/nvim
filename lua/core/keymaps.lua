@@ -121,3 +121,6 @@ map("n", "<Tab>", "<Tab>")
 
 -- Quit Vim
 map("n", "ZA", "<Cmd>wqa<CR>", { desc = "Quit all buffers" })
+
+-- <C-v> pastes text in insert mode
+map("i", "<C-v>", "<C-r>+", { desc = "Paste text" })
