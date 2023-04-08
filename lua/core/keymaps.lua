@@ -26,9 +26,6 @@ map(
   { desc = "Escape and clear hlsearch" }
 )
 
--- Save file
-map({ "i", "v", "n", "s" }, "<C-s>", "<Cmd>w<CR><esc>", { desc = "Save file" })
-
 -- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -119,8 +116,8 @@ map("n", "<C-]>", "<C-]>zz", {})
 map("n", "<C-I>", "<C-I>")
 map("n", "<Tab>", "<Tab>")
 
--- Quit Vim
 map("n", "ZA", "<Cmd>wqa<CR>", { desc = "Quit all buffers" })
 
--- <C-v> pastes text in insert mode
 map("i", "<C-v>", "<C-r>+", { desc = "Paste text" })
+map("i", "<C-z>", "<Cmd>undo<CR>", { desc = "Undo change" })
+map({ "i", "v", "n", "s" }, "<C-s>", "<Cmd>w<CR>", { desc = "Save file" })
