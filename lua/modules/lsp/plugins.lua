@@ -8,7 +8,8 @@ local completion = {
     event = "VeryLazy",
   },
   ["williamboman/mason.nvim"] = {
-    build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+    -- :MasonUpdate updates registry contents
+    build = ":lua require('mason.api.command').MasonUpdate()",
     event = "VeryLazy",
   },
   ["williamboman/mason-lspconfig.nvim"] = {
