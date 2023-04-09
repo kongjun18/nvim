@@ -1,12 +1,12 @@
 local M = {}
 
-M.linters = {
-  sh = { "shellcheck" },
-  go = { "golangcilint" },
-  cpp = { "cppcheck" },
-  -- lua = { "luacheck" },
-  javascript = { "eslint" },
-  dockerfile = { "hadolint" },
+M.providers = {
+  sh = "shellcheck",
+  go = "golangci_lint",
+  cpp = "cppcheck",
+  javascript = "eslint",
+  dockerfile = "hadolint",
+  lua = "luacheck",
 }
 M.opts = {}
 

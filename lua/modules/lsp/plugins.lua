@@ -55,10 +55,6 @@ local completion = {
     config = config.null_ls,
     dependencies = { "nvim-lspconfig" },
   },
-  ["mfussenegger/nvim-lint"] = {
-    config = config.nvim_lint,
-    event = "VeryLazy",
-  },
   ["ii14/lsp-command"] = {
     dependencies = "nvim-lspconfig",
   },
