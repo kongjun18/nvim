@@ -349,6 +349,7 @@ end
 function config.go()
   require("go").setup({
     lsp_keymaps = false,
+    lsp_cfg = false,
   })
 end
 

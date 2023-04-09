@@ -214,4 +214,8 @@ if ok then
   M.opts.yamlls = yaml_cfg.setup()
 end
 
+--
+-- gopls configuration
+--
+M.opts.gopls = require("go.lsp").config()
 return M

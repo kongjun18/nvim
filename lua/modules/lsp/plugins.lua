@@ -71,7 +71,7 @@ local completion = {
     dependencies = "nvim-lua/plenary.nvim",
   },
   ["ray-x/go.nvim"] = {
-    ft = "go",
+    ft = { "go", "gomod" },
     config = config.go,
     dependencies = {
       "ray-x/guihua.lua",
