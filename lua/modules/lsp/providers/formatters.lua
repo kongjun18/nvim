@@ -1,5 +1,5 @@
 local M = {}
-M.formatters = {
+M.providers = {
   cpp = "clang_format",
   lua = "stylua",
   cmake = "cmake_format",

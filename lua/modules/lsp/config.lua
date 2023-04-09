@@ -267,19 +267,38 @@ function config.null_ls()
     return
   end
 
-  local sources = {}
-  local providers = require("modules.lsp.providers")
-  local formatters = providers.formatters
-  for _, formatter in pairs(formatters.formatters) do
-    local opt = formatters.opts[formatter]
-    if opt then
-      table.insert(sources, null_ls.builtins.formatting[formatter].with(opt))
-    else
-      table.insert(sources, null_ls.builtins.formatting[formatter])
+  local construct_sources = function(...)
+    local sources = {}
+    for i, item in ipairs({ ... }) do
+      local builtin = item.builtin
+      local source = item.providers
+      local providers = source.providers
+      for _, provider in pairs(providers) do
+        local opts = source.opts[provider]
+        if opts then
+          local customed_opts = _G[provider .. "_opts"]
+          if customed_opts then
+            opts = vim.tbl_extend("force", opts, customed_opts)
+          end
+          table.insert(sources, builtin[provider].with(opts))
+        else
+          table.insert(sources, builtin[provider])
+        end
+      end
     end
+    return sources
   end
+  local providers = require("modules.lsp.providers")
   null_ls.setup({
-    sources = sources,
+    sources = construct_sources(
+      { builtin = null_ls.builtins.diagnostics, providers = providers.linters },
+      {
+        builtin = null_ls.builtins.formatting,
+        providers = providers.formatters,
+      }
+    ),
+    -- null-ls.nvim can't use with ccls due to offset_encoding.
+    -- See https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
     should_attach = function(bufnr)
       local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
       return ft ~= "c" and ft ~= "cpp"
@@ -331,19 +350,6 @@ function config.goto_preview()
     }
   end
   require("goto-preview").setup(conf)
-end
-
-function config.nvim_lint()
-  local ok, lint = pcall(require, "lint")
-  if not ok then
-    return
-  end
-  lint.linters_by_ft = require("modules.lsp.providers").linters.linters
-  vim.api.nvim_create_autocmd(
-    { "BufWritePost", "InsertLeave" },
-    { command = "lua require('lint').try_lint()" }
-  )
-  lint.try_lint()
 end
 
 function config.go()
