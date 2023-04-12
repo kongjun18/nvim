@@ -3,8 +3,6 @@ function config.nvim_tree()
   vim.g.respect_buf_cwd = 1
   require("nvim-tree").setup({
     hijack_netrw = true,
-    open_on_setup = false,
-    ignore_ft_on_setup = {},
     open_on_tab = false,
     hijack_cursor = true,
     update_cwd = true,
