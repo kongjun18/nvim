@@ -76,7 +76,7 @@ local vcs = {
   },
   ["i"] = {
     ["h"] = {
-      "<Cmd>:<C-U>Gitsigns select_hunk<CR>",
+      ":<C-U>Gitsigns select_hunk<CR>",
       mode = { "o", "x" },
       "Inner Hunk",
     },
