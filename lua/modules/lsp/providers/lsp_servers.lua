@@ -15,11 +15,12 @@ local M = {
     sql = "sqls",
     lua = "lua_ls",
     vim = "vimls",
+    sh = "bashls",
 
     json = "jsonls",
     xml = "lemminx",
     yaml = "yamlls",
-    docker = "dockerls",
+    dockerfile = "dockerls",
     dot = "dotls",
   },
   opts = {},
@@ -218,4 +219,5 @@ end
 -- gopls configuration
 --
 M.opts.gopls = require("go.lsp").config()
+
 return M
