@@ -1,4 +1,5 @@
 local M = {}
+
 M.providers = {
   cpp = "clang_format",
   lua = "stylua",
