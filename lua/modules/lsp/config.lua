@@ -17,20 +17,21 @@ function config.on_attach(client, bufnr)
     require("nvim-navic").attach(client, bufnr)
   end
 
-  local lsp_servers = require("modules.lsp.providers").lsp_servers
+  local wk = require("which-key")
+  local ok, lsp_server =
+  pcall(require, string.format("modules.lsp.providers.lsp_servers.%s", client.name))
 
   -- Mappings.
   local opts = { buffer = bufnr }
-  local wk = require("which-key")
-  local keymaps = lsp_servers.keymaps[client.name]
+  local keymaps = ok and lsp_server.keymaps or {}
   wk.register(keymaps, opts)
 
   -- Commands
-  default = config.commands
-  customed = lsp_servers.commands[client.name]
+  local default = config.commands
+  local customed = ok and lsp_server.commands or nil
   local commands = customed and vim.tbl_extend("force", default, customed)
-    or default
-  create_command = vim.api.nvim_buf_create_user_command
+      or default
+  local create_command = vim.api.nvim_buf_create_user_command
   for _, command in pairs(commands) do
     create_command(bufnr, command.name, command.command, command.opts or {})
   end
@@ -85,9 +86,10 @@ function config.cmp()
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0
-      and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
-          :sub(col, col)
-          :match("%s")
+        and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
         == nil
   end
 
@@ -371,11 +373,11 @@ function config.mason_lspconfig()
         return
       end
 
-      local lsp_servers = require("modules.lsp.providers").lsp_servers
+      local lsp_servers = require("modules.lsp.providers.lsp_servers")
       _G[ft .. "_checked"] = true
-      local server = lsp_servers.servers[ft]
+      local server_name = lsp_servers[ft]
 
-      if not server then
+      if not server_name then
         if require("core.util").in_blacklist(args.buf) then
           return
         end
@@ -383,9 +385,11 @@ function config.mason_lspconfig()
         return
       end
 
-      local customed = lsp_servers.opts[server] or {}
-      if _G[server .. "_opts"] then
-        customed = _G[server .. "_opts"]
+      local ok, lsp_server =
+      pcall(require, string.format("modules.lsp.providers.lsp_servers.%s", server_name))
+      local customed = ok and lsp_server.opts or {}
+      if _G[server_name .. "_opts"] then
+        customed = _G[server_name .. "_opts"]
       end
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local opts = vim.tbl_extend("force", {
@@ -402,8 +406,8 @@ function config.mason_lspconfig()
       -- nvim-lspconfig use BufReadPost event to attach lsp client, which
       -- causes first buffer would not be attached. Add it mutually to conquer
       -- it.
-      lspconfig[server].setup(opts)
-      lspconfig[server].manager.try_add(args.buf)
+      lspconfig[server_name].setup(opts)
+      lspconfig[server_name].manager.try_add(args.buf)
     end,
   })
 end

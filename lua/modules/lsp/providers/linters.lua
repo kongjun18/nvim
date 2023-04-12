@@ -7,6 +7,7 @@ M.providers = {
   javascript = "eslint",
   dockerfile = "hadolint",
   lua = "luacheck",
+  markdown = "markdownlint",
 }
 M.opts = {}
 

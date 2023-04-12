@@ -14,18 +14,6 @@ autocmd("BufReadPre", {
 
 augroup("format", {})
 autocmd("BufWritePre", {
-  desc = "Format Go code on save",
-  group = "format",
-  pattern = "*.go",
-  callback = function()
-    local ok, format = pcall(require, "go.format")
-    if ok then
-      format.goimport()
-    end
-  end,
-})
-
-autocmd("BufWritePre", {
   desc = "Remove trailing space",
   group = "format",
   callback = function()
