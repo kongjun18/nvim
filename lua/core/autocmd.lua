@@ -106,38 +106,6 @@ autocmd("WinEnter", {
   end,
 })
 
-augroup("bufferline", {})
-autocmd("VimEnter", {
-  callback = function()
-    local buf2tab = require("modules.ui.internal.bufferline").buf2tab
-    local tab = vim.api.nvim_get_current_tabpage()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-      if not buf2tab[buf] then
-        buf2tab[buf] = {}
-      end
-      if not vim.tbl_contains(buf2tab[buf], tab) then
-        table.insert(buf2tab[buf], tab)
-      end
-    end
-  end,
-})
-autocmd({ "BufRead", "BufNewFile", "BufEnter" }, {
-  desc = "Inserts the buffer into the buf2tab dict",
-  group = "bufferline",
-  callback = function()
-    local bufferline = require("modules.ui.internal.bufferline")
-    local buf = vim.api.nvim_get_current_buf()
-    local tab = vim.api.nvim_get_current_tabpage()
-    local buf2tab = bufferline.buf2tab
-    if not buf2tab[buf] then
-      buf2tab[buf] = {}
-    end
-    if not vim.tbl_contains(buf2tab[buf], tab) then
-      table.insert(buf2tab[buf], tab)
-    end
-  end,
-})
-
 augroup("numbertoggle", {})
 vim.api.nvim_create_autocmd(
   { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },

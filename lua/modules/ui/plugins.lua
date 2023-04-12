@@ -23,10 +23,6 @@ local ui = {
       "nvim-tree/nvim-web-devicons",
     },
   },
-  ["akinsho/bufferline.nvim"] = {
-    event = "VeryLazy",
-    config = config.bufferline,
-  },
   ["camspiers/animate.vim"] = {
     event = "VeryLazy",
   },

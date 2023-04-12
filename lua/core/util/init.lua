@@ -1,4 +1,5 @@
 local M = {}
+local config = require("core.config")
 
 ---@alias CoreNotifyOpts {lang?:string, title?:string, level?:number}
 
@@ -77,6 +78,18 @@ function M.disable(option, silent)
   if not silent then
     M.warn("Disabled " .. option, { title = "Option" })
   end
+end
+
+function M.in_ft_blacklist(buf)
+  return vim.tbl_contains(config.ft_blacklist, vim.bo[buf].filetype)
+end
+
+function M.in_bt_blacklist(buf)
+  return vim.tbl_contains(config.bt_blacklist, vim.bo[buf].buftype)
+end
+
+function M.in_blacklist(buf)
+  return M.in_ft_blacklist(buf) or M.in_bt_blacklist(buf)
 end
 
 return M
