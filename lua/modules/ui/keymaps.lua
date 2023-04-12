@@ -139,7 +139,10 @@ local M = {
 
   ["<leader>t"] = {
     ["name"] = "+tree/translate",
-    ["t"] = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
+    ["t"] = {
+      ":lua require('nvim-tree.api').tree.toggle({focus = false})<CR>",
+      "Toggle NvimTree",
+    },
     ["o"] = { ":NvimTreeOpen<CR>", "Open NvimTree" },
     ["c"] = { ":NvimTreeClose<CR>", "Close NvimTree" },
     ["q"] = {
