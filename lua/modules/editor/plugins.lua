@@ -150,6 +150,9 @@ local editor = {
       vim.g.any_jump_disable_default_keybindings = 1
     end,
   },
+  ["wakatime/vim-wakatime"] = {
+    event = "VeryLazy",
+  },
 }
 
 return editor
