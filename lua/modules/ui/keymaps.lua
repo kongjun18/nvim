@@ -75,42 +75,6 @@ local M = {
     ["name"] = "+buffer",
     ["d"] = { ":bdelete<CR>", "Delete Buffer" },
   },
-
-  ["<Leader><Tab>"] = {
-    function()
-      local in_blacklist =
-        require("modules.ui.internal.bufferline").in_blacklist
-      local alternate_buf = vim.fn.bufnr("#")
-      if alternate_buf < 1 then
-        return
-      end
-      if not (in_blacklist(alternate_buf) or in_blacklist(vim.fn.bufnr())) then
-        return t("<C-^>")
-      end
-    end,
-    expr = true,
-    "Edit Alternate File",
-  },
-  ["<leader>-"] = { "gt<CR>", "Go To Next Tab" },
-  ["<leader>="] = { "gT<CR>", "Go To Previos Tab" },
-  ["<Leader>"] = {
-    ["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Go to Buffer 1" },
-    ["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Go to Buffer 2" },
-    ["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Go to Buffer 3" },
-    ["4"] = { "<Cmd>BufferLineGoToBuffer 4<CR>", "Go to Buffer 4" },
-    ["5"] = { "<Cmd>BufferLineGoToBuffer 5<CR>", "Go to Buffer 5" },
-    ["6"] = { "<Cmd>BufferLineGoToBuffer 6<CR>", "Go to Buffer 6" },
-    ["7"] = { "<Cmd>BufferLineGoToBuffer 7<CR>", "Go to Buffer 7" },
-    ["8"] = { "<Cmd>BufferLineGoToBuffer 8<CR>", "Go to Buffer 8" },
-    ["9"] = { "<Cmd>BufferLineGoToBuffer 9<CR>", "Go to Buffer 9" },
-    ["$"] = { "Cmd>BufferLineGoToBuffer -1<CR>", "Go to Last Buffer" },
-  },
-  ["]"] = {
-    ["b"] = { "<Cmd>BufferLineCycleNext<CR>", "Go to Next Buffer" },
-  },
-  ["["] = {
-    ["b"] = { "<Cmd>BufferLineCyclePrev<CR>", "Go to Previous Buffer" },
-  },
   ["<M-m>"] = {
     function()
       require("modules.ui.window").scroll_adjacent_window("down")

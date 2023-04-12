@@ -118,6 +118,34 @@ map("n", "<Tab>", "<Tab>")
 
 map("n", "ZA", "<Cmd>wqa<CR>", { desc = "Quit all buffers" })
 
+-- Normal editor mappings
 map("i", "<C-v>", "<C-r>+", { desc = "Paste text" })
 map("i", "<C-z>", "<Cmd>undo<CR>", { desc = "Undo change" })
 map({ "i", "v", "n", "s" }, "<C-s>", "<Cmd>w<CR>", { desc = "Save file" })
+
+-- Tabline
+map("n", "<Leader>1", "1gt", { desc = "Go to Tab 1" })
+map("n", "<Leader>2", "2gt", { desc = "Go to Tab 2" })
+map("n", "<Leader>3", "3gt", { desc = "Go to Tab 3" })
+map("n", "<Leader>4", "4gt", { desc = "Go to Tab 4" })
+map("n", "<Leader>5", "5gt", { desc = "Go to Tab 5" })
+map("n", "<Leader>6", "6gt", { desc = "Go to Tab 6" })
+map("n", "<Leader>7", "7gt", { desc = "Go to Tab 7" })
+map("n", "<Leader>8", "8gt", { desc = "Go to Tab 8" })
+map("n", "<Leader>9", "9gt", { desc = "Go to Tab 9" })
+map("n", "<Leader>-", "gT", { desc = "Go To Previous Tab" })
+map("n", "<Leader>=", "gt", { desc = "Go to Next Tab" })
+
+map("n", "<Leader><Tab>", function()
+  local in_blacklist = require("core.util").in_blacklist
+  local alternate_buf = vim.fn.bufnr("#")
+  if alternate_buf < 1 then
+    return
+  end
+  if not (in_blacklist(alternate_buf) or in_blacklist(vim.fn.bufnr())) then
+    return t("<C-^>")
+  end
+end, {
+  expr = true,
+  desc = "Edit Alternate File",
+})

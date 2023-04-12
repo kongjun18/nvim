@@ -79,6 +79,15 @@ function config.lualine()
       },
       lualine_c = {},
     },
+    -- Enable tabline
+    tabline = {
+      lualine_a = {
+        {
+          "tabs",
+          mode = 2, -- 2: Shows tab_nr + tab_name
+        },
+      },
+    },
     extensions = {
       "quickfix",
       "nvim-dap-ui",
@@ -234,109 +243,6 @@ function config.bqf()
       end,
     },
   })
-end
-
-config.bufferline = function()
-  local bufferline = require("modules.ui.internal.bufferline")
-  require("bufferline").setup({
-    options = {
-      groups = {
-        options = {
-          toggle_hidden_on_enter = true, -- when you re-enter a hidden group this options re-opens that group so the buffer is visible
-        },
-        items = {
-          {
-            name = "syslib",
-            auto_close = true,
-            matcher = function(buf)
-              return buf.path:match("/usr/include/.*")
-            end,
-          },
-          {
-            name = "golib",
-            auto_close = true,
-            matcher = function(buf)
-              return buf.path:match(path(vim.env.GOROOT, "src", ".*.go"))
-            end,
-          },
-          {
-            name = "gopkg",
-            auto_close = true,
-            matcher = function(buf)
-              return buf.path:match(path(vim.env.GOPATH, "pkg", ".*.go"))
-            end,
-          },
-          {
-            name = "docs",
-            matcher = function(buf)
-              return buf.path:match("man://.*")
-                or buf.path:match("%.md")
-                or buf.path:match("%.txt")
-                  and buf.filename ~= "CMakeLists.txt"
-            end,
-          },
-        },
-      },
-      offsets = {
-        {
-          filetype = "NvimTree",
-          text = "File Explorer",
-          highlight = "Directory",
-          text_align = "center",
-        },
-      },
-      custom_filter = function(buf, _)
-        return bufferline.in_tab(buf) and not bufferline.in_blacklist(buf)
-      end,
-      close_command = function(buf)
-        local tab = vim.api.nvim_get_current_tabpage()
-        bufferline.remove_buf(buf, tab)
-      end,
-      -- Avoid auxiliary windows switching to the target buffer.
-      --
-      -- The typical situation:
-      -- 1. Open(go to) vista window.
-      -- 2. Click other buffer, the vista window switch to the target buffer.
-      --
-      -- left_mouse_command funciton avoids this embarrassing situation.
-      --     1. If the current window's buffer is not in the black list, switch
-      --        to the target buffer normally.
-      --     2. Otherwise,
-      --            1. For vista window, the left adjacent window switch to the target buffer.
-      --            2. For other window, do nothing.
-      left_mouse_command = function(buf)
-        local current = vim.fn.bufnr()
-        if bufferline.in_blacklist(current) then
-          local winnr = vim.fn.winnr
-          local win_nr = winnr()
-          if
-            winnr("k") == win_nr
-            and winnr("j") == win_nr
-            and winnr("l") == win_nr
-            and winnr("h") ~= win_nr
-          then -- The leftmost window
-            local win_id = vim.fn.win_getid(winnr("h"))
-            local buf_id = vim.api.nvim_win_get_buf(win_id)
-            if not bufferline.in_blacklist(buf_id) then
-              vim.fn.win_execute(win_id, "buffer " .. buf)
-              vim.fn.win_gotoid(win_id)
-            end
-          end
-        else -- Normal code path
-          vim.cmd("buffer " .. buf)
-        end
-      end,
-    },
-  })
-
-  -- Both buffer and tab number are ascending. Thus it is safe to don't remove
-  -- non-existed entries in the buf2tab dict. This timer is used to delete
-  -- auxiliary buffers like TelescopePrompt.
-  vim.fn.timer_start(
-    5 * 60 * 1000, -- 5m
-    bufferline.remove_nonexisted_entries,
-    { ["repeat"] = -1 }
-  )
 end
 
 function config.pqf()
