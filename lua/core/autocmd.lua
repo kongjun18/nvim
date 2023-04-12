@@ -163,4 +163,16 @@ vim.api.nvim_create_autocmd(
   }
 )
 
+-- Open nvim-tree when arg is a directory.
+vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = "nvim_tree_augroup",
+  callback = function(data)
+    if vim.fn.isdirectory(data.file) ~= 1 then
+      return
+    end
+    require("nvim-tree.api").tree.open({ path = data.file })
+  end,
+})
+
 vim.cmd("autocmd DiffUpdated * call git#diff_updated_handler()")
