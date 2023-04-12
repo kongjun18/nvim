@@ -1,7 +1,5 @@
 local config = {}
 
-config.keymaps = require("modules.lsp.keymaps")
-
 config.commands = {
   {
     name = "Callees",
@@ -14,24 +12,17 @@ config.commands = {
 }
 
 function config.on_attach(client, bufnr)
-  local ok, lsp_signature = pcall(require, "lsp_signature")
-  if ok then
-    lsp_signature.on_attach()
-  end
+  require("lsp_signature").on_attach()
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
 
   local lsp_servers = require("modules.lsp.providers").lsp_servers
-  local config = require("modules.lsp.config")
 
   -- Mappings.
   local opts = { buffer = bufnr }
   local wk = require("which-key")
-  local default = config.keymaps
-  local customed = lsp_servers.keymaps[client.name]
-  local keymaps = customed and vim.tbl_extend("force", default, customed)
-    or default
+  local keymaps = lsp_servers.keymaps[client.name]
   wk.register(keymaps, opts)
 
   -- Commands
@@ -262,11 +253,7 @@ function config.dictionary()
 end
 
 function config.null_ls()
-  local ok, null_ls = pcall(require, "null-ls")
-  if not ok then
-    return
-  end
-
+  local null_ls = require("null-ls")
   local construct_sources = function(...)
     local sources = {}
     for i, item in ipairs({ ... }) do
@@ -288,6 +275,7 @@ function config.null_ls()
     end
     return sources
   end
+
   local providers = require("modules.lsp.providers")
   null_ls.setup({
     sources = construct_sources(
@@ -372,43 +360,50 @@ function config.mason_lspconfig()
   require("mason-lspconfig").setup({
     automatic_installation = true,
   })
-  config = require("modules.lsp.config")
   config.custom_ui()
   -- NOTE: I lazyload mason.nvim after BufReadPost/BufNewFile event, but it works.
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Attach LSP server",
-    callback = function()
+    callback = function(args)
       local ft = vim.bo.ft
-      -- Avoid setup after setup
+      -- Avoid double setup
       if _G[ft .. "_checked"] then
         return
       end
+
       local lsp_servers = require("modules.lsp.providers").lsp_servers
       _G[ft .. "_checked"] = true
       local server = lsp_servers.servers[ft]
-      if server then
-        local customed = lsp_servers.opts[server] or {}
-        if _G[server .. "_opts"] then
-          customed = _G[server .. "_opts"]
+
+      if not server then
+        if require("core.util").in_blacklist(args.buf) then
+          return
         end
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
-        local opts = vim.tbl_extend("force", {
-          capabilities = capabilities,
-          vim.lsp.set_log_level("debug"),
-        }, customed)
-        opts.on_attach = function(client, bufnr)
-          config.on_attach(client, bufnr)
-          if customed.on_attach then
-            customed.on_attach(client, bufnr)
-          end
-        end
-        local lspconfig = require("lspconfig")
-        -- nvim-lspconfig use BufReadPost event to attach lsp client, which
-        -- causes first buffer would not be attached. Add it mutually to conquer
-        -- it.
-        lspconfig[server].setup(opts)
-        lspconfig[server].manager.try_add(vim.api.nvim_get_current_buf())
+        vim.notify(string.format("There is no %s LSP configuration", ft))
+        return
       end
+
+      local customed = lsp_servers.opts[server] or {}
+      if _G[server .. "_opts"] then
+        customed = _G[server .. "_opts"]
+      end
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local opts = vim.tbl_extend("force", {
+        capabilities = capabilities,
+        vim.lsp.set_log_level("debug"),
+      }, customed)
+      opts.on_attach = function(client, bufnr)
+        config.on_attach(client, bufnr)
+        if customed.on_attach then
+          customed.on_attach(client, bufnr)
+        end
+      end
+      local lspconfig = require("lspconfig")
+      -- nvim-lspconfig use BufReadPost event to attach lsp client, which
+      -- causes first buffer would not be attached. Add it mutually to conquer
+      -- it.
+      lspconfig[server].setup(opts)
+      lspconfig[server].manager.try_add(args.buf)
     end,
   })
 end
