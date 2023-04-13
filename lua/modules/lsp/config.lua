@@ -255,15 +255,15 @@ function config.dictionary()
 end
 
 function config.null_ls()
-  local null_ls = require("null-ls")
   local construct_sources = function(...)
     local s = {}
     for i, arg in ipairs({ ... }) do
       local providers = require(arg.sources)
       for _, provider in pairs(providers) do
         local customed_opts = _G[provider .. "_opts"]
-        local ok, p = pcall(require, string.format("%s.%s", arg.sources, provider))
-        opts = ok and p.opts or (customed_opts and customed_opts or nil)
+        local ok, p =
+          pcall(require, string.format("%s.%s", arg.sources, provider))
+        opts = ok and p.opts or customed_opts
         if opts then
           if customed_opts then
             opts = vim.tbl_extend("force", opts, customed_opts)
@@ -277,6 +277,7 @@ function config.null_ls()
     return s
   end
 
+  local null_ls = require("null-ls")
   null_ls.setup({
     sources = construct_sources({
       builtin = null_ls.builtins.diagnostics,
@@ -365,6 +366,11 @@ function config.mason_lspconfig()
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Attach LSP server",
     callback = function(args)
+      if not null_ls_loaded then
+        require("null-ls")
+      end
+      null_ls_loaded = true
+
       local ft = vim.bo.ft
       -- Avoid double setup
       if _G[ft .. "_checked"] then
@@ -386,8 +392,9 @@ function config.mason_lspconfig()
       local ok, lsp_server =
         pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
       local customed = ok and lsp_server.opts or {}
-      if _G[server_name .. "_opts"] then
-        customed = _G[server_name .. "_opts"]
+      local local_customed = _G[server_name .. "_opts"]
+      if local_customed then
+        customed = vim.tbl_extend("force", customed, local_customed)
       end
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local opts = vim.tbl_extend("force", {

@@ -54,7 +54,7 @@ local completion = {
   },
   ["jose-elias-alvarez/null-ls.nvim"] = {
     config = config.null_ls,
-    dependencies = { "nvim-lspconfig" },
+    lazy = true,
   },
   ["ii14/lsp-command"] = {
     dependencies = "nvim-lspconfig",
