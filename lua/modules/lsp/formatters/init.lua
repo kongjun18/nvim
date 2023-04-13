@@ -1,6 +1,4 @@
-local M = {}
-
-M.providers = {
+local M = {
   cpp = "clang_format",
   lua = "stylua",
   cmake = "cmake_format",
@@ -8,7 +6,5 @@ M.providers = {
   sql = "sqlformat",
   web = "prettier", -- javascript/html/ccs
 }
-
-M.opts = {}
 
 return M
