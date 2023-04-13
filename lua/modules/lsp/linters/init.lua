@@ -1,6 +1,4 @@
-local M = {}
-
-M.providers = {
+local M = {
   sh = "shellcheck",
   go = "golangci_lint",
   cpp = "cppcheck",
@@ -9,6 +7,5 @@ M.providers = {
   lua = "luacheck",
   markdown = "markdownlint",
 }
-M.opts = {}
 
 return M

@@ -21,6 +21,7 @@ local M = {
   yaml = "yamlls",
   dockerfile = "dockerls",
   dot = "dotls",
+  markdown = "marksman",
 }
 
 return M

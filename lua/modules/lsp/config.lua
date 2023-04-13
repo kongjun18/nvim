@@ -19,7 +19,7 @@ function config.on_attach(client, bufnr)
 
   local wk = require("which-key")
   local ok, lsp_server =
-  pcall(require, string.format("modules.lsp.providers.lsp_servers.%s", client.name))
+    pcall(require, string.format("modules.lsp.lsp_servers.%s", client.name))
 
   -- Mappings.
   local opts = { buffer = bufnr }
@@ -30,7 +30,7 @@ function config.on_attach(client, bufnr)
   local default = config.commands
   local customed = ok and lsp_server.commands or nil
   local commands = customed and vim.tbl_extend("force", default, customed)
-      or default
+    or default
   local create_command = vim.api.nvim_buf_create_user_command
   for _, command in pairs(commands) do
     create_command(bufnr, command.name, command.command, command.opts or {})
@@ -86,10 +86,10 @@ function config.cmp()
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0
-        and vim.api
-        .nvim_buf_get_lines(0, line - 1, line, true)[1]
-        :sub(col, col)
-        :match("%s")
+      and vim.api
+          .nvim_buf_get_lines(0, line - 1, line, true)[1]
+          :sub(col, col)
+          :match("%s")
         == nil
   end
 
@@ -257,36 +257,34 @@ end
 function config.null_ls()
   local null_ls = require("null-ls")
   local construct_sources = function(...)
-    local sources = {}
-    for i, item in ipairs({ ... }) do
-      local builtin = item.builtin
-      local source = item.providers
-      local providers = source.providers
+    local s = {}
+    for i, arg in ipairs({ ... }) do
+      local providers = require(arg.sources)
       for _, provider in pairs(providers) do
-        local opts = source.opts[provider]
+        local customed_opts = _G[provider .. "_opts"]
+        local ok, p = pcall(require, string.format("%s.%s", arg.sources, provider))
+        opts = ok and p.opts or (customed_opts and customed_opts or nil)
         if opts then
-          local customed_opts = _G[provider .. "_opts"]
           if customed_opts then
             opts = vim.tbl_extend("force", opts, customed_opts)
           end
-          table.insert(sources, builtin[provider].with(opts))
+          table.insert(s, arg.builtin[provider].with(opts))
         else
-          table.insert(sources, builtin[provider])
+          table.insert(s, arg.builtin[provider])
         end
       end
     end
-    return sources
+    return s
   end
 
-  local providers = require("modules.lsp.providers")
   null_ls.setup({
-    sources = construct_sources(
-      { builtin = null_ls.builtins.diagnostics, providers = providers.linters },
-      {
-        builtin = null_ls.builtins.formatting,
-        providers = providers.formatters,
-      }
-    ),
+    sources = construct_sources({
+      builtin = null_ls.builtins.diagnostics,
+      sources = "modules.lsp.linters",
+    }, {
+      builtin = null_ls.builtins.formatting,
+      sources = "modules.lsp.formatters",
+    }),
     -- null-ls.nvim can't use with ccls due to offset_encoding.
     -- See https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
     should_attach = function(bufnr)
@@ -373,7 +371,7 @@ function config.mason_lspconfig()
         return
       end
 
-      local lsp_servers = require("modules.lsp.providers.lsp_servers")
+      local lsp_servers = require("modules.lsp.lsp_servers")
       _G[ft .. "_checked"] = true
       local server_name = lsp_servers[ft]
 
@@ -386,7 +384,7 @@ function config.mason_lspconfig()
       end
 
       local ok, lsp_server =
-      pcall(require, string.format("modules.lsp.providers.lsp_servers.%s", server_name))
+        pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
       local customed = ok and lsp_server.opts or {}
       if _G[server_name .. "_opts"] then
         customed = _G[server_name .. "_opts"]
