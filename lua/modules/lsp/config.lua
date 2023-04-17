@@ -385,7 +385,17 @@ function config.mason_lspconfig()
         if require("core.util").in_blacklist(args.buf) then
           return
         end
-        vim.notify(string.format("There is no %s LSP configuration", ft))
+        -- I don't known why vim.notify enters insert mode, but vim.shedule is
+        -- a workaround.
+        vim.schedule(function()
+          vim.notify(
+            string.format(
+              "There is no %s LSP configuration",
+              vim.api.nvim_buf_get_option(args.buf, "filetype")
+            ),
+            vim.log.levels.WARN
+          )
+        end)
         return
       end
 
