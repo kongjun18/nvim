@@ -1,9 +1,7 @@
 local config = require("modules.lsp.config")
 local completion = {
   ["ray-x/lsp_signature.nvim"] = {
-    dependencies = { "nvim-lspconfig" },
     lazy = true,
-    config = config.lsp_signature,
   },
   ["neovim/nvim-lspconfig"] = {
     event = "VeryLazy",
