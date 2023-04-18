@@ -12,7 +12,10 @@ config.commands = {
 }
 
 function config.on_attach(client, bufnr)
-  require("lsp_signature").on_attach()
+  require("lsp_signature").on_attach({
+    bind = true,
+    hint_prefix = "⤷",
+  })
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
@@ -292,13 +295,6 @@ function config.null_ls()
       local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
       return ft ~= "c" and ft ~= "cpp"
     end,
-  })
-end
-
-function config.lsp_signature()
-  require("lsp_signature").setup({
-    bind = true,
-    hint_prefix = "⤷",
   })
 end
 
