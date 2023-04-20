@@ -97,17 +97,6 @@ local M = {
     "<Cmd>w<CR>",
     "Save File",
   },
-  ["dd"] = {
-    function()
-      if vim.api.nvim_get_current_line():match("^%s*$") then
-        return '"_dd'
-      else
-        return "dd"
-      end
-    end,
-    expr = true,
-    "Smart dd",
-  },
   ["<2-LeftMouse>"] = {
     function()
       vim.lsp.buf.definition()

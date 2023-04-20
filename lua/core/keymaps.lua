@@ -149,3 +149,26 @@ end, {
   expr = true,
   desc = "Edit Alternate File",
 })
+
+-- Better builtin keymaps
+map("n", "i", function()
+  if #vim.fn.getline(".") == 0 then
+    return [["_cc]]
+  else
+    return "i"
+  end
+end, {
+  desc = "Smart Insert", -- Insert At Proper Indent On Empty Line
+  expr = true,
+})
+
+map("n", "dd", function()
+  if vim.api.nvim_get_current_line():match("^%s*$") then
+    return '"_dd'
+  else
+    return "dd"
+  end
+end, {
+  expr = true,
+  desc = "Smart dd",
+})
