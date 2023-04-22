@@ -50,7 +50,7 @@ local ui = {
   ["machakann/vim-highlightedyank"] = {
     event = "VeryLazy",
   },
-  ["https://git.sr.ht/~p00f/nvim-ts-rainbow"] = {
+  ["HiPhish/nvim-ts-rainbow2"] = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "VeryLazy",
   },
