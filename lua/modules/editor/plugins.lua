@@ -79,7 +79,7 @@ local editor = {
     config = config.todo_comments,
   },
   ["windwp/nvim-autopairs"] = {
-    event = "VeryLazy",
+    event = "InsertEnter",
     dependencies = { "hrsh7th/nvim-cmp" },
     config = config.autopairs,
   },

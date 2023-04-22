@@ -32,35 +32,17 @@ function config.todo_comments()
 end
 
 function config.autopairs()
-  local ok, autopairs = pcall(require, "nvim-autopairs")
-  if not ok then
-    return
-  end
-
+  local autopairs = require("nvim-autopairs")
   local Rule = require("nvim-autopairs.rule")
   local cond = require("nvim-autopairs.conds")
 
   autopairs.setup({
     check_ts = true,
-    enable_check_bracket_line = false,
-    ts_config = {
-      lua = { "string", "source" },
-      javascript = { "string", "template_string" },
-      java = false,
-    },
-    disable_filetype = { "TelescopePrompt", "spectre_panel" },
-    disable_in_macro = false,
-    ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
-    enable_moveright = true,
-    enable_afterquote = true,
-    map_c_w = false,
-    map_bs = true,
-    disable_in_visualblock = false,
+    enable_check_bracket_line = true,
     fast_wrap = {
       map = "<M-e>",
       chars = { "{", "[", "(", '"', "'" },
       pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-      offset = 0, -- Offset from pattern match
       end_key = "$",
       keys = "qwertyuiopzxcvbnmasdfghjkl",
       check_comma = true,
@@ -69,49 +51,71 @@ function config.autopairs()
     },
   })
 
-  -- Map <CR>
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  local cmp = require("cmp")
-  cmp.event:on(
-    "confirm_done",
-    cmp_autopairs.on_confirm_done({ map_char = { tex = "" } })
-  )
-
+  -- Add spaces between parentheses
+  -- "%%" is used in htmldjango
+  local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" }, { "%", "%" } }
   autopairs.add_rules({
     Rule(" ", " "):with_pair(function(opts)
       local pair = opts.line:sub(opts.col - 1, opts.col)
-      return vim.tbl_contains({ "()", "[]", "{}", "%%" }, pair)
+      return vim.tbl_contains({
+        brackets[1][1] .. brackets[1][2],
+        brackets[2][1] .. brackets[2][2],
+        brackets[3][1] .. brackets[3][2],
+        brackets[4][1] .. brackets[4][2],
+      }, pair)
     end),
-    Rule("( ", " )")
-      :with_pair(function()
-        return false
-      end)
-      :with_move(function(opts)
-        return opts.prev_char:match(".%)") ~= nil
-      end)
-      :use_key(")"),
-    Rule("{ ", " }")
-      :with_pair(function()
-        return false
-      end)
-      :with_move(function(opts)
-        return opts.prev_char:match(".%}") ~= nil
-      end)
-      :use_key("}"),
-    Rule("[ ", " ]")
-      :with_pair(function()
-        return false
-      end)
-      :with_move(function(opts)
-        return opts.prev_char:match(".%]") ~= nil
-      end)
-      :use_key("]"),
   })
-  -- sh: enable ()/{} in string
+  for _, bracket in pairs(brackets) do
+    autopairs.add_rules({
+      Rule(bracket[1] .. " ", " " .. bracket[2])
+        :with_pair(function()
+          return false
+        end)
+        :with_move(function(opts)
+          return opts.prev_char:match(".%" .. bracket[2]) ~= nil
+        end)
+        :use_key(bracket[2]),
+    })
+  end
+
+  -- Auto add space on =
+  -- Before 	Insert 	After
+  --  lhs|      =  	  lhs =
   autopairs.add_rules({
-    Rule("{", "}", "sh"),
-    Rule("(", ")", "sh"),
-    Rule("%", "%", "html"),
+    Rule("=", "")
+      :with_pair(cond.not_inside_quote())
+      :with_pair(function(opts)
+        local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
+        if last_char:match("[%w%=%s]") then
+          return true
+        end
+        return false
+      end)
+      :replace_endpair(function(opts)
+        local prev_2char = opts.line:sub(opts.col - 2, opts.col - 1)
+        local next_char = opts.line:sub(opts.col, opts.col)
+        next_char = next_char == " " and "" or " "
+        if prev_2char:match("%w$") then
+          return "<bs> =" .. next_char
+        end
+        if prev_2char:match("%=$") then
+          return next_char
+        end
+        if prev_2char:match("=") then
+          return "<bs><bs>=" .. next_char
+        end
+        return ""
+      end)
+      :set_end_pair_length(0)
+      :with_move(cond.none())
+      :with_del(cond.none()),
+  })
+
+  -- Before    Input    After
+  --   {|}       %      {%|%}
+  --   {%|%}   <space>  {% | %}
+  autopairs.add_rules({
+    Rule("%", "%", "htmldjango"):with_pair(cond.before_text("{")),
   })
 end
 
