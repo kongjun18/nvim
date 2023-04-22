@@ -124,7 +124,7 @@ local editor = {
         },
       },
       {
-        "kongjun18/telescope-fzy-native.nvim",
+        "nvim-telescope/telescope-fzy-native.nvim",
       },
     },
     config = config.telescope,
@@ -144,7 +144,7 @@ local editor = {
     event = "VeryLazy",
     build = "npm install -g browser-sync",
   },
-  ["pechorin/any-jump.vim"] = {
+  ["kongjun18/any-jump.vim"] = {
     event = "CmdlineEnter",
     init = function()
       vim.g.any_jump_disable_default_keybindings = 1
