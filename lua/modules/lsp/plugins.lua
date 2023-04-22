@@ -75,6 +75,10 @@ local completion = {
       event = "VeryLazy",
     },
   },
+  ["Fildo7525/pretty_hover"] = {
+    event = "LspAttach",
+    opts = {},
+  },
 }
 
 return completion
