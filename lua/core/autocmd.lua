@@ -61,24 +61,41 @@ autocmd("BufWritePre", {
 })
 
 augroup("autoclose", {})
+
+local should_delete = function(win)
+  local buf = vim.api.nvim_win_get_buf(win)
+  return require("core.util").in_blacklist(buf)
+end
+
+-- Open nvim-tree when arg is a directory.
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = "autoclose",
+  callback = function(data)
+    if data.file == "" or vim.fn.isdirectory(data.file) ~= 1 then
+      return
+    end
+    NvimTreeOpenedFromVimEnter = true
+    require("nvim-tree.api").tree.open({ path = data.file })
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = "autoclose",
+  callback = function()
+    BufferReaded = true
+    NvimTreeOpenedFromVimEnter = false
+  end,
+  once = true,
+})
+
 autocmd("WinEnter", {
   desc = "Automatically close some windows",
   group = "autoclose",
   nested = true,
   callback = function()
-    local is_nvimtree = function(win)
-      return fn.bufname(fn.winbufnr(win)) == "NvimTree_" .. fn.tabpagenr()
+    if NvimTreeOpenedFromVimEnter and not BufferReaded then
+      return
     end
-    local is_vista = function(win)
-      return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "vista_kind"
-    end
-    local is_quickfix = function(win)
-      return api.nvim_buf_get_option(fn.winbufnr(win), "ft") == "qf"
-    end
-    local should_delete = function(win)
-      return is_nvimtree(win) or is_vista(win)
-    end
-
     local tabpages = fn.tabpagenr("$")
     local wins = api.nvim_tabpage_list_wins(0)
     for _, win in ipairs(wins) do
@@ -118,17 +135,5 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
-
--- Open nvim-tree when arg is a directory.
-vim.api.nvim_create_augroup("nvim_tree_augroup", { clear = true })
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = "nvim_tree_augroup",
-  callback = function(data)
-    if vim.fn.isdirectory(data.file) ~= 1 then
-      return
-    end
-    require("nvim-tree.api").tree.open({ path = data.file })
-  end,
-})
 
 vim.cmd("autocmd DiffUpdated * call git#diff_updated_handler()")
