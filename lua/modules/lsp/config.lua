@@ -382,20 +382,6 @@ function config.mason_lspconfig()
       local server_name = lsp_servers[ft]
 
       if not server_name then
-        if require("core.util").in_blacklist(args.buf) then
-          return
-        end
-        -- I don't known why vim.notify enters insert mode, but vim.shedule is
-        -- a workaround.
-        vim.schedule(function()
-          vim.notify(
-            string.format(
-              "There is no %s LSP configuration",
-              vim.api.nvim_buf_get_option(args.buf, "filetype")
-            ),
-            vim.log.levels.WARN
-          )
-        end)
         return
       end
 
