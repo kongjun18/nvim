@@ -57,7 +57,7 @@ function config.nightfox()
           gitsign = true,
           notify = true,
           telescope = true,
-          tsrainbow = true,
+          tsrainbow2 = true,
           whichkey = true,
           navic = true,
         },
