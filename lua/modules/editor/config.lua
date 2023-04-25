@@ -167,6 +167,8 @@ function config.treesitter()
     },
     rainbow = {
       enable = true,
+      query = "rainbow-parens",
+      strategy = require("ts-rainbow").strategy["global"],
       extended_mode = true,
       max_file_lines = nil,
     },
