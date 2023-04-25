@@ -51,8 +51,7 @@ local ui = {
     event = "VeryLazy",
   },
   ["HiPhish/nvim-ts-rainbow2"] = {
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
+    lazy = true,
   },
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
