@@ -290,6 +290,9 @@ function config.barbecue()
   require("barbecue").setup({
     attach_navic = false, -- Prevent barbecue from automatically attaching nvim-navic
     create_autocmd = false, -- Prevent barbecue from updating itself automatically
+    exclude_filetypes = { "gitcommit", "toggleterm" },
+    show_dirname = false,
+    show_basename = true,
   })
   -- Get better performance
   vim.api.nvim_create_autocmd({
