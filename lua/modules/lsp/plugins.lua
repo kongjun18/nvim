@@ -17,9 +17,9 @@ local completion = {
   },
   ["L3MON4D3/LuaSnip"] = {
     config = config.luasnip,
-    event = "VeryLazy",
+    event = "InsertEnter",
     dependencies = {
-      "rafamadriz/friendly-snippets",
+      "honza/vim-snippets",
     },
   },
   ["hrsh7th/nvim-cmp"] = {

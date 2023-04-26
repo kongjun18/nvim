@@ -203,54 +203,36 @@ function config.cmp()
 end
 
 function config.luasnip()
-  local ok, luasnip = pcall(require, "luasnip")
-  if ok then
-    vim.cmd([[hi LuaSnipChoiceNode guifg=#6080b0]]) -- Dayfox Blue
-    vim.cmd([[hi LuaSnipInsertNode guifg=#E8857A]]) -- Daynight Orange
-    local types = require("luasnip.util.types")
-    luasnip.config.setup({
-      ext_opts = {
-        [types.choiceNode] = {
-          active = {
-            virt_text = { { "●", "LuaSnipChoiceNode" } },
-          },
-        },
-        [types.insertNode] = {
-          active = {
-            virt_text = { { "●", "LuaSnipInsertNode" } },
-          },
+  luasnip = require("luasnip")
+  vim.api.nvim_set_hl(0, "LuaSnipChoiceNode", {
+    fg = "#6080b0",
+  })
+  vim.api.nvim_set_hl(0, "LuaSnipInsertNode", {
+    fg = "#E8857A",
+  })
+  local types = require("luasnip.util.types")
+  luasnip.config.setup({
+    ext_opts = {
+      [types.choiceNode] = {
+        active = {
+          virt_text = { { "●", "LuaSnipChoiceNode" } },
         },
       },
-    })
-    require("luasnip.loaders.from_vscode").lazy_load({
-      paths = { "./snippets", path(packer_dir, "start", "friendly-snippets") },
-    })
-    luasnip.filetype_extend("cpp", { "c" })
-    luasnip_keymaps = {
-      ["<C-j>"] = {
-        function()
-          local snip = require("luasnip")
-          if snip.expand_or_jumpable() then
-            snip.expand_or_jump()
-          end
-        end,
-        mode = { "i", "s" },
-        "Jump to Next Snippet Location",
+      [types.insertNode] = {
+        active = {
+          virt_text = { { "●", "LuaSnipInsertNode" } },
+        },
       },
-      ["<C-k>"] = {
-        function()
-          local snip = require("luasnip")
-          if snip.jumpable(-1) then
-            snip.jump(-1)
-          end
-        end,
-        mode = { "i", "s" },
-        "Jump to Previous Snippet Location",
-      },
-    }
-    local wk = require("which-key")
-    wk.register(luasnip_keymaps)
-  end
+    },
+  })
+
+  luasnip.filetype_extend("all", { "_" })
+  require("luasnip.loaders.from_snipmate").lazy_load({
+    paths = {
+      path(config_dir, "snippets"),
+      path(lazy_dir, "vim-snippets", "snippets"),
+    },
+  })
 end
 
 function config.dictionary()
