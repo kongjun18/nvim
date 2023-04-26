@@ -112,28 +112,49 @@ autocmd("WinEnter", {
 })
 
 augroup("numbertoggle", {})
-vim.api.nvim_create_autocmd(
-  { "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" },
-  {
-    group = "numbertoggle",
-    callback = function()
-      if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
-        vim.opt.relativenumber = true
-      end
-    end,
-  }
-)
+autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
+  group = "numbertoggle",
+  callback = function()
+    if vim.o.nu and vim.api.nvim_get_mode().mode ~= "i" then
+      vim.opt.relativenumber = true
+    end
+  end,
+})
 
-vim.api.nvim_create_autocmd(
-  { "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" },
-  {
-    group = "numbertoggle",
-    callback = function()
-      if vim.o.nu then
-        vim.opt.relativenumber = false
-      end
-    end,
-  }
-)
+autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
+  group = "numbertoggle",
+  callback = function()
+    if vim.o.nu then
+      vim.opt.relativenumber = false
+    end
+  end,
+})
+
+augroup("lsp", {})
+autocmd("LspAttach", {
+  desc = "Backup big LSP log file",
+  group = "lsp",
+  callback = function()
+    local log = vim.lsp.get_log_path()
+    local size = vim.fn.getfsize(log)
+    local GB = 1000 * 1000 * 1000
+    if size > 1 * GB then
+      local log_backup = log .. vim.fn.strftime("-%Y-%m-%d")
+
+      vim.loop.fs_rename(log, log_backup, function(err, success)
+        if err then
+          vim.notify("Failed to rename log file", vim.log.levels.WARN)
+        end
+        if success then
+          vim.notify(
+            string.format("Backup big LSP log file to %s", log_backup),
+            vim.log.levels.INFO
+          )
+        end
+      end)
+    end
+  end,
+  once = true,
+})
 
 vim.cmd("autocmd DiffUpdated * call git#diff_updated_handler()")
