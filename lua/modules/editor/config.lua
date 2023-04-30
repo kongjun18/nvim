@@ -10,6 +10,8 @@ function config.matchup()
   vim.g.matchup_matchparen_deferred = 1
   vim.g.matchup_matchparen_offscreen = { method = "popup" }
   vim.g.matchup_matchpref = { cpp = { template = 1 } }
+  vim.g.matchup_surround_enabled = 1
+  vim.g.matchup_matchparen_enabled = 1
 end
 
 function config.terminal_help()
@@ -28,7 +30,15 @@ function config.ts_autotag()
 end
 
 function config.todo_comments()
-  require("todo-comments").setup()
+  require("todo-comments").setup({
+    -- KEYWORD: or KEYWORD(author):
+    highlight = {
+      pattern = [[.*<(KEYWORDS)(\(\p+\))?\s*:]], -- vim regex
+    },
+    search = {
+      pattern = [[\b(KEYWORDS)(\(\w+\))?\s*:]], -- ripgrep regex
+    },
+  })
 end
 
 function config.autopairs()
