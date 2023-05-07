@@ -79,6 +79,9 @@ local completion = {
     event = "LspAttach",
     opts = {},
   },
+  ["folke/neodev.nvim"] = {
+    lazy = true,
+  },
 }
 
 return completion
