@@ -172,3 +172,5 @@ end, {
   expr = true,
   desc = "Smart dd",
 })
+
+map("t", "<S-Space>", "<Space>", {desc="Workaround for Vim issue #6040"})
