@@ -65,10 +65,6 @@ local ui = {
     config = config.trouble,
     event = "VeryLazy",
   },
-  ["liuchengxu/vista.vim"] = {
-    config = config.vista,
-    event = "VeryLazy",
-  },
   ["norcalli/nvim-colorizer.lua"] = {
     config = config.colorizer,
     event = "VeryLazy",

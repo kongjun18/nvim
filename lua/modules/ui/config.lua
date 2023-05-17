@@ -49,17 +49,6 @@ function config.nightfox()
         inverse = {
           match_paren = true,
         },
-        modules = {
-          cmp = true,
-          dap_ui = true,
-          fidget = true,
-          gitsign = true,
-          notify = true,
-          telescope = true,
-          tsrainbow2 = true,
-          whichkey = true,
-          navic = true,
-        },
       },
     })
     vim.cmd("colorscheme dayfox")
@@ -149,7 +138,6 @@ function config.indent_blankline()
       "json",
       "man",
       "txt",
-      "vista",
       "help",
       "todoist",
       "NvimTree",
@@ -173,36 +161,6 @@ end
 -- FIXME: [Problem with make and quickfix list](https://github.com/folke/trouble.nvim/issues/87)
 function config.trouble()
   require("trouble").setup()
-end
-
-function config.vista()
-  vim.g.vista_stay_on_open = 0
-  vim.g.vista_icon_indent = { "╰─▸ ", "├─▸ " }
-  vim.g["vista#executive#ctags#support_json_format"] = 1
-  -- Vscode-like icons
-  local overrided_icons = {
-    var = "",
-    variable = "",
-    variables = "",
-    const = "",
-    constant = "",
-    constructor = "",
-    enum = "",
-    enummember = "",
-    enumerator = "",
-    module = "",
-    modules = "",
-    struct = "פּ",
-    class = "ﴯ",
-    field = "ﰠ",
-    fields = "ﰠ",
-    interface = "",
-  }
-  vim.g["vista#renderer#icons"] = vim.tbl_extend(
-    "force",
-    vim.g["vista#renderer#icons"],
-    overrided_icons
-  )
 end
 
 function config.colorizer()
