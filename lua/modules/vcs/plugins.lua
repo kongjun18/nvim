@@ -12,6 +12,7 @@ local vcs = {
   ["tpope/vim-git"] = {},
   ["junegunn/gv.vim"] = {
     dependencies = "tpope/vim-fugitive",
+    config = config.gv,
   },
   ["akinsho/git-conflict.nvim"] = {
     config = config.git_conflict,
