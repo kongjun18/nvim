@@ -174,3 +174,7 @@ end, {
 })
 
 map("t", "<S-Space>", "<Space>", {desc="Workaround for Vim issue #6040"})
+
+map("c", "%%", function()
+  vim.api.nvim_feedkeys(vim.fn.expand("%:p:h") .. "/", "c", false)
+end, {desc = "Input current file name in cmdline"})
