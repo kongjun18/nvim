@@ -82,6 +82,10 @@ local completion = {
   ["folke/neodev.nvim"] = {
     lazy = true,
   },
+  ["simrat39/symbols-outline.nvim"] = {
+    event = "CmdlineEnter",
+    config = config.symbols_outline,
+  },
 }
 
 return completion
