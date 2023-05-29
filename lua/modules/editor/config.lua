@@ -261,20 +261,6 @@ function config.telescope()
   for _, extension in ipairs(extensions) do
     telescope.load_extension(extension)
   end
-  -- Telescope issue #2501: after neovim commit: d52cc66, using :Telescope
-  -- find_files opens file in insert mode.
-  -- Workaround: Leave insert mode when leaving Telescope prompt.
-  local telescope_augroup_id =
-    vim.api.nvim_create_augroup("telescope_settings", {})
-  vim.api.nvim_create_autocmd({ "WinLeave" }, {
-    group = telescope_augroup_id,
-    pattern = "*",
-    callback = function()
-      if vim.bo.filetype == "TelescopePrompt" and vim.fn.mode() == "i" then
-        vim.api.nvim_feedkeys(t("<Esc>"), "i", false)
-      end
-    end,
-  })
 end
 
 function config.neogen()
