@@ -12,6 +12,7 @@ local ui = {
   },
   ["j-hui/fidget.nvim"] = {
     config = config.fidget,
+    tag = "legacy",
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
   },
