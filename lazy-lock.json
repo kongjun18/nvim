@@ -1,6 +1,5 @@
 {
   "LuaSnip": { "branch": "master", "commit": "a13af80734eb28f744de6c875330c9d3c24b5f3b" },
-  "animate.vim": { "branch": "master", "commit": "ca124da441b4d4ea721f33a999d4493e0d0a7a31" },
   "any-jump.vim": { "branch": "master", "commit": "770ef708ae3f13322430fcc663d7dfb864756b9b" },
   "asyncrun.vim": { "branch": "master", "commit": "7191d0c30dd105e5d7f897b9a6ee19cabe734466" },
   "asynctasks.vim": { "branch": "master", "commit": "784a4b1f75a913cc6c43dd6c4dbe69d648dbbfa5" },
@@ -32,7 +31,6 @@
   "gv.vim": { "branch": "master", "commit": "320cc8c477c5acc4fa0e52a460d87b2af54fa051" },
   "indent-blankline.nvim": { "branch": "master", "commit": "7075d7861f7a6bbf0de0298c83f8a13195e6ec01" },
   "lazy.nvim": { "branch": "main", "commit": "678179543e0d27650c328d8659f2c2cab4d854ef" },
-  "lens.vim": { "branch": "master", "commit": "099c3502d001f7081edf113de57e8b1cfd121c55" },
   "lsp-command": { "branch": "master", "commit": "b2d130d0358f7d64cd967c918182bce25944737b" },
   "lsp_signature.nvim": { "branch": "master", "commit": "17ff7a405fea8376b015b8ea7910d2e59958bf68" },
   "lspkind-nvim": { "branch": "master", "commit": "57610d5ab560c073c465d6faf0c19f200cb67e6e" },
