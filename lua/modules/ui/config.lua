@@ -91,21 +91,6 @@ function config.fidget()
   require("fidget").setup()
 end
 
-function config.lens()
-  vim.g["lens#disabled_filetypes"] = {
-    "list",
-    "gitcommit",
-    "fugitive",
-    "dap-repl",
-    "man",
-    "qf",
-    "",
-    "help",
-    "diff",
-  }
-  vim.g["lens#disabled_buftypes"] = { "nofile", "", "terminal", "nowrite" }
-end
-
 function config.numb()
   require("numb").setup()
 end

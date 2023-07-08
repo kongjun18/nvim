@@ -24,14 +24,6 @@ local ui = {
       "nvim-tree/nvim-web-devicons",
     },
   },
-  ["camspiers/animate.vim"] = {
-    event = "VeryLazy",
-  },
-  ["camspiers/lens.vim"] = {
-    config = config.lens,
-    event = "VeryLazy",
-    dependencies = { "animate.vim" },
-  },
   ["Pocco81/truezen.nvim"] = {
     event = "VeryLazy",
   },
