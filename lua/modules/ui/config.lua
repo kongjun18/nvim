@@ -100,11 +100,9 @@ function config.range_highlight()
 end
 
 function config.notify()
-  local ok, notify = pcall(require, "notify")
-  if ok then
-    notify.setup()
-    vim.notify = notify
-  end
+  local notify = require("notify")
+  notify.setup()
+  vim.notify = notify
 end
 
 function config.luatab()
