@@ -66,6 +66,7 @@ function config.custom_ui()
     "INFO",
     "DEBUG",
   }
+  ---@diagnostic disable-next-line: duplicate-set-field
   vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
     local client = vim.lsp.get_client_by_id(ctx.client_id)
     if client then -- true
@@ -206,7 +207,7 @@ function config.cmp()
 end
 
 function config.luasnip()
-  luasnip = require("luasnip")
+  local luasnip = require("luasnip")
   vim.api.nvim_set_hl(0, "LuaSnipChoiceNode", {
     fg = "#6080b0",
   })
@@ -249,13 +250,13 @@ end
 function config.null_ls()
   local construct_sources = function(...)
     local s = {}
-    for i, arg in ipairs({ ... }) do
+    for _, arg in ipairs({ ... }) do
       local providers = require(arg.sources)
       for _, provider in pairs(providers) do
         local customed_opts = _G[provider .. "_opts"]
         local ok, p =
           pcall(require, string.format("%s.%s", arg.sources, provider))
-        opts = ok and p.opts or customed_opts
+        local opts = ok and p.opts or customed_opts
         if opts then
           if customed_opts then
             opts = vim.tbl_extend("force", opts, customed_opts)
@@ -281,7 +282,7 @@ function config.null_ls()
     -- null-ls.nvim can't use with ccls due to offset_encoding.
     -- See https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
     should_attach = function(bufnr)
-      local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+      local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
       return ft ~= "c" and ft ~= "cpp"
     end,
   })
@@ -289,7 +290,7 @@ end
 
 function config.goto_preview()
   local conf = {
-    post_open_hook = function(buf, win)
+    post_open_hook = function(buf) -- function(buf, win)
       vim.api.nvim_buf_set_keymap(
         buf,
         "n",
@@ -351,10 +352,10 @@ function config.mason_lspconfig()
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     desc = "Attach LSP server",
     callback = function(args)
-      if not null_ls_loaded then
+      if not NullLSLoaded then
         require("null-ls")
       end
-      null_ls_loaded = true
+      NullLSLoaded = true
 
       local ft = vim.bo.ft
       -- Avoid double setup
