@@ -159,6 +159,18 @@ function config.treesitter()
 end
 
 function config.gutentags()
+  -- Set cache directory.
+  -- Fix issue [#28](https://github.com/kongjun18/nvim/issues/28)
+  local tags_dir = path(cache_dir, "tags")
+  if not vim.loop.fs_stat(tags_dir) then
+    -- 493 is 0755 in decimal
+    vim.loop.fs_mkdir(tags_dir, 493, function(err, success)
+      if err then
+        vim.notify(string.format("Fail to create tags directory %s", tags_dir))
+      end
+    end)
+  end
+  vim.g.gutentags_cache_dir = tags_dir
   vim.g.gutentags_exclude_filetypes = {
     "text",
     "markdown",
@@ -198,8 +210,6 @@ function config.gutentags()
     end
   end
   vim.g.gutentags_ctags_extra_args = gutentags_ctags_extra_args
-  -- Set cache directory
-  vim.g.gutentags_cache_dir = path(cache_dir, "tags")
 end
 
 function config.projectionist()
