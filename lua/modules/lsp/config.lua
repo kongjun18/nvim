@@ -71,7 +71,7 @@ function config.custom_ui()
     local client = vim.lsp.get_client_by_id(ctx.client_id)
     if client then -- true
       local lvl = severity[result.type]
-      notify({ result.message }, lvl, {
+      notify( result.message , lvl, {
         title = "LSP | " .. client.name,
         timeout = 5000,
         keep = function()
