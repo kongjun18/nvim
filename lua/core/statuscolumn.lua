@@ -18,8 +18,15 @@ function M.column()
       sign = s
     end
   end
+  local texthl = ""
+  local text = ""
+  if sign then
+    texthl = string.format("%%#%s", sign.texthl)
+    text = string.format("#%s%%*", sign.text)
+  end
+  sign = string.format("%s%s", texthl, text)
   local components = {
-    sign and ("%#" .. sign.texthl .. "#" .. sign.text .. "%*") or "  ",
+    sign,
     [[%=]],
     [[%3{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
     git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*")
