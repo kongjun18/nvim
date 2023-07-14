@@ -38,6 +38,11 @@ function config.todo_comments()
     search = {
       pattern = [[\b(KEYWORDS)(\(\w+\))?\s*:]], -- ripgrep regex
     },
+    -- Add keyword QUESTION
+    keywords =
+    {
+      NOTE = { icon = " ", color = "hint", alt = { "INFO", "QUESTION" } },
+    },
   })
 end
 
