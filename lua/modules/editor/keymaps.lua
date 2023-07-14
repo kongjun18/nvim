@@ -42,7 +42,7 @@ local M = {
       "Find Tags In Current Buffer",
     },
     ["m"] = {
-      ":Telescope man_pages<CR>",
+      [[:lua require("telescope.builtin").man_pages({sections={"ALL"}})<CR>]],
       "Find Man Pages",
     },
     ["p"] = {
