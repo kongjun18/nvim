@@ -104,7 +104,7 @@ function config.treesitter()
   -- Download packages via Git
   require("nvim-treesitter.install").prefer_git = true
   -- Download packages from mirror
-  local parsers = require("nvim-treesitter.parsers").get_parser_configs()
+  -- local parsers = require("nvim-treesitter.parsers").get_parser_configs()
   -- for _, p in pairs(parsers) do
   -- p.install_info.url = p.install_info.url:gsub(
   -- "https://github.com/",
@@ -164,6 +164,7 @@ function config.gutentags()
   local tags_dir = path(cache_dir, "tags")
   if not vim.loop.fs_stat(tags_dir) then
     -- 493 is 0755 in decimal
+    ---@diagnostic disable-next-line: unused-local
     vim.loop.fs_mkdir(tags_dir, 493, function(err, success)
       if err then
         vim.notify(string.format("Fail to create tags directory %s", tags_dir))

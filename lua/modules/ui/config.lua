@@ -208,7 +208,7 @@ function config.murmur()
       end,
     },
   })
-  -- To create IDE-like no blinking diagnostic message with `cursor` scope.
+  -- To create IDE-like no blinking diagnostic message with cursor
   -- (should be paired with the callback above)
   vim.api.nvim_create_augroup("murmur", {})
   vim.api.nvim_create_autocmd({ "CursorHold" }, {
@@ -219,6 +219,7 @@ function config.murmur()
         return
       end
       -- open float-win when hovering on a cursor-word.
+      ---@diagnostic disable-next-line: undefined-field
       if vim.w.cursor_word ~= "" then
         vim.diagnostic.open_float()
         vim.w.diag_shown = true

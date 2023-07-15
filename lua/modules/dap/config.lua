@@ -1,10 +1,7 @@
 local config = {}
 
 function config.nvim_dap()
-  local ok, dap = pcall(require, "dap")
-  if not ok then
-    return
-  end
+  local dap = require("dap")
   -- Toggle dap ui automatically
   local dapui = require("dapui")
   dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -86,10 +83,6 @@ end
 
 function config.nvim_dap_virtual_text()
   require("nvim-dap-virtual-text").setup()
-end
-
-function config.nvim_dap_go()
-  require("dap-go").setup()
 end
 
 function config.nvim_dap_ui()

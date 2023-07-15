@@ -138,6 +138,7 @@ map("n", "<Leader>=", "gt", { desc = "Go to Next Tab" })
 
 map("n", "<Leader><Tab>", function()
   local in_blacklist = require("core.util").in_blacklist
+    ---@diagnostic disable-next-line: param-type-mismatch
   local alternate_buf = vim.fn.bufnr("#")
   if alternate_buf < 1 then
     return

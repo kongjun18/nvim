@@ -1,4 +1,4 @@
-basic_options = {
+local basic_options = {
   compatible = false,
   exrc = true, -- Enable .nvimrc
   backspace = "eol,start,indent",
@@ -49,7 +49,7 @@ basic_options = {
   },
 }
 
-options = {
+local options = {
   updatetime = 300,
   mouse = "a",
   laststatus = 2,
