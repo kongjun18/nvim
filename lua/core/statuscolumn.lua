@@ -18,13 +18,13 @@ function M.column()
       sign = s
     end
   end
-  local texthl = ""
-  local text = ""
+
   if sign then
-    texthl = string.format("%%#%s", sign.texthl)
-    text = string.format("#%s%%*", sign.text)
+    sign = string.format("%%#%s#%s%%*", sign.texthl, sign.text)
+  else
+    sign = "  "
   end
-  sign = string.format("%s%s", texthl, text)
+
   local components = {
     sign,
     [[%=]],
