@@ -84,6 +84,7 @@ options = {
   directory = swap_dir,
   undodir = undo_dir,
   mousemodel = "extend",
+  tagrelative = false,
 }
 
 local function bind_option(opts)
