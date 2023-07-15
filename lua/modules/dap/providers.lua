@@ -2,18 +2,13 @@ local M = {}
 M.adapters = {}
 M.configurations = {}
 
-local function exepath(exe, default_path)
-  local path = vim.fn.exepath(exe)
-  return #path == 0 and path or default_path
-end
-
-local function load_module(module_name)
-  local ok, module = pcall(require, module_name)
-  assert(
-    ok,
-    string.format("dap-go dependency error: %s not installed", module_name)
-  )
-  return module
+local function exepath(...)
+  for _, executable in ipairs({ ... }) do
+    local path = vim.fn.exepath(executable)
+    if #path ~= 0 then
+      return path
+    end
+  end
 end
 
 local function arguments()
@@ -21,12 +16,12 @@ local function arguments()
   return vim.split(args_string, " ")
 end
 
-local dap = load_module("dap")
+local DAP = require("dap")
 
 --
 -- lldb-vscode
 --
-function setup_cpp_adapter(dap)
+local function setup_lldb_vscode(dap)
   dap.adapters.lldb = {
     type = "executable",
     command = exepath("lldb-vscode", "/usr/bin/lldb-vscode-14"), -- adjust as needed, must be absolute path
@@ -34,8 +29,8 @@ function setup_cpp_adapter(dap)
   }
 end
 
-function setup_cpp_configuration(dap)
-  dap.configurations.cpp = {
+local function setup_cpp_configuration(dap)
+  local cpp_config = {
     {
       name = "Launch executable",
       type = "lldb",
@@ -43,7 +38,9 @@ function setup_cpp_configuration(dap)
       program = function()
         return vim.fn.input(
           "Path to executable: ",
+          ---@diagnostic disable-next-line: redundant-parameter
           vim.fn.expand("%:p:r") .. ".out",
+          ---@diagnostic disable-next-line: redundant-parameter
           "file"
         )
       end,
@@ -59,6 +56,8 @@ function setup_cpp_configuration(dap)
       pid = require("dap.utils").pick_process,
     },
   }
+  dap.configurations.cpp = cpp_config
+  dap.configurations.c = cpp_config
 end
 
 --
@@ -67,6 +66,13 @@ end
 local function setup_go_adapter(dap)
   dap.adapters.go = function(callback, config)
     local stdout = vim.loop.new_pipe(false)
+    if not stdout then
+      vim.notify_once(
+        "DAP adapter dlv fails to new pipe stdout",
+        vim.log.levels.WARN
+      )
+      return
+    end
     local handle
     local pid_or_err
     local host = config.host or "127.0.0.1"
@@ -79,7 +85,9 @@ local function setup_go_adapter(dap)
     }
     handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
       stdout:close()
-      handle:close()
+      if handle then
+        handle:close()
+      end
       if code ~= 0 then
         print("dlv exited with code", code)
       end
@@ -110,7 +118,9 @@ local function setup_go_configuration(dap)
       program = function()
         return vim.fn.input(
           "Path to executable: ",
+          ---@diagnostic disable-next-line: redundant-parameter
           vim.fn.expand("%:p:r"),
+          ---@diagnostic disable-next-line: redundant-parameter
           "file"
         )
       end,
@@ -132,9 +142,10 @@ local function setup_go_configuration(dap)
   }
 end
 
-setup_go_adapter(dap)
-setup_go_configuration(dap)
-setup_cpp_adapter(dap)
-setup_cpp_configuration(dap)
+setup_go_adapter(DAP)
+setup_lldb_vscode(DAP)
+
+setup_go_configuration(DAP)
+setup_cpp_configuration(DAP)
 
 return M

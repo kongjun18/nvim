@@ -10,6 +10,7 @@ require("neodev").setup({
 
 M.opts = {
   -- Disable lua-language-server format
+  ---@diagnostic disable-next-line: unused-local
   on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
   end,
@@ -41,7 +42,7 @@ M.opts = {
           "session_dir",
           "dict_dir",
           "path",
-          "t"
+          "t",
         },
         disable = { "lowercase-global" },
       },
