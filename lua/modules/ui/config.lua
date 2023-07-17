@@ -199,6 +199,7 @@ end
 function config.murmur()
   require("murmur").setup({
     cursor_rgb_always_use_config = false, -- Don't use `cursor_rgb`.
+    disable_on_lines = 0,
     exclude_filetypes = require("core.config").ft_blacklist,
     callbacks = {
       -- to trigger the close_events of vim.diagnostic.open_float.
