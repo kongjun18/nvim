@@ -4,6 +4,7 @@
 local M = {}
 
 M.opts = require("go.lsp").config()
+M.opts.capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 vim.api.nvim_create_augroup("Go", {})
 vim.api.nvim_create_autocmd("BufWritePre", {

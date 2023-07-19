@@ -68,11 +68,12 @@ local completion = {
   },
   ["ray-x/go.nvim"] = {
     ft = { "go", "gomod" },
+    event = { "CmdlineEnter" },
     config = config.go,
     dependencies = {
       "ray-x/guihua.lua",
-      build = "cd lua/fzy && make",
-      event = "VeryLazy",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
     },
   },
   ["Fildo7525/pretty_hover"] = {

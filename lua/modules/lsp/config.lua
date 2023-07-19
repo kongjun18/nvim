@@ -84,10 +84,7 @@ end
 
 -- TODO: deduplicate repeated items. See nvim-cmp issues [Feature Request: Dedup items #511]
 function config.cmp()
-  local ok, cmp = pcall(require, "cmp")
-  if not ok then
-    return
-  end
+  local cmp = require("cmp")
   local lspkind = require("lspkind")
 
   local has_words_before = function()
