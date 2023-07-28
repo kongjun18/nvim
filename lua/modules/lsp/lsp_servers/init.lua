@@ -1,7 +1,7 @@
 local M = {
   go = "gopls",
-  c = "ccls",
-  cpp = "ccls",
+  c = "clangd",
+  cpp = "clangd",
   cmake = "cmake",
   css = "cssls",
   html = "html",
