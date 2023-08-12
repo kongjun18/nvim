@@ -276,12 +276,6 @@ function config.null_ls()
       builtin = null_ls.builtins.formatting,
       sources = "modules.lsp.formatters",
     }),
-    -- null-ls.nvim can't use with ccls due to offset_encoding.
-    -- See https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
-    should_attach = function(bufnr)
-      local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-      return ft ~= "c" and ft ~= "cpp"
-    end,
   })
 end
 

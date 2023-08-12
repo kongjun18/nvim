@@ -13,7 +13,7 @@ apt-get update \
     nodejs \
     xclip \
     global \
-    cmake gdb clang-format clang-tidy bear doxygen graphviz cppcheck \
+    cmake gdb clangd clang-format clang-tidy bear doxygen graphviz cppcheck \
     lua-check \
     shellcheck \
 && rm -rf /var/lib/apt/lists/* \
@@ -24,7 +24,3 @@ if ! type snap &> /dev/null; then
   echo -e "\e[1;31msnap not found!\e[0m" > /dev/stderr
   exit 1
 fi
-snap install --classic ccls
-snap install --classic ripgrep
-snap install --classic universal-ctags
-mkdir -p ~/.local/share/nvim/lsp_servers/ccls
