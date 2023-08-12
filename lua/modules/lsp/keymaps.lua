@@ -25,25 +25,11 @@ local M = {
   ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
   ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
   ["gC"] = {
-    function()
-      local ft = vim.api.nvim_get_option_value("filetype", {buf = 0})
-      if ft == "c" or ft == "cpp" then
-        ccls_call(true)
-      else
-        vim.lsp.buf.outgoing_calls()
-      end
-    end,
+    "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>",
     "Outgoing Calls",
   },
   ["gc"] = {
-    function()
-      local ft = vim.api.nvim_get_option_value("filetype", {buf = 0})
-      if ft == "c" or ft == "cpp" then
-        ccls_call(false)
-      else
-        vim.lsp.buf.incoming_calls()
-      end
-    end,
+    "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
     "Incoming Calls",
   },
   ["gi"] = {
