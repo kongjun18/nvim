@@ -385,7 +385,7 @@ function config.mason_lspconfig()
       -- causes first buffer would not be attached. Add it mutually to conquer
       -- it.
       lspconfig[server_name].setup(opts)
-      lspconfig[server_name].manager.try_add(args.buf)
+      lspconfig[server_name].manager:try_add(args.buf)
     end,
   })
 end
