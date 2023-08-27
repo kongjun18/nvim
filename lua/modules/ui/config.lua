@@ -64,7 +64,8 @@ function config.lualine()
           path = 1,
         },
       },
-      lualine_c = {},
+      -- vim-gutentags progress
+      lualine_c = {'gutentags#statusline'},
     },
     -- Enable tabline
     tabline = {
