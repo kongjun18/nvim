@@ -39,8 +39,7 @@ function config.todo_comments()
       pattern = [[\b(KEYWORDS)(\(\w+\))?\s*:]], -- ripgrep regex
     },
     -- Add keyword QUESTION
-    keywords =
-    {
+    keywords = {
       NOTE = { icon = " ", color = "hint", alt = { "INFO", "QUESTION" } },
     },
   })
@@ -130,6 +129,7 @@ function config.treesitter()
           ["if"] = "@function.inner",
           ["ac"] = "@class.outer",
           ["ic"] = "@class.inner",
+          ["im"] = "@comment.inner",
           ["am"] = "@comment.outer",
           ["ii"] = "@conditional.inner",
           ["ai"] = "@conditional.outer",
@@ -326,6 +326,12 @@ function config.web_tools()
       repeat_rename = "",
       rename = "",
     },
+  })
+end
+
+function config.mini_ai()
+  require("mini.ai").setup({
+    search_method = "cover",
   })
 end
 

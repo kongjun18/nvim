@@ -28,8 +28,9 @@ local editor = {
     config = config.auto_session,
     event = "VeryLazy",
   },
-  ["wellle/targets.vim"] = {
+  ["echasnovski/mini.ai"] = {
     event = "VeryLazy",
+    config = config.mini_ai,
   },
   ["skywind3000/vim-terminal-help"] = {},
   ["tpope/vim-rsi"] = {
