@@ -1,4 +1,16 @@
 local vcs = {
+  ["]ob"] = {
+    function ()
+      require("gitsigns").toggle_current_line_blame(false)
+    end,
+    "Open Inline Git Blame",
+  },
+  ["[ob"] = {
+    function ()
+      require("gitsigns").toggle_current_line_blame(true)
+    end,
+    "Close Inline Git Blame",
+  },
   ["]c"] = {
     function()
       return vim.api.nvim_get_option_value("diff", { win = 0 }) and "]c"
