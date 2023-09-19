@@ -174,7 +174,7 @@ function config.cmp()
       { name = "nvim_lsp" },
     }),
   })
-  cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit" }, {
+  cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit", "markdown" }, {
     sources = cmp.config.sources({
       { name = "luasnip" },
       { name = "buffer" },
