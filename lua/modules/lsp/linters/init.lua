@@ -4,7 +4,6 @@ local M = {
   javascript = "eslint",
   dockerfile = "hadolint",
   lua = "luacheck",
-  markdown = "markdownlint",
 }
 
 return M
