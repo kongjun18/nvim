@@ -1,10 +1,10 @@
-# Introduction
+## Introduction
 
 This is my personal Neovim configuration, you can use it directly.
 
 **Chinese user see this [中文文档](./README.zh.md)**
 
-# Features
+## Features
 
 - Install plugins and LSP automatically
 - Pure Lua configuration
@@ -13,7 +13,7 @@ This is my personal Neovim configuration, you can use it directly.
 - Fast startup time (40~50ms)
 - Cross platform (Windows and GNU/Linux)
 
-# Prerequisites
+## Prerequisites
 
 **Must**:
 
@@ -24,7 +24,7 @@ This is my personal Neovim configuration, you can use it directly.
 - Install LSP automatically:
 
   - GNU/Linux: git(1), curl(1) or wget(1), unzip(1), tar(1), gzip(1)
-  - Windows:  powershell, git, tar, and [7zip](https://www.7-zip.org/) or [peazip](https://peazip.github.io/) or [archiver](https://github.com/mholt/archiver) or [winzip](https://www.winzip.com/) or [WinRAR](https://www.win-rar.com/)
+  - Windows: powershell, git, tar, and [7zip](https://www.7-zip.org/) or [peazip](https://peazip.github.io/) or [archiver](https://github.com/mholt/archiver) or [winzip](https://www.winzip.com/) or [WinRAR](https://www.win-rar.com/)
   - Lsp specific Prerequisites: for example, [gopls](https://pkg.go.dev/golang.org/x/tools/gopls) needs [go](https://go.dev/).
 
 - Compile [treesitter](https://github.com/nvim-treesitter/nvim-treesitter)：
@@ -43,13 +43,13 @@ This is my personal Neovim configuration, you can use it directly.
 
 - Windows user can install dependencies using [msys2](https://www.msys2.org/) and [chocolatey](https://chocolatey.org/install).
 
-# Installation
+## Installation
 
 Clone this repository to your Neovim configuration directory.
 
-   ```shell
-   git clone --depth 1 https://github.com:kongjun18/nvim.git <configuration directory>
-   ```
+```shell
+git clone --depth 1 https://github.com:kongjun18/nvim.git <configuration directory>
+```
 
 All plugins are automatically installed on first startup, do not close Neovim until the installation is complete.
 
@@ -57,7 +57,13 @@ All plugins are automatically installed on first startup, do not close Neovim un
 
 - If you exit during installation or the plugin is not cloned due to network reasons, you may need to manually delete the plugin and reinstall it.
 
-# Credits
+## FAQ
+
+1. How to disable wakatime/codeium/yadm?
+
+Set variables in lua/core/global.lua like `wakatime_enable` to `false`.
+
+## Credits
 
 - [ayamir/nvimdots](https://github.com/ayamir/nvimdots)
 - All plugins my configuration used

@@ -3,7 +3,7 @@ local config = {}
 function config.gitsigns()
   require("gitsigns").setup({
     yadm = {
-      enable = true,
+      enable = yadm_enable,
     },
   })
 end

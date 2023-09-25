@@ -154,6 +154,7 @@ local editor = {
   },
   ["wakatime/vim-wakatime"] = {
     event = "VeryLazy",
+    enabled = wakatime_enable,
   },
 }
 
