@@ -61,4 +61,7 @@ globals = {
   "path",
   "BlankUp",
   "BlankDown",
+  "codeium_enable",
+  "wakatime_enable",
+  "yadm_enable",
 }

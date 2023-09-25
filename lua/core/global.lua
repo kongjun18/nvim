@@ -15,6 +15,10 @@ undo_dir = data_dir .. path_sep .. "undo"
 session_dir = data_dir .. path_sep .. "session"
 dict_dir = config_dir .. path_sep .. "dict"
 
+codeium_enable = true
+wakatime_enable = true
+yadm_enable = true
+
 function path(...)
   return table.concat({ ... }, path_sep)
 end
