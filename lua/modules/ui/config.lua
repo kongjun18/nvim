@@ -24,9 +24,11 @@ function config.nvim_tree()
         resize_window = true,
       },
     },
+    renderer = {
+      root_folder_label = true,
+    },
     view = {
       width = 30,
-      hide_root_folder = false,
       side = "left",
       number = false,
       relativenumber = false,
@@ -65,7 +67,7 @@ function config.lualine()
         },
       },
       -- vim-gutentags progress
-      lualine_c = {'gutentags#statusline'},
+      lualine_c = { "gutentags#statusline" },
     },
     -- Enable tabline
     tabline = {
