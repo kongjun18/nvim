@@ -142,8 +142,9 @@ local editor = {
   },
   ["ray-x/web-tools.nvim"] = {
     config = config.web_tools,
-    event = "VeryLazy",
-    build = "npm install -g browser-sync",
+    event = "CmdlineEnter",
+    -- Comment this line to avoid error on first startup.
+    -- build = "npm install -g browser-sync",
   },
   ["kongjun18/any-jump.vim"] = {
     event = "CmdlineEnter",
