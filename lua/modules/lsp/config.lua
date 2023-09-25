@@ -11,6 +11,16 @@ config.commands = {
   },
 }
 
+config.diagnostic_config = {
+  virtual_text = false,
+  float = {
+    source = "if_many",
+  },
+  signs = true,
+  underline = true,
+  severity_sort = true,
+}
+
 function config.on_attach(client, bufnr)
   require("lsp_signature").on_attach({
     bind = true,
@@ -42,15 +52,7 @@ end
 
 function config.custom_ui()
   -- Set diagnostics options
-  vim.diagnostic.config({
-    virtual_text = false,
-    float = {
-      source = "if_many",
-    },
-    signs = true,
-    underline = true,
-    severity_sort = true,
-  })
+  vim.diagnostic.config(config.diagnostic_config)
 
   -- Change diagnostic symbols
   local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
@@ -71,7 +73,7 @@ function config.custom_ui()
     local client = vim.lsp.get_client_by_id(ctx.client_id)
     if client then -- true
       local lvl = severity[result.type]
-      notify( result.message , lvl, {
+      notify(result.message, lvl, {
         title = "LSP | " .. client.name,
         timeout = 5000,
         keep = function()
