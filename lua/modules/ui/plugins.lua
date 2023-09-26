@@ -43,8 +43,9 @@ local ui = {
   ["machakann/vim-highlightedyank"] = {
     event = "VeryLazy",
   },
-  ["HiPhish/nvim-ts-rainbow2"] = {
-    lazy = true,
+  ["HiPhish/rainbow-delimiters.nvim"] = {
+    event = { "BufReadPost", "BufNewFile" },
+    config = config.rainbow_delimiters,
   },
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
