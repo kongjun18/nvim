@@ -252,4 +252,36 @@ function config.barbecue()
     end,
   })
 end
+
+function config.rainbow_delimiters()
+  -- This module contains a number of default definitions
+  local rainbow_delimiters = require("rainbow-delimiters")
+  highlights = {
+    "RainbowDelimiterRed",
+    "RainbowDelimiterYellow",
+    "RainbowDelimiterBlue",
+    "RainbowDelimiterOrange",
+    "RainbowDelimiterGreen",
+    "RainbowDelimiterMagenta",
+    "RainbowDelimiterCyan",
+  }
+  vim.g.rainbow_delimiters = {
+    strategy = {
+      [""] = rainbow_delimiters.strategy["global"],
+    },
+    query = {
+      [""] = "rainbow-delimiters",
+    },
+    highlight = highlights,
+  }
+
+  local palette = require("nightfox.palette").load("dayfox")
+  for _, highlight in ipairs(highlights) do
+    color = string.lower(string.gsub(highlight, "RainbowDelimiter(%w+)", "%1"))
+    if palette[color] then
+      vim.api.nvim_set_hl(0, highlight, { fg = palette[color].base })
+    end
+  end
+end
+
 return config
