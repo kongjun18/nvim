@@ -322,6 +322,9 @@ end
 
 function config.go()
   require("go").setup({
+    lsp_inlay_hints = {
+      enable = false,
+    },
     lsp_keymaps = false,
     lsp_cfg = false,
   })
