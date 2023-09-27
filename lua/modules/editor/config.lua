@@ -288,7 +288,9 @@ end
 
 function config.project()
   require("project_nvim").setup({
+    detection_methods = { "pattern" },
     patterns = {
+      ".root",
       ".git",
       "package.json",
       "go.mod",
