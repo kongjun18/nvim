@@ -49,7 +49,8 @@ local ui = {
   },
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
-    event = "VeryLazy",
+    main = "ibl",
+    event = {"BufReadPost", "BufNewFile"},
   },
   ["kevinhwang91/nvim-bqf"] = {
     config = config.bqf,
