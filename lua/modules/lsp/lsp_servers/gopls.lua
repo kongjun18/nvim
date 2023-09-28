@@ -4,7 +4,11 @@
 local M = {}
 
 M.opts = require("go.lsp").config({
-  diagnostic = require("lsp.config").diagnostic_config,
+  setting = {
+    gopls = {
+      ["completeFunctionCalls"] = false,
+    },
+  },
 })
 M.opts.capabilities.textDocument.completion.completionItem.snippetSupport =
   false
