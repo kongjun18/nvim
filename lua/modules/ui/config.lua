@@ -112,34 +112,44 @@ function config.luatab()
 end
 
 function config.indent_blankline()
-  local indent_blankline = require("indent_blankline").setup({
+  local indent_blankline = require("ibl").setup({
     space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = true,
-    filetype_exclude = {
-      "log",
-      "gitcommit",
-      "markdown",
-      "json",
-      "man",
-      "txt",
-      "help",
-      "todoist",
-      "NvimTree",
-      "TelescopePrompt",
-      "undotree",
-      "",
-      "list",
-      "qf",
-      "diff",
-      "undotree",
-      "leaderf",
-      "git",
+    scope = {
+      enable = true,
     },
-    buftype_exclude = { "nofile", "terminal", "nowrite" },
+    show_current_context_start = true,
+    exclude = {
+      filetypes = {
+        "log",
+        "gitcommit",
+        "markdown",
+        "json",
+        "man",
+        "txt",
+        "help",
+        "todoist",
+        "NvimTree",
+        "TelescopePrompt",
+        "undotree",
+        "",
+        "list",
+        "qf",
+        "diff",
+        "undotree",
+        "git",
+      },
+      buftypes = { "nofile", "terminal", "nowrite" },
+    },
   })
   if indent_blankline then
-    vim.cmd([[autocmd CursorMoved * IndentBlanklineRefresh]])
+    vim.api.nvim_create_augroup("indent_blankline", {})
+    vim.api.nvim_create_autocmd("CursorMoved", {
+      desc = "Refresh IndentBlankline when move cursor",
+      group = "indent_blankline",
+      callback = function()
+        require("ibl").refresh()
+      end,
+    })
   end
 end
 
