@@ -113,11 +113,9 @@ end
 
 function config.indent_blankline()
   local indent_blankline = require("ibl").setup({
-    space_char_blankline = " ",
     scope = {
-      enable = true,
+      enabled = true,
     },
-    show_current_context_start = true,
     exclude = {
       filetypes = {
         "log",
