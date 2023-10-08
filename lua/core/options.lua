@@ -85,6 +85,7 @@ local options = {
   undodir = undo_dir,
   mousemodel = "extend",
   tagrelative = false,
+  spelloptions = "camel",
 }
 
 local function bind_option(opts)
