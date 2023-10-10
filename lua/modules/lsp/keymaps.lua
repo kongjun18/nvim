@@ -69,7 +69,7 @@ local M = {
   },
   ["<space>q"] = {
     "<cmd>lua vim.diagnostic.setqflist()<CR>",
-    "Show Diagnostic Message In Location List",
+    "Show Diagnostic Message In Quickfix",
   },
   ["<space>wa"] = {
     "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
