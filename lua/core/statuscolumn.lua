@@ -10,26 +10,36 @@ function M.get_signs()
 end
 
 function M.column()
-  local sign, git_sign
+  local sign
   for _, s in ipairs(M.get_signs()) do
-    if s.name:find("GitSign") then
-      git_sign = s
-    else
-      sign = s
-    end
+    sign = s
+    break
   end
-
   if sign then
     sign = string.format("%%#%s#%s%%*", sign.texthl, sign.text)
   else
     sign = "  "
   end
 
+  local extsigns = vim.api.nvim_buf_get_extmarks(
+    0,
+    -1,
+    0,
+    -1,
+    { details = true, type = "sign" }
+  )
+  local extsigns_map = {}
+  for _, extmark in ipairs(extsigns) do
+    extsigns_map[extmark[2] + 1] = extmark[4]
+  end
+  local git_sign = extsigns_map[vim.v.lnum]
+
   local components = {
     sign,
     [[%=]],
     [[%3{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
-    git_sign and ("%#" .. git_sign.texthl .. "#" .. git_sign.text .. "%*")
+    git_sign
+        and ("%#" .. git_sign.sign_hl_group .. "#" .. git_sign.sign_text .. "%*")
       or "  ",
   }
   return table.concat(components, "")
