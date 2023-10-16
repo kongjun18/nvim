@@ -246,7 +246,7 @@ function config.dictionary()
   DictionaryLoaded = true
 end
 
-function config.null_ls()
+function config.none_ls()
   local construct_sources = function(...)
     local s = {}
     for _, arg in ipairs({ ... }) do
