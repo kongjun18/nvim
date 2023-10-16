@@ -50,8 +50,8 @@ local completion = {
       },
     },
   },
-  ["jose-elias-alvarez/null-ls.nvim"] = {
-    config = config.null_ls,
+  ["nvimtools/none-ls.nvim"] = {
+    config = config.none_ls,
     lazy = true,
   },
   ["ii14/lsp-command"] = {
