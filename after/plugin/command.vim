@@ -16,7 +16,7 @@ fun! s:execute_in_ssh() abort
 endfunction
 
 fun! s:Symbol() abort
-    let symbol = v:lua.require('nvim-navic').get_data()[0].name
+    let symbol = printf("`%s`", v:lua.require('nvim-navic').get_data()[0].name)
     call setreg('+', symbol)
     if s:execute_in_ssh()
         OSCYankRegister +
