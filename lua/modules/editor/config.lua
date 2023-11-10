@@ -203,6 +203,7 @@ function config.gutentags()
     "--exclude=.*",
     "--exclude=third_party",
     "--exclude=bazel-*",
+    "--exclude=vendor"
   }
   -- ctags_extra_args is defined in .nvimrc in order to extend g:gutentags_ctags_extra_args
   if ctags_extra_args then
