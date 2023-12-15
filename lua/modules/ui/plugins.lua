@@ -10,6 +10,11 @@ local ui = {
     priority = 1000,
     build = ":NightfoxCompile",
   },
+  ["ellisonleao/gruvbox.nvim"] = {
+    lazy = false,
+    config = config.gruvbox,
+    priority = 1000,
+  },
   ["j-hui/fidget.nvim"] = {
     config = config.fidget,
     tag = "legacy",
@@ -50,7 +55,7 @@ local ui = {
   ["lukas-reineke/indent-blankline.nvim"] = {
     config = config.indent_blankline,
     main = "ibl",
-    event = {"BufReadPost", "BufNewFile"},
+    event = { "BufReadPost", "BufNewFile" },
   },
   ["kevinhwang91/nvim-bqf"] = {
     config = config.bqf,

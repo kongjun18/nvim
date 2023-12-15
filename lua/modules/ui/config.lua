@@ -52,7 +52,7 @@ function config.nightfox()
         },
       },
     })
-    vim.cmd("colorscheme dayfox")
+    -- vim.cmd("colorscheme nightfox")
   end
 end
 
@@ -282,14 +282,11 @@ function config.rainbow_delimiters()
     },
     highlight = highlights,
   }
+end
 
-  local palette = require("nightfox.palette").load("dayfox")
-  for _, highlight in ipairs(highlights) do
-    color = string.lower(string.gsub(highlight, "RainbowDelimiter(%w+)", "%1"))
-    if palette[color] then
-      vim.api.nvim_set_hl(0, highlight, { fg = palette[color].base })
-    end
-  end
+function config.gruvbox()
+  vim.o.background = "dark" -- or "light" for light mode
+  vim.cmd([[colorscheme gruvbox]])
 end
 
 return config
