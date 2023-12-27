@@ -16,6 +16,14 @@ config.diagnostic_config = {
   float = {
     source = "if_many",
   },
+  sign = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = " ",
+      [vim.diagnostic.severity.HINT] = " ",
+    },
+  },
   signs = true,
   underline = true,
   severity_sort = true,
