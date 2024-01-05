@@ -52,7 +52,7 @@ function config.nightfox()
         },
       },
     })
-    vim.cmd("colorscheme dayfox")
+    vim.cmd("colorscheme nightfox")
   end
 end
 
