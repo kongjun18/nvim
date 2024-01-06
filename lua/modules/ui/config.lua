@@ -66,6 +66,19 @@ function config.lualine()
           path = 1,
         },
       },
+      lualine_b = {
+        "branch",
+        "diff",
+        {
+          "diagnostics",
+          symbols = {
+            error = " ",
+            warn = " ",
+            info = " ",
+            hint = " ",
+          },
+        },
+      },
       -- vim-gutentags progress
       lualine_c = { "gutentags#statusline" },
     },
