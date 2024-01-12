@@ -71,7 +71,7 @@ local ui = {
   ["kristijanhusak/vim-dadbod-ui"] = {
     ft = "qf",
   },
-  ["https://gitlab.com/yorickpeterse/nvim-pqf"] = {
+  ["yorickpeterse/nvim-pqf"] = {
     config = config.pqf,
     event = "VeryLazy",
   },
