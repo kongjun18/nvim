@@ -203,7 +203,7 @@ function config.gutentags()
     "--exclude=.*",
     "--exclude=third_party",
     "--exclude=bazel-*",
-    "--exclude=vendor"
+    "--exclude=vendor",
   }
   -- ctags_extra_args is defined in .nvimrc in order to extend g:gutentags_ctags_extra_args
   if ctags_extra_args then
@@ -264,6 +264,8 @@ function config.telescope()
     i = {
       ["<Down>"] = actions.cycle_history_next,
       ["<Up>"] = actions.cycle_history_prev,
+      -- <C-u> clear prompt buffer
+      ["<C-u>"] = false,
     },
   }
   telescope.setup({
