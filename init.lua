@@ -1,2 +1,4 @@
 require("core")
-require("modules")
+if not vim.g.bare_mode then
+  require("modules")
+end
