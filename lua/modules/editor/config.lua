@@ -331,7 +331,7 @@ end
 
 function config.mini_ai()
   require("mini.ai").setup({
-    search_method = "cover",
+    search_method = "cover_or_next",
   })
 end
 
