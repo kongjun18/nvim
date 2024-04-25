@@ -270,7 +270,7 @@ function config.none_ls()
   end
 
   local null_ls = require("null-ls")
-  null_ls.setup({
+  local opts = {
     sources = construct_sources({
       builtin = null_ls.builtins.diagnostics,
       sources = "modules.lsp.linters",
@@ -278,7 +278,8 @@ function config.none_ls()
       builtin = null_ls.builtins.formatting,
       sources = "modules.lsp.formatters",
     }),
-  })
+  }
+  null_ls.setup(opts)
 end
 
 function config.goto_preview()
