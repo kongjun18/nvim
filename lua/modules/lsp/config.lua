@@ -16,15 +16,14 @@ config.diagnostic_config = {
   float = {
     source = "if_many",
   },
-  sign = {
+  signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN] = " ",
-      [vim.diagnostic.severity.INFO] = " ",
-      [vim.diagnostic.severity.HINT] = " ",
+      [vim.diagnostic.severity.ERROR] = " ",
+      [vim.diagnostic.severity.WARN] = " ",
+      [vim.diagnostic.severity.INFO] = "󰋽 ",
+      [vim.diagnostic.severity.HINT] = "󰌶 ",
     },
   },
-  signs = true,
   underline = true,
   severity_sort = true,
 }
@@ -61,13 +60,6 @@ end
 function config.custom_ui()
   -- Set diagnostics options
   vim.diagnostic.config(config.diagnostic_config)
-
-  -- Change diagnostic symbols
-  local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
 
   local notify = require("notify")
   local severity = {
