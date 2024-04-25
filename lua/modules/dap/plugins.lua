@@ -8,6 +8,10 @@ local dap = {
         config = config.nvim_dap_ui,
         event = "VeryLazy",
       },
+      {
+        "nvim-neotest/nvim-nio",
+        event = "VeryLazy",
+      }
     },
   },
   ["theHamsta/nvim-dap-virtual-text"] = {
