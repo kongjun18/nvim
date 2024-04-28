@@ -72,10 +72,10 @@ function config.lualine()
         {
           "diagnostics",
           symbols = {
-            error = " ",
-            warn = " ",
-            info = " ",
-            hint = " ",
+            error = " ",
+            warn = "󰌶 ",
+            info = "󰋽 ",
+            hint = "󰌶 ",
           },
         },
       },
