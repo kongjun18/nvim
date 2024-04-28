@@ -9,7 +9,7 @@ function config.nvim_tree()
     hijack_directories = { enable = true, auto_open = true },
     diagnostics = {
       enable = true,
-      icons = { hint = "", info = "", warning = "", error = "" },
+      icons = { hint = "󰌶 ", info = "󰋽 ", warning = " ", error = " " },
     },
     update_focused_file = {
       enable = true,
