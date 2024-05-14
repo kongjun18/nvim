@@ -86,6 +86,7 @@ local options = {
   mousemodel = "extend",
   tagrelative = false,
   spelloptions = "camel",
+  grepprg="rg --vimgrep",
 }
 
 local function bind_option(opts)
