@@ -186,3 +186,7 @@ end)
 map("c", "<C-k>", function ()
   vim.api.nvim_feedkeys(t"<Up>", "c", false)
 end)
+
+map("n", "gr", function()
+  vim.cmd(string.format("Grep \\b%s\\b", vim.fn.expand("<cword>")))
+end, { desc = "Grep String With Word Boundray" })
