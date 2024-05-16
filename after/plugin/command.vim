@@ -1,5 +1,5 @@
-command -nargs=0 GMerge :call git#gmerge()
-command -nargs=0 Gconflict :call asyncrun#run('', {'errorformat': '%f'}, "git diff --name-only --diff-filter=U")
+command! -nargs=0 GMerge :call git#gmerge()
+command! -nargs=0 Gconflict :call asyncrun#run('', {'errorformat': '%f'}, "git diff --name-only --diff-filter=U")
 command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
           \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
 command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
@@ -7,7 +7,8 @@ command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
 command! -nargs=0 EchoPath :echo expand("%:p")
 " Rename current file
 command! -nargs=1 Rename try | execute "saveas %:p:h" . '/' . "<args>" | call delete(expand('#')) | bd # | endtry
-command -nargs=0 ConfigUpdate call <SID>config_update()
+command! -nargs=0 ConfigUpdate call <SID>config_update()
+command! -nargs=0 Gabort call <SID>gitcommit_abort()
 
 command! Symbol call <SID>Symbol()
 
@@ -41,3 +42,15 @@ function! s:grep(...)
     return system(printf("%s '%s'", &grepprg, join(a:000, '')))
 endfunction
 
+function! s:gitcommit_abort() abort
+    if &filetype !=# 'gitcommit'
+        echohl WarningMsg | echo "Gabort: Not in git commit" | echohl None
+        return
+    endif
+
+    " Empty the file and save it" really is
+    " the official Git way of canceling a commit.
+    %d
+    write
+    quit
+endfunction
