@@ -6,3 +6,4 @@
 
 setlocal wrap           " Wrap line
 setlocal spell          " Enable spell checking
+cmap <buffer> q! Gabort
