@@ -98,7 +98,6 @@ local editor = {
   },
   ["ludovicchabant/vim-gutentags"] = {
     config = config.gutentags,
-    event = { "BufReadPost", "CmdlineEnter" },
   },
   ["skywind3000/asyncrun.vim"] = {
     event = "VeryLazy",
