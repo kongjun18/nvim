@@ -155,6 +155,12 @@ local editor = {
     event = "VeryLazy",
     enabled = wakatime_enable,
   },
+    ['MeanderingProgrammer/markdown.nvim'] = {
+    name = 'render-markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = true,
+    ft = "markdown",
+  },
 }
 
 return editor
