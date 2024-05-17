@@ -169,18 +169,6 @@ function config.gutentags()
     end)
   end
   vim.g.gutentags_cache_dir = tags_dir
-  vim.g.gutentags_exclude_filetypes = {
-    "text",
-    "markdown",
-    "cmake",
-    "snippets",
-    "dosini",
-    "gitcommit",
-    "git",
-    "json",
-    "help",
-    "man",
-  }
   vim.g.gutentags_project_root = {
     ".git",
     "compile_commands.json",
@@ -212,6 +200,8 @@ function config.gutentags()
     end
   end
   vim.g.gutentags_ctags_extra_args = gutentags_ctags_extra_args
+  -- Set &tags for default `[No Name]` buffer
+  vim.g.gutentags_generate_on_empty_buffer = 1
 end
 
 function config.projectionist()
