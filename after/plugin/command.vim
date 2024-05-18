@@ -44,7 +44,7 @@ endfunction
 
 function! s:gitcommit_abort() abort
     if &filetype !=# 'gitcommit'
-        echohl WarningMsg | echo "Gabort: Not in git commit" | echohl None
+        call log#error("Gabort: Not in git commit")
         return
     endif
 
