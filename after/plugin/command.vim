@@ -11,6 +11,9 @@ command -nargs=0 ConfigUpdate call <SID>config_update()
 command -nargs=0 Gabort call <SID>gitcommit_abort()
 
 command Symbol call <SID>Symbol()
+" Search keyword in browser.
+" If keyword is not specified, use <cword>.
+command -nargs=? Search call <SID>search_in_browser(<f-args>)
 
 command -nargs=+ -complete=file_in_path -bar Grep cgetexpr s:grep(<f-args>)
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
@@ -53,4 +56,22 @@ function! s:gitcommit_abort() abort
     %d
     write
     quit
+endfunction
+
+function! s:search_in_browser(...) abort
+    if len(a:000) > 1
+        call log#error("Search: Too many arguments!")
+    endif
+    let l:keyword = get(a:000, 0, expand("<cword>"))
+
+    let l:open = "xdg-open"
+    let l:format = "http://www.google.com/search?q=%s"
+    let l:command = printf("%s '%s'", l:open, printf(l:format, l:keyword))
+
+    call system(l:command)
+    if v:shell_error
+        call log#error(printf("Search: Failed to open %s", printf(l:format, l:keyword)))
+    else
+        call log#info(l:command)
+    endif
 endfunction
