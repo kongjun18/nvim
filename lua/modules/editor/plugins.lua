@@ -108,7 +108,6 @@ local editor = {
   },
   ["ahmedkhalf/project.nvim"] = {
     config = config.project,
-    event = { "VeryLazy", "CmdlineEnter" },
   },
   ["nvim-telescope/telescope.nvim"] = {
     event = "CmdlineEnter",
