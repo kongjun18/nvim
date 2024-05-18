@@ -29,4 +29,5 @@ augroup quickfix
 	autocmd!
 	autocmd QuickFixCmdPost cgetexpr cwindow
 augroup END
-cnoremap G vertical G
+" Vertical vim-fugitive
+command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#Complete G   exe "vertical" fugitive#Command(<line1>, <count>, +"<range>", <bang>0, "<mods>", <q-args>)
