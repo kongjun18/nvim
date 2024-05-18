@@ -3,10 +3,6 @@ if ! get(g:, "loaded_customed_git_plugin", 0)
     let g:loaded_git_conflict_resovler = 1
 endif
 
-function s:echoerr(msg) abort
-    echohl ErrorMsg | echo a:msg | echohl None
-endfunction
-
 function git#gmerge() abort
     highlight! Green guifg=#618774
     call asyncrun#run('!', {'errorformat': '%f'}, "git diff --name-only --diff-filter=U")
@@ -30,13 +26,13 @@ endfunction
 " param  direction  'previous' or 'next'
 function s:handle_conflicted_file(direction) abort
     if &modified
-        call s:echoerr("Error: No write since last change, please save buffer.")
+        call log#error("Error: No write since last change, please save buffer.")
         return
     endif
     try
         execute 'c' .. a:direction
     catch /^Vim(\(cprevious\|cnext\)):E\d\+:/ " E553: No More Items
-        call s:echoerr("Error: No More Items")
+        call log#error("Error: No More Items")
         return
     endtry
     let l:local_bufnr = bufnr('//2')
