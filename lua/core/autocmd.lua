@@ -63,8 +63,10 @@ autocmd("BufWritePre", {
 augroup("autoclose", {})
 
 local should_delete = function(win)
-  local buf = vim.api.nvim_win_get_buf(win)
-  return require("core.util").in_blacklist(buf)
+  local in_blacklist =
+    require("core.util").in_blacklist(vim.api.nvim_win_get_buf(win))
+  local normal_window = fn.win_gettype(win) == ""
+  return (not normal_window) or in_blacklist
 end
 
 -- Open nvim-tree when arg is a directory.
