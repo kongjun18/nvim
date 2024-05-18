@@ -18,6 +18,12 @@ dict_dir = config_dir .. path_sep .. "dict"
 codeium_enable = true
 wakatime_enable = true
 yadm_enable = true
+project_root_patterns= {
+  ".root",
+  ".git",
+  "package.json",
+  "go.mod",
+}
 
 function path(...)
   return table.concat({ ... }, path_sep)
