@@ -21,7 +21,8 @@ function! cmd#grep(...)
         call log#error("cmd#grep: Too many arguments!")
     endif
     let l:pattern = get(a:000, 0, expand("<cword>"))
-    return system(printf("%s '%s'", &grepprg, expandcmd(l:pattern)))
+    let l:cmd = printf("%s '%s'", &grepprg, expandcmd(l:pattern))
+    return system(l:cmd)
 endfunction
 
 function! cmd#search_in_browser(...) abort
