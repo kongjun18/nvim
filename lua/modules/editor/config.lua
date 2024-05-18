@@ -169,12 +169,7 @@ function config.gutentags()
     end)
   end
   vim.g.gutentags_cache_dir = tags_dir
-  vim.g.gutentags_project_root = {
-    ".git",
-    "compile_commands.json",
-    ".root",
-    "go.mod",
-  }
+  vim.g.gutentags_project_root = project_root_patterns
   -- All ctags files suffixed with .tag'
   vim.g.gutentags_ctags_tagfile = ".tag"
   -- Only support universal-ctags
@@ -281,12 +276,7 @@ end
 function config.project()
   require("project_nvim").setup({
     detection_methods = { "pattern" },
-    patterns = {
-      ".root",
-      ".git",
-      "package.json",
-      "go.mod",
-    },
+    patterns = project_root_patterns,
   })
 end
 
