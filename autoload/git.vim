@@ -1,8 +1,9 @@
-" Add convenient mappings and avoid mapping conflicts
-if ! get(g:, "loaded_customed_git_plugin", 0)
-    let g:loaded_git_conflict_resovler = 1
+if exists('g:loaded_customed_git')
+    finish
 endif
+let g:loaded_customed_git = 1
 
+" Resolve git conflicts
 function git#gmerge() abort
     highlight! Green guifg=#618774
     call asyncrun#run('!', {'errorformat': '%f'}, "git diff --name-only --diff-filter=U")
@@ -14,11 +15,23 @@ function git#diff_updated_handler() abort
         nnoremap <buffer> <nowait> <silent> dp :diffput <SID>get_merged_file()<CR>|
         nnoremap <buffer> <nowait> <silent> gh :diffget //2<CR>]czz|
         nnoremap <buffer> <nowait> <silent> gl :diffget //3<CR>]czz|
-        nnoremap <buffer> <nowait> <silent> [q :call <SID>handle_conflicted_file('previous')<CR>|
-        nnoremap <buffer> <nowait> <silent> ]q :call <SID>handle_conflicted_file('next')<CR>
-    else
+        nnoremap <buffer> <nowait> <silent> [q :call <SID>handle_conflicted_file('previous')<CR>| nnoremap <buffer> <nowait> <silent> ]q :call <SID>handle_conflicted_file('next')<CR> else
         call <SID>local_unmap(['gh', 'gl', 'dp'])
     endif
+endfunction
+
+" Abort git commit
+function! git#gabort() abort
+    if &filetype !=# 'gitcommit'
+        call log#error("Gabort: Not in git commit")
+        return
+    endif
+
+    " Empty the file and save it" really is
+    " the official Git way of canceling a commit.
+    %d
+    write
+    quit
 endfunction
 
 " Jump to the previous/next conflicting file in quickfix without breaking

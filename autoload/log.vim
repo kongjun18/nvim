@@ -1,7 +1,7 @@
-if ! get(g:, "loaded_customed_log", 0)
-    let g:loaded_customed_log = 1
+if exists("g:loaded_customed_log")
+    finish
 endif
-
+let g:loaded_customed_log = 1
 
 function! log#error(msg) abort
     echohl ErrorMsg | echo a:msg | echohl None
