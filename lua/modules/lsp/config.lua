@@ -238,9 +238,17 @@ function config.luasnip()
   })
 end
 
+-- cmp-dictionary is loaded at InsertEnter, causing nvim-cmp
+-- not to display dictionary completion immediately due to
+-- the slow parsing speed.
+--
+-- Please run 'require("cmp_dictionary").update()' in advance
+-- to accelerate parsing like gitcommit.vim.
 function config.dictionary()
   if not DictionaryLoaded then
-    vim.opt.dict:append({ path(dict_dir, "word.dict") })
+    require("cmp_dictionary").setup({
+      paths = { path(dict_dir, "word.dict") },
+    })
     require("cmp_dictionary").update()
   end
   DictionaryLoaded = true
