@@ -219,39 +219,6 @@ function config.pqf()
   })
 end
 
-function config.murmur()
-  require("murmur").setup({
-    cursor_rgb_always_use_config = false, -- Don't use `cursor_rgb`.
-    disable_on_lines = 0,
-    exclude_filetypes = require("core.config").ft_blacklist,
-    callbacks = {
-      -- to trigger the close_events of vim.diagnostic.open_float.
-      function()
-        -- Close floating diag. and make it triggerable again.
-        vim.w.diag_shown = false
-      end,
-    },
-  })
-  -- To create IDE-like no blinking diagnostic message with cursor
-  -- (should be paired with the callback above)
-  vim.api.nvim_create_augroup("murmur", {})
-  vim.api.nvim_create_autocmd({ "CursorHold" }, {
-    group = "murmur",
-    callback = function()
-      -- skip when a float-win already exists.
-      if vim.w.diag_shown then
-        return
-      end
-      -- open float-win when hovering on a cursor-word.
-      ---@diagnostic disable-next-line: undefined-field
-      if vim.w.cursor_word ~= "" then
-        vim.diagnostic.open_float()
-        vim.w.diag_shown = true
-      end
-    end,
-  })
-end
-
 function config.barbecue()
   require("barbecue").setup({
     attach_navic = false, -- Prevent barbecue from automatically attaching nvim-navic
