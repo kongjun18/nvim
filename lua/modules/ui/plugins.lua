@@ -75,10 +75,6 @@ local ui = {
     config = config.pqf,
     event = "VeryLazy",
   },
-  ["nyngwang/murmur.lua"] = {
-    config = config.murmur,
-    event = "VeryLazy",
-  },
   ["utilyre/barbecue.nvim"] = {
     name = "barbecue",
     version = "*",
