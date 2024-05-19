@@ -165,6 +165,7 @@ function config.cmp()
       { name = "nvim_lua" },
       codeium_enable and { name = "codeium" } or {},
     }, {
+      { name = "dictionary" },
       { name = "buffer" },
       { name = "calc" },
       { name = "path" },
@@ -246,8 +247,17 @@ end
 -- to accelerate parsing like gitcommit.vim.
 function config.dictionary()
   if not DictionaryLoaded then
+    enabled =
+      { markdown = true, text = true, gitcommit = true, gitrebase = true }
     require("cmp_dictionary").setup({
       paths = { path(dict_dir, "word.dict") },
+      -- Enable cmp-dictionary in comments and some certain buffers.
+      is_available = function()
+        local context = require("cmp.config.context")
+        local in_comment = context.in_treesitter_capture("comment")
+          or context.in_syntax_group("Comment")
+        return enabled[vim.bo.ft] or in_comment
+      end,
     })
     require("cmp_dictionary").update()
   end

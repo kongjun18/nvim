@@ -34,10 +34,9 @@ local completion = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-calc",
       "hrsh7th/cmp-nvim-lua",
-      "f3fora/cmp-spell",
       "saadparwaiz1/cmp_luasnip",
       {
-        "uga-rosa/cmp-dictionary",
+        "kongjun18/cmp-dictionary",
         config = config.dictionary,
       },
       {
