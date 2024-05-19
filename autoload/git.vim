@@ -22,7 +22,8 @@ endfunction
 
 " Abort git commit
 function! git#gabort() abort
-    if &filetype !=# 'gitcommit'
+    let available_filetyps = ["gitcommit", "gitrebase"]
+    if index(available_filetyps, &filetype) < 0
         call log#error("Gabort: Not in git commit")
         return
     endif
