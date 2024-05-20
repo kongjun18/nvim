@@ -15,6 +15,7 @@ local M = {
   lua = "lua_ls",
   vim = "vimls",
   sh = "bashls",
+  awk = "awk_ls",
 
   json = "jsonls",
   xml = "lemminx",
