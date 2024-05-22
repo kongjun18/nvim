@@ -188,5 +188,6 @@ map("c", "<C-k>", function ()
 end)
 
 map("n", "gr", function()
-  vim.cmd(string.format("Grep \\b%s\\b", vim.fn.expand("<cword>")))
+  local cmd = string.format([[Grep \\b%s\\b]], vim.fn.expand("<cword>"))
+  vim.cmd(cmd)
 end, { desc = "Grep String With Word Boundray" })
