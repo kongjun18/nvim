@@ -106,6 +106,14 @@ autocmd("WinEnter", {
       end
     end
     if tabpages == 1 then
+      -- If there is a unsaved buffer, 'quit' would
+      -- cause error and make neovim deadlocked.
+      local bufs = vim.api.nvim_list_bufs()
+      for _, buf in ipairs(bufs) do
+        if vim.api.nvim_get_option_value("modified", { buf = buf }) then
+          return
+        end
+      end
       vim.cmd("quit")
     else
       vim.cmd("tabclose")
