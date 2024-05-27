@@ -416,8 +416,8 @@ function config.mason_lspconfig()
   })
 end
 
-function config.symbols_outline()
-  require("symbols-outline").setup({
+function config.outline()
+  require("outline").setup({
     symbols = {
       File = { icon = " ", hl = "@text.uri" },
       Module = { icon = " ", hl = "@namespace" },
