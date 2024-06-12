@@ -28,7 +28,14 @@ config.diagnostic_config = {
   severity_sort = true,
 }
 
+config.should_attach = function(bufnr)
+  return not vim.api.nvim_buf_get_name(bufnr):match("^fugitive://")
+end
+
 function config.on_attach(client, bufnr)
+  if not config.should_attach(bufnr) then
+    return
+  end
   require("lsp_signature").on_attach({
     bind = true,
     hint_prefix = "⤷",
@@ -296,6 +303,7 @@ function config.none_ls()
       builtin = null_ls.builtins.formatting,
       sources = "modules.lsp.formatters",
     }),
+    should_attach = config.should_attach,
   }
   null_ls.setup(opts)
 end
