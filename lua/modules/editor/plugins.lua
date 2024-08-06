@@ -154,11 +154,20 @@ local editor = {
     event = "VeryLazy",
     enabled = wakatime_enable,
   },
-    ['MeanderingProgrammer/markdown.nvim'] = {
-    name = 'render-markdown',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  ["MeanderingProgrammer/markdown.nvim"] = {
+    name = "render-markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,
     ft = "markdown",
+  },
+
+  ["epwalsh/obsidian.nvim"] = {
+    version = "*", -- recommended, use latest release instead of latest commit
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = config.obsidian,
   },
 }
 
