@@ -315,4 +315,74 @@ function config.mini_ai()
   })
 end
 
+function config.obsidian()
+  require("obsidian").setup({
+    workspaces = {
+      {
+        name = "personal",
+        path = "~/Obsidian",
+      },
+    },
+    ui = { enable = false },
+    new_notes_location = "07-笔记",
+    notes_subdir = "07-笔记",
+    templates = {
+      folder = "02-模板",
+      date_format = "%Y-%m-%d",
+      time_format = "%H:%M",
+      -- A map for custom variables, the key should be the variable and the value a function
+      substitutions = {},
+    },
+
+    note_path_func = function(spec)
+      local path = spec.dir / spec.title
+      return path:with_suffix(".md")
+    end,
+    attachments = {
+      img_folder = "01-附件",
+    },
+    disable_frontmatter = true,
+  })
+  local createNoteWithDefaultTemplate = function()
+    local TEMPLATE_FILENAME = "Core Zettelkasten Ideas"
+    local obsidian = require("obsidian").get_client()
+    local utils = require("obsidian.util")
+
+    -- prompt for note title
+    -- @see: borrowed from obsidian.command.new
+    local note
+    local title = utils.input("Enter title or path (optional): ")
+    if not title then
+      return
+    elseif title == "" then
+      title = nil
+    end
+
+    note = obsidian:create_note({ title = title, no_write = true })
+
+    if not note then
+      return
+    end
+    obsidian:open_note(note, { sync = true })
+    obsidian:write_note_to_buffer(note, { template = TEMPLATE_FILENAME })
+    -- I don't know why the frontmatter is not inserted. I insert it by myself.
+    note:save_to_buffer({
+      frontmatter = {
+        created = vim.fn.strftime("%Y-%m-%d"),
+      },
+    })
+    -- Hard coded!
+    -- Start insert at line 6
+    -- hack: delete empty lines after frontmatter
+    vim.fn.deletebufline(0, 4)
+    vim.api.nvim_win_set_cursor(0, { 6, 0 })
+    vim.cmd("startinsert")
+  end
+  vim.keymap.set(
+    "n",
+    "<leader>nn",
+    createNoteWithDefaultTemplate,
+    { desc = "[N]ew Obsidian [N]ote" }
+  )
+end
 return config
