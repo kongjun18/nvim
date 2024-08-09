@@ -1,93 +1,125 @@
 local M = {
-  ["gp"] = {
-    ["name"] = "+Preview symbol",
-    ["i"] = {
+  {
+    { "gp", group = "+Preview symbol" },
+    {
+      "gpi",
       "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-      "Preview Implementation",
+      desc = "Preview Implementation",
     },
-    ["d"] = {
+    {
+      "gpd",
       "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-      "Preview Definition",
+      desc = "Preview Definition",
     },
-    ["r"] = {
+    {
+      "gpr",
       "<cmd>lua require('goto-preview').goto_preview_references()<CR>",
-      "Preview References",
+      desc = "Preview References",
     },
-    ["c"] = {
+    {
+      "gpc",
       "<cmd>lua require('goto-preview').close_all_win()<CR>",
-      "Preview Close",
+      desc = "Preview Close",
     },
-    ["t"] = {
+    {
+      "gpt",
       "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>",
-      "Preview Type Definition",
+      desc = "Preview Type Definition",
     },
   },
-  ["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Declaration" },
-  ["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Definition" },
-  ["gC"] = {
+  {
+    "gD",
+    "<cmd>lua vim.lsp.buf.declaration()<CR>",
+    desc = "Goto Declaration",
+  },
+  {
+    "gd",
+    "<cmd>lua vim.lsp.buf.definition()<CR>",
+    desc = "Goto Definition",
+  },
+  {
+    "gC",
     "<cmd>lua vim.lsp.buf.outgoing_calls()<CR>",
-    "Outgoing Calls",
+    desc = "Outgoing Calls",
   },
-  ["gc"] = {
+  {
+    "gc",
     "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",
-    "Incoming Calls",
+    desc = "Incoming Calls",
   },
-  ["gi"] = {
+  {
+    "gi",
     "<cmd>lua vim.lsp.buf.implementation()<CR>",
-    "Goto Implementation",
+    desc = "Goto Implementation",
   },
-  ["gt"] = {
+  {
+    "gt",
     "<cmd>lua vim.lsp.buf.type_definition()<CR>",
-    "Goto Type Definition",
+    desc = "Goto Type Definition",
   },
-  ["gs"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "Goto References" },
-  ["gn"] = {
+  {
+    "gs",
+    "<cmd>lua vim.lsp.buf.references()<CR>",
+    desc = "Goto References",
+  },
+  {
+    "gn",
     "<cmd>lua vim.diagnostic.goto_next()<CR>",
-    "Goto Next Diagnostic",
+    desc = "Goto Next Diagnostic",
   },
-  ["gN"] = {
+  {
+    "gN",
     "<cmd>lua vim.diagnostic.goto_prev()<CR>",
-    "Goto Previous  Diagnostic",
+    desc = "Goto Previous  Diagnostic",
   },
-  ["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-  ["gf"] = {
+  { "K", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Hover" },
+  {
+    "gf",
     function()
       vim.lsp.buf.format()
     end,
-    "Format Buffer or Range",
+    desc = "Format Buffer or Range",
     mode = { "n", "v" },
   },
-  ["ga"] = {
+  {
+    "ga",
     function()
       vim.lsp.buf.code_action()
     end,
-    "Code Action",
+    desc = "Code Action",
   },
-  ["<space>e"] = {
+  {
+    "<space>e",
     "<cmd>lua vim.diagnostic.open_float()<CR>",
-    "Show Diagnostic Message In Float Window",
+    desc = "Show Diagnostic Message In Float Window",
   },
-  ["<space>q"] = {
+  {
+    "<space>q",
     "<cmd>lua vim.diagnostic.setqflist()<CR>",
-    "Show Diagnostic Message In Quickfix",
+    desc = "Show Diagnostic Message In Quickfix",
   },
-  ["<space>wa"] = {
+  {
+    "<space>wa",
     "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>",
-    "Add Workspace Folder",
+    desc = "Add Workspace Folder",
   },
-  ["<space>wr"] = {
+  {
+    "<space>wr",
     "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>",
-    "Remove Workspace Folder",
+    desc = "Remove Workspace Folder",
   },
-  ["<space>wl"] = {
+  {
+    "<space>wl",
     "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
-    "Show Workspace Folders",
+    desc = "Show Workspace Folders",
   },
-  ["<space>rn"] = {
+  {
+    "<space>rn",
     "<cmd>lua vim.lsp.buf.rename()<CR>",
-    "Rename Symbol",
+    desc = "Rename Symbol",
   },
-  ["<C-j>"] = {
+  {
+    "<C-j>",
     function()
       local snip = require("luasnip")
       if snip.expand_or_jumpable() then
@@ -95,9 +127,10 @@ local M = {
       end
     end,
     mode = { "i", "s" },
-    "Jump to Next Snippet Location",
+    desc = "Jump to Next Snippet Location",
   },
-  ["<C-k>"] = {
+  {
+    "<C-k>",
     function()
       local snip = require("luasnip")
       if snip.jumpable(-1) then
@@ -105,7 +138,7 @@ local M = {
       end
     end,
     mode = { "i", "s" },
-    "Jump to Previous Snippet Location",
+    desc = "Jump to Previous Snippet Location",
   },
 }
 

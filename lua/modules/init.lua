@@ -24,13 +24,15 @@ for _, module in pairs(modules) do
     table.insert(specs, spec)
   end
   if m.keymaps then
-    keymaps = vim.tbl_extend("error", keymaps, m.keymaps)
+    for _, keymap in ipairs(m.keymaps) do
+      table.insert(keymaps, keymap)
+    end
   end
 end
 
 require("lazy").setup(specs, {
   install = {
-    colorscheme = { "dayfox" },
+    colorscheme = { "nightfox" },
   },
   performance = {
     rtp = {
@@ -60,4 +62,4 @@ require("lazy").setup(specs, {
     },
   },
 })
-require("which-key").register(keymaps)
+require("which-key").add(keymaps)
