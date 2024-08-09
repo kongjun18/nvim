@@ -36,6 +36,7 @@ function config.on_attach(client, bufnr)
   if not config.should_attach(bufnr) then
     return
   end
+  vim.lsp.set_log_level(vim.log.levels.INFO)
   require("lsp_signature").on_attach({
     bind = true,
     hint_prefix = "⤷",
@@ -51,7 +52,7 @@ function config.on_attach(client, bufnr)
   -- Mappings.
   local opts = { buffer = bufnr }
   local keymaps = ok and lsp_server.keymaps or {}
-  wk.register(keymaps, opts)
+  wk.add(keymaps, opts)
 
   -- Commands
   local default = config.commands

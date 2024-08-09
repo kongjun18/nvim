@@ -1,97 +1,109 @@
 local vcs = {
-  ["]ob"] = {
-    function ()
+  {
+    "[ob",
+    function()
       require("gitsigns").toggle_current_line_blame(false)
     end,
-    "Close Inline Git Blame",
+    desc = "Close Inline Git Blame",
   },
-  ["[ob"] = {
-    function ()
+  {
+    "]ob",
+    function()
       require("gitsigns").toggle_current_line_blame(true)
     end,
-    "Open Inline Git Blame",
+    desc = "Open Inline Git Blame",
   },
-  ["]c"] = {
+  {
+    "]c",
     function()
       return vim.api.nvim_get_option_value("diff", { win = 0 }) and "]c"
         or t("<Cmd>Gitsigns next_hunk<CR>")
     end,
-    "Next Difference",
+    desc = "Next Difference",
     expr = true,
   },
-  ["[c"] = {
+  {
+    "[c",
     function()
       return vim.api.nvim_get_option_value("diff", { win = 0 }) and "[c"
         or t("<Cmd>Gitsigns prev_hunk<CR>")
     end,
-    "Previous Difference",
+    desc = "Previous Difference",
     expr = true,
   },
-  ["gh"] = {
-    ["name"] = "+Git Actions",
-    ["s"] = {
+  {
+    { "gh", group = "+Git Actions" },
+    {
+      "ghs",
       function()
         require("gitsigns").stage_hunk()
       end,
       mode = { "n", "v" },
-      "Stage Hunk",
+      desc = "Stage Hunk",
     },
-    ["r"] = {
+    {
+      "ghr",
       function()
         require("gitsigns").reset_hunk()
       end,
       mode = { "n", "v" },
-      "Reset Hunk",
+      desc = "Reset Hunk",
     },
-    ["S"] = {
+    {
+      "ghS",
       function()
         require("gitsigns").stage_buffer()
       end,
-      "Stage Buffer",
+      desc = "Stage Buffer",
     },
-    ["R"] = {
+    {
+      "ghR",
       function()
         require("gitsigns").reset_buffer()
       end,
-      "Reset Buffer",
+      desc = "Reset Buffer",
     },
-    ["u"] = {
+    {
+      "ghu",
       function()
         require("gitsigns").undo_stage_hunk()
       end,
-      "Undo Stage Hunk",
+      desc = "Undo Stage Hunk",
     },
-    ["p"] = {
+    {
+      "ghp",
       function()
         require("gitsigns").preview_hunk()
       end,
-      "Preview Hunk",
+      desc = "Preview Hunk",
     },
-    ["b"] = {
+    {
+      "ghb",
       function()
         require("gitsigns").blame_line({ full = true })
       end,
-      "Blame Line",
+      desc = "Blame Line",
     },
-    ["d"] = {
+    {
+      "ghd",
       function()
         require("gitsigns").diffthis()
       end,
-      "Diff Against The Index",
+      desc = "Diff Against The Index",
     },
-    ["D"] = {
+    {
+      "ghD",
       function()
         require("gitsigns").diffthis("~")
       end,
-      "Diff Against The Last Commit",
+      desc = "Diff Against The Last Commit",
     },
   },
-  ["i"] = {
-    ["h"] = {
-      ":<C-U>Gitsigns select_hunk<CR>",
-      mode = { "o", "x" },
-      "Inner Hunk",
-    },
+  {
+    "ih",
+    ":<C-U>Gitsigns select_hunk<CR>",
+    mode = { "o", "x" },
+    desc = "Inner Hunk",
   },
 }
 

@@ -211,10 +211,10 @@ end
 function config.pqf()
   require("pqf").setup({
     signs = {
-      error = " ",
-      warning = " ",
-      info = " ",
-      hint = " ",
+      error = {text=" "},
+      warning = {text=" "},
+      info = {text="󰋽 "},
+      hint = {text="󰌶 "},
     },
   })
 end

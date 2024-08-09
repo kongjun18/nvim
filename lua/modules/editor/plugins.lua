@@ -3,11 +3,6 @@ local editor = {
   ["folke/which-key.nvim"] = {
     event = "VeryLazy",
     opts = {
-      key_labels = {
-        ["<Space>"] = "SPC",
-        ["Cr>"] = "RET",
-        ["<Tab>"] = "TAB",
-      },
     },
   },
   ["lambdalisue/suda.vim"] = {

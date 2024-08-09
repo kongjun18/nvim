@@ -1,119 +1,136 @@
 local M = {
-  ["<Leader>w"] = {
-    ["name"] = "+window",
-
-    ["o"] = { "<C-w>o", "Open Window" },
-    ["c"] = { "<C-w>c", "Close Window" },
-    ["q"] = { "<C-w>c", "Quit Window" },
-    ["cj"] = {
+  {
+    { "<Leader>w", group = "+window" },
+    { "<leader>wo", "<C-w>o", desc = "Open Window" },
+    -- <leader>wc overlaps with <leader>wc*
+    { "<leader>wcc", "<C-w>c", desc = "Close Window" },
+    { "<leader>wq", "<C-w>c", desc = "Quit Window" },
+    {
+      "<leader>wcj",
       function()
         require("modules.ui.window").close_window("j")
       end,
-      "Close Below Window",
+      desc = "Close Below Window",
     },
-    ["ck"] = {
+    {
+      "<leader>wck",
       function()
         require("modules.ui.window").close_window("k")
       end,
-      "Close Above Window",
+      desc = "Close Above Window",
     },
-    ["ch"] = {
+    {
+      "<leader>wch",
       function()
         require("modules.ui.window").close_window("h")
       end,
-      "Close Left Window",
+      desc = "Close Left Window",
     },
-    ["cl"] = {
+    {
+      "<leader>wcl",
       function()
         require("modules.ui.window").close_window("l")
       end,
-      "Close Right Window",
+      desc = "Close Right Window",
     },
 
-    ["hc"] = { ":hide<CR>", "Hide Window" },
-    ["hk"] = {
+    { "<leader>whc", ":hide<CR>", desc = "Hide Window" },
+    {
+      "<leader>whk",
       function()
         require("modules.ui.window").hide_window("k")
       end,
-      "Hide Below Window",
+      desc = "Hide Below Window",
     },
-    ["hj"] = {
+    {
+      "<leader>whj",
       function()
         require("modules.ui.window").hide_window("j")
       end,
-      "Hide Above Window",
+      desc = "Hide Above Window",
     },
-    ["hh"] = {
+    {
+      "<leader>whh",
       function()
         require("modules.ui.window").hide_window("h")
       end,
-      "Hide Left Window",
+      desc = "Hide Left Window",
     },
-    ["hl"] = {
+    {
+      "<leader>whl",
       function()
         require("modules.ui.window").hide_window("l")
       end,
-      "Hide Right Window",
+      desc = "Hide Right Window",
     },
 
-    ["H"] = { "<C-w>H", "Move Window To The Left Side" },
-    ["J"] = { "<C-w>J", "Move Window To The Right Side" },
-    ["L"] = { "<C-w>L", "Move Window To The Button Side" },
-    ["K"] = { "<C-w>K", "Move Window To The Upper Side" },
+    { "<leader>wH", "<C-w>H", desc = "Move Window To The Left Side" },
+    { "<leader>wJ", "<C-w>J", desc = "Move Window To The Right Side" },
+    { "<leader>wL", "<C-w>L", desc = "Move Window To The Button Side" },
+    { "<leader>wK", "<C-w>K", desc = "Move Window To The Upper Side" },
 
-    ["v"] = { "<C-w>v", "Vertical Split Current Window" },
-    ["s"] = { "<C-w>s", "Split Current Window" },
-    ["t"] = { "<C-w>T", "Move Window To New Tab" },
+    { "<leader>wv", "<C-w>v", desc = "Vertical Split Current Window" },
+    { "<leader>ws", "<C-w>s", desc = "Split Current Window" },
+    { "<leader>wt", "<C-w>T", desc = "Move Window To New Tab" },
 
-    ["-"] = { "<C-w>-", "Decrease Current Window Height" },
-    ["="] = { "<C-w>+", "Increase Current Window Height" },
-    [","] = { "<C-w><", "Decrease Current Window Width" },
-    ["."] = { "<C-w>>", "Increase Current Window Width" },
-  },
-
-  ["<leader>b"] = {
-    ["name"] = "+buffer",
-    ["d"] = { ":bdelete<CR>", "Delete Buffer" },
-  },
-  ["<M-m>"] = {
-    function()
-      require("modules.ui.window").scroll_adjacent_window("down")
-    end,
-    "Scroll Adjacent Window Down",
-  },
-  ["<M-p>"] = {
-    function()
-      require("modules.ui.window").scroll_adjacent_window("up")
-    end,
-    "Scroll Adjacent Window Up",
+    { "<leader>w-", "<C-w>-", desc = "Decrease Current Window Height" },
+    { "<leader>w=", "<C-w>+", desc = "Increase Current Window Height" },
+    { "<leader>w,", "<C-w><", desc = "Decrease Current Window Width" },
+    { "<leader>w.", "<C-w>>", desc = "Increase Current Window Width" },
   },
 
-  ["<M-u>"] = {
-    function()
-      require("modules.ui.window").scroll_quickfix("up")
-    end,
-    "Scroll Quickfix Up",
-  },
-  ["<M-d>"] = {
-    function()
-      require("modules.ui.window").scroll_quickfix("down")
-    end,
-    "Scroll Quickfix Down",
+  {
+    { "<leader>b", group = "+buffer" },
+    { "<leader>dd", ":bdelete<CR>", desc = "Delete Buffer" },
   },
 
-  ["<leader>t"] = {
-    ["name"] = "+tree/translate",
-    ["t"] = {
+  {
+    {
+      "<M-m>",
+      function()
+        require("modules.ui.window").scroll_adjacent_window("down")
+      end,
+      desc = "Scroll Adjacent Window Down",
+    },
+    {
+      "<M-p>",
+      function()
+        require("modules.ui.window").scroll_adjacent_window("up")
+      end,
+      desc = "Scroll Adjacent Window Up",
+    },
+
+    {
+      "<M-u>",
+      function()
+        require("modules.ui.window").scroll_quickfix("up")
+      end,
+      desc = "Scroll Quickfix Up",
+    },
+    {
+      "<M-d>",
+      function()
+        require("modules.ui.window").scroll_quickfix("down")
+      end,
+      desc = "Scroll Quickfix Down",
+    },
+  },
+
+  {
+    { "<leader>t", group = "+tree/translate" },
+    {
+      "<leader>tt",
       ":lua require('nvim-tree.api').tree.toggle({focus = false})<CR>",
-      "Toggle NvimTree",
+      desc = "Toggle NvimTree",
     },
-    ["o"] = { ":NvimTreeOpen<CR>", "Open NvimTree" },
-    ["c"] = { ":NvimTreeClose<CR>", "Close NvimTree" },
-    ["q"] = {
+    { "<leader>to", ":NvimTreeOpen<CR>", desc = "Open NvimTree" },
+    { "<leader>tc", ":NvimTreeClose<CR>", desc = "Close NvimTree" },
+    {
+      "<leader>tq",
       function()
         require("modules.ui.window").close_buffers()
       end,
-      "Quit Tab",
+      desc = "Quit Tab",
     },
   },
 }

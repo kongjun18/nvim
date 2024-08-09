@@ -21,7 +21,10 @@ local vcs = {
     event = "VeryLazy",
   },
   ["lewis6991/gitsigns.nvim"] = {
-    dependencies = "nvim-lua/plenary.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" , {
+      "seanbreckenridge/gitsigns-yadm.nvim",
+      lazy = true,
+    }},
     config = config.gitsigns,
     event = "VeryLazy",
   },
