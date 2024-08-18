@@ -1,4 +1,5 @@
 local Util = require("core.util")
+local _ = require("core.global")
 
 vim.g.mapleader = " "
 
