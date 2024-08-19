@@ -13,15 +13,17 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load modules
-local modules = { "ui", "editor", "lsp", "vcs", "dap" }
+local modules = { "ui", "editor", "lsp", "vcs", "dap", "misc"}
 
 local keymaps = {}
 local specs = {}
 for _, module in pairs(modules) do
   local m = require("modules/" .. module)
-  for repo, conf in pairs(m.plugins) do
-    local spec = vim.tbl_extend("force", { repo }, conf)
-    table.insert(specs, spec)
+  if m.plugins then
+    for repo, conf in pairs(m.plugins) do
+      local spec = vim.tbl_extend("force", { repo }, conf)
+      table.insert(specs, spec)
+    end
   end
   if m.keymaps then
     for _, keymap in ipairs(m.keymaps) do

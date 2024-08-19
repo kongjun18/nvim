@@ -13,7 +13,7 @@ M.opts = require("go.lsp").config({
 M.opts.capabilities.textDocument.completion.completionItem.snippetSupport =
   false
 
-vim.api.nvim_create_augroup("Go", {})
+vim.api.nvim_create_augroup("Go", {clear=true})
 vim.api.nvim_create_autocmd("BufWritePre", {
   desc = "Format Go code on save",
   pattern = "*.go",
