@@ -1,13 +1,13 @@
 local vcs = {
   {
-    "[ob",
+    "]ob",
     function()
       require("gitsigns").toggle_current_line_blame(false)
     end,
     desc = "Close Inline Git Blame",
   },
   {
-    "]ob",
+    "[ob",
     function()
       require("gitsigns").toggle_current_line_blame(true)
     end,
