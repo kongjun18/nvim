@@ -59,9 +59,9 @@ All plugins are automatically installed on first startup, do not close Neovim un
 
 ## FAQ
 
-1. How to disable wakatime/codeium/yadm?
+1. How to disable and enable wakatime/codeium/yadm/obsidian and custom obsidian path?
 
-Set variables in lua/core/global.lua like `wakatime_enable` to `false`.
+Set variables in lua/modules/config/init.lua like `wakatime_enable` to `false`.
 
 ## Credits
 

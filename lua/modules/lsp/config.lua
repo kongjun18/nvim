@@ -171,7 +171,7 @@ function config.cmp()
       { name = "nvim_lsp" },
       { name = "luasnip" },
       { name = "nvim_lua" },
-      codeium_enable and { name = "codeium" } or {},
+      require("modules.config").codeium_enable and { name = "codeium" } or {},
     }, {
       { name = "dictionary" },
       { name = "buffer" },
