@@ -3,7 +3,10 @@ local config = require("modules.vcs.config")
 local vcs = {
   ["tpope/vim-fugitive"] = {
     dependencies = {
-      "kongjun18/yadm-git.vim",
+      {
+        "kongjun18/yadm-git.vim",
+        enabled = require("modules.config").yadm_enable,
+      },
       "tpope/vim-rhubarb",
       "shumphrey/fugitive-gitlab.vim",
     },
@@ -21,10 +24,14 @@ local vcs = {
     event = "VeryLazy",
   },
   ["lewis6991/gitsigns.nvim"] = {
-    dependencies = { "nvim-lua/plenary.nvim" , {
-      "seanbreckenridge/gitsigns-yadm.nvim",
-      lazy = true,
-    }},
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      {
+        "seanbreckenridge/gitsigns-yadm.nvim",
+        enabled = require("modules.config").yadm_enable,
+        lazy = true,
+      },
+    },
     config = config.gitsigns,
     event = "VeryLazy",
   },

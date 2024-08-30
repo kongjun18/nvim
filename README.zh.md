@@ -60,11 +60,12 @@ git clone --depth 1 https://github.com/kongjun18/nvim.git <配置目录>
 
 ## FAQ
 
-1. 如何禁用 wakatime/codeium/yadm?
+1. 如何禁用 wakatime/codeium/yadm/obsidian 和调整 obsidian 路径?
 
-在 lua/core/global.lua 中将`wakatime_enable`等变量设置为`false`。
+在 lua/modules/config/init.lua 中将`wakatime_enable`等变量设置为`false`。
 
 ## 感谢
 
 - [ayamir/nvimdots](https://github.com/ayamir/nvimdots)
+
 - 所有使用到的插件

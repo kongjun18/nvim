@@ -320,7 +320,7 @@ function config.obsidian()
     workspaces = {
       {
         name = "personal",
-        path = "~/Obsidian",
+        path = require("modules.config").obsidian_path,
       },
     },
     ui = { enable = false },

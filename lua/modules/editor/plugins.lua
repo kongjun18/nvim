@@ -2,8 +2,7 @@ local config = require("modules.editor.config")
 local editor = {
   ["folke/which-key.nvim"] = {
     event = "VeryLazy",
-    opts = {
-    },
+    opts = {},
   },
   ["lambdalisue/suda.vim"] = {
     event = "VeryLazy",
@@ -147,7 +146,7 @@ local editor = {
   },
   ["wakatime/vim-wakatime"] = {
     event = "VeryLazy",
-    enabled = wakatime_enable,
+    enabled = require("modules.config").wakatime_enable,
   },
   ["MeanderingProgrammer/markdown.nvim"] = {
     name = "render-markdown",
@@ -163,6 +162,7 @@ local editor = {
       "nvim-lua/plenary.nvim",
     },
     config = config.obsidian,
+    enabled = require("modules.config").obsidian_enable,
   },
 }
 
