@@ -65,22 +65,19 @@ local function refile_to(src, dst, buf)
   -- 按行读取文件
   local lines = {}
   local lnum = 0
-  local target_found = false
   local target_heading_lnum = nil
   local previous_heading_lnum = nil
   for line in io.lines(dst) do
     lnum = lnum + 1
     table.insert(lines, line)
-    if not target_found then
+    if not target_heading_lnum then
       local heading = "## " .. day
       if line == heading then
-        target_found = true
         target_heading_lnum = lnum
       end
-    else
+    elseif not previous_heading_lnum then
       if string.match(line, "## (%d+-%d+-%d+)") then
         previous_heading_lnum = lnum
-        break
       end
     end
   end
@@ -91,7 +88,7 @@ local function refile_to(src, dst, buf)
     buf_content_list[#buf_content_list + 1] = "\n"
   end
 
-  if target_found then
+  if target_heading_lnum and previous_heading_lnum then
     insert_list_to(lines, previous_heading_lnum, buf_content_list)
   else
     table.insert(buf_content_list, 1, string.format("## %s", day))
