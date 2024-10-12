@@ -65,8 +65,8 @@ local M = {
     },
 
     { "<leader>wH", "<C-w>H", desc = "Move Window To The Left Side" },
-    { "<leader>wJ", "<C-w>J", desc = "Move Window To The Right Side" },
-    { "<leader>wL", "<C-w>L", desc = "Move Window To The Button Side" },
+    { "<leader>wJ", "<C-w>L", desc = "Move Window To The Right Side" },
+    { "<leader>wL", "<C-w>J", desc = "Move Window To The Button Side" },
     { "<leader>wK", "<C-w>K", desc = "Move Window To The Upper Side" },
 
     { "<leader>wv", "<C-w>v", desc = "Vertical Split Current Window" },
