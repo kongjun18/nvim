@@ -27,7 +27,7 @@ local vcs = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
-        "seanbreckenridge/gitsigns-yadm.nvim",
+        "purarue/gitsigns-yadm.nvim",
         enabled = require("modules.config").yadm_enable,
         lazy = true,
       },
