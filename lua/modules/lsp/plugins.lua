@@ -53,9 +53,6 @@ local completion = {
     config = config.none_ls,
     lazy = true,
   },
-  ["ii14/lsp-command"] = {
-    dependencies = "nvim-lspconfig",
-  },
   ["rmagatti/goto-preview"] = {
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
