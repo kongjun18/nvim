@@ -168,10 +168,10 @@ function config.cmp()
       }),
     },
     sources = cmp.config.sources({
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "nvim_lua" },
       require("modules.config").codeium_enable and { name = "codeium" } or {},
+      { name = "nvim_lsp" },
+      { name = "nvim_lua" },
+      { name = "luasnip" },
     }, {
       { name = "dictionary" },
       { name = "buffer" },
