@@ -92,4 +92,37 @@ function M.in_blacklist(buf)
   return M.in_ft_blacklist(buf) or M.in_bt_blacklist(buf)
 end
 
+-- @return integer|nil fd file descriptor
+-- @return string|nil path
+-- @return vim.loop.errno|nil error
+function M.tempfile()
+  local path = vim.fn.tempname()
+  local stat = vim.loop.fs_stat(path)
+  if stat then
+    return nil, path, vim.loop.errno.EEXIST
+  end
+
+  local fd, err  = vim.loop.fs_open(path, "w", tonumber("0644", 8))
+  if not fd then
+    return nil, nil, err
+  end
+  return fd, path, err
+end
+
+-- @return string|nil path
+-- @return vim.loop.errno|nil error
+function M.tempdir()
+  local path = vim.fn.tempname()
+  local stat = vim.loop.fs_stat(path)
+  if stat then
+    return nil, path, vim.loop.errno.EEXIST
+  end
+
+  local ok, err = vim.loop.fs_mkdir(path, tonumber("0775", 8))
+  if not ok then
+    return nil, err
+  end
+  return path, nil
+end
+
 return M
