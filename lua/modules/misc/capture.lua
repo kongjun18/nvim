@@ -36,28 +36,15 @@ local function write_list_to(list, path)
   file:close()
 end
 
--- TODO: lock file
-local function refile_to(src, dst, buf)
-  local basename = vim.fs.basename(src)
-  -- capture-%Y-%m-%d %H:%M:%S.md
-  local date = string.match(basename, "capture%-(.*).md")
+-- capture tempfile serves as a lock, which must
+-- be deleted after capture buffer exits.
+local function refile_to(buf, capture_path, dst)
+  local date = vim.fn.strftime("%Y-%m-%d %H:%M:%S")
   local matched = {}
   for v in string.gmatch(date, "([^ ]+)") do
     table.insert(matched, v)
   end
   local day, time = matched[1], matched[2]
-
-  local file_exists = function(file)
-    local f = io.open(file, "rb")
-    if f then
-      f:close()
-    end
-    return f ~= nil
-  end
-  if not file_exists(dst) then
-    print("无法打开文件")
-    return
-  end
 
   local lines = {}
   local lnum = 0
@@ -90,6 +77,21 @@ local function refile_to(src, dst, buf)
     table.insert(buf_content_list, 1, string.format("## %s", day))
     insert_list_to(lines, 1, buf_content_list)
   end
+
+  os.remove(capture_path)
+
+  local file_exists = function(file)
+    local f = io.open(file, "rb")
+    if f then
+      f:close()
+    end
+    return f ~= nil
+  end
+  if not file_exists(dst) then
+    print(string.format("%s not exists", dst))
+    return
+  end
+
   local tempfile = dst .. ".temp"
   write_list_to(lines, tempfile)
   local ok, err = os.rename(tempfile, dst)
@@ -101,15 +103,14 @@ local function refile_to(src, dst, buf)
 end
 
 local function capture()
-  local util = require("core.util")
-  local tempdir, err = util.tempdir()
-  if err ~= nil then
-    print(string.format("failed to create temp dir: %s", err))
+  -- capture tempfile serves as a lock.
+  local tempfile = path(backup_dir, "capture.md")
+  local stat = vim.loop.fs_stat(tempfile)
+  if stat then
+    print("You are editing the capture buffer in another session!")
     return
   end
 
-  local date = vim.fn.strftime("%Y-%m-%d %H:%M:%S")
-  local tempfile = path(tempdir, string.format("capture-%s.md", date))
   local fd = vim.loop.fs_open(tempfile, "w", tonumber("0644", 8))
   if not fd then
     print(string.format("failed to open file %s", tempfile))
@@ -122,9 +123,9 @@ end
 local dialy_path = require("core.config").dialy_path
 vim.api.nvim_create_augroup("Capture", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*/capture-*.md" },
+  pattern = { "*/capture.md" },
   callback = function(ev)
-    refile_to(ev.file, dialy_path, ev.buf)
+    refile_to(ev.buf, ev.file, dialy_path)
   end,
 })
 
