@@ -192,8 +192,3 @@ map({ "n", "v" }, "gr", function()
   local cmd = string.format([[Grep \\b%s\\b]], vim.fn.expand("<cword>"))
   vim.cmd(cmd)
 end, { desc = "Grep String With Word Boundray" })
-
--- Disable lsp-defaults
-vim.keymap.del("n", "grr")
-vim.keymap.del("n", "grn")
-vim.keymap.del("n", "gra")
