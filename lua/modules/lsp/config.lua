@@ -349,7 +349,6 @@ end
 
 function config.go()
   require("go").setup({
-    -- override go.nvim diagnostic config
     diagnostic = config.diagnostic_config,
     lsp_inlay_hints = {
       enable = false,

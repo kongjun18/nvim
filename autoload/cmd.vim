@@ -6,9 +6,6 @@ let g:loaded_customed_cmd = 1
 function! cmd#symbal() abort
     let symbol = printf("`%s`", v:lua.require('nvim-navic').get_data()[0].name)
     call setreg('+', symbol)
-    if s:execute_in_ssh()
-        OSCYankRegister +
-    endif
 endfunction
 
 function! cmd#config_update() abort

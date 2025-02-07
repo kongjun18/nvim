@@ -135,9 +135,6 @@ local editor = {
     config = config.neogen,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
-  ["ojroques/vim-oscyank"] = {
-    event = "VeryLazy",
-  },
   ["dstein64/vim-startuptime"] = {
     event = "VeryLazy",
   },
