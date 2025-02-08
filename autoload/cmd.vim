@@ -39,9 +39,3 @@ function! cmd#search_in_browser(...) abort
         call log#info(l:command)
     endif
 endfunction
-
-function! s:execute_in_ssh() abort
-    let ssh_tty = getenv("SSH_TTY")
-    return ssh_tty != v:null
-endfunction
-

@@ -79,7 +79,7 @@ local options = {
   shortmess = "filnxtToOFc",
   signcolumn = "yes",
   termguicolors = true,
-  sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions",
   backupdir = backup_dir,
   directory = swap_dir,
   undodir = undo_dir,
@@ -87,7 +87,7 @@ local options = {
   tagrelative = false,
   spelloptions = "camel",
   spell = true,
-  grepprg="rg --vimgrep",
+  grepprg = "rg --vimgrep",
 }
 
 local function bind_option(opts)
@@ -101,3 +101,18 @@ end
 
 bind_option(basic_options)
 bind_option(options)
+
+-- Make sure to use clipboard-osc52 in SSH session.
+if os.getenv("SSH_TTY") then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+    },
+    paste = {
+      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+    },
+  }
+end
