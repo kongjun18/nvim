@@ -1,7 +1,7 @@
 local M = {}
 
 M.opts = {
-  capabilities = { offsetEncoding = { "utf-16" } },
+  -- cmd = {"clangd", "--compile-commands-dir", "build"},
 }
 
 return M
