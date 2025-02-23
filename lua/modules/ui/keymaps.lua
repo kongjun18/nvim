@@ -81,7 +81,7 @@ local M = {
 
   {
     { "<leader>b", group = "+buffer" },
-    { "<leader>dd", ":bdelete<CR>", desc = "Delete Buffer" },
+    { "<leader>bd", ":bdelete<CR>", desc = "Delete Buffer" },
   },
 
   {

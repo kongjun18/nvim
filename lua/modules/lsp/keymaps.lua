@@ -1,5 +1,15 @@
 local M = {
   {
+    {
+      "<Leader>d",
+      function()
+        local builtin = require("telescope.builtin")
+        local word = vim.fn.expand("<cword>")
+        builtin.tags({ default_text = word })
+      end,
+      desc = "Search Tags",
+    },
+    { "<Leader>j", "<cmd>AnyJump<CR>", desc ="AnyJump" },
     { "gp", group = "+Preview symbol" },
     {
       "gpi",
