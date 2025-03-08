@@ -1,7 +1,13 @@
 local M = {}
 
 M.opts = {
-  -- cmd = {"clangd", "--compile-commands-dir", "build"},
+  compilationDatabaseDirectory = "build",
+  cache = {
+    directory = ".cache/clangd",
+  },
+  capabilities = {
+    offsetEncoding = { "utf-16" },
+  },
 }
 
 return M
