@@ -129,4 +129,4 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
-vim.api.nvim_create_user_command("Capture", capture, {})
+return capture

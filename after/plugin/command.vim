@@ -27,5 +27,7 @@ command -nargs=? -complete=file_in_path -bar Grep cgetexpr cmd#grep(<f-args>) | 
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
 " Vertical vim-fugitive
 command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#Complete G   exe "vertical" fugitive#Command(<line1>, <count>, +"<range>", <bang>0, "<mods>", <q-args>)
+" Daily capture
+command! Capture execute 'lua require("modules.misc.capture")()'
 " Local Gbrowse
 command! Browse execute 'lua require("modules.misc.browse")()'
