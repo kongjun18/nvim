@@ -9,7 +9,12 @@ function config.nvim_tree()
     hijack_directories = { enable = true, auto_open = true },
     diagnostics = {
       enable = true,
-      icons = { hint = "󰌶 ", info = "󰋽 ", warning = " ", error = " " },
+      icons = {
+        hint = "󰌶 ",
+        info = "󰋽 ",
+        warning = " ",
+        error = " ",
+      },
     },
     update_focused_file = {
       enable = true,
@@ -57,31 +62,33 @@ function config.nightfox()
 end
 
 function config.lualine()
-  local opts = {
-    sections = {
-      lualine_a = {
-        "mode",
-        {
-          "filename",
-          path = 1,
-        },
+  local sections = {
+    lualine_a = {
+      "mode",
+      {
+        "filename",
+        path = 1,
       },
-      lualine_b = {
-        "branch",
-        "diff",
-        {
-          "diagnostics",
-          symbols = {
-            error = " ",
-            warn = "󰌶 ",
-            info = "󰋽 ",
-            hint = "󰌶 ",
-          },
-        },
-      },
-      -- vim-gutentags progress
-      lualine_c = { "gutentags#statusline" },
     },
+    lualine_b = {
+      "branch",
+      "diff",
+      {
+        "diagnostics",
+        symbols = {
+          error = " ",
+          warn = "󰌶 ",
+          info = "󰋽 ",
+          hint = "󰌶 ",
+        },
+      },
+    },
+    -- vim-gutentags progress
+    lualine_c = { "gutentags#statusline" },
+  }
+  local opts = {
+    sections = sections,
+    inactive_sections = sections,
     -- Enable tabline
     tabline = {
       lualine_a = {
@@ -211,10 +218,10 @@ end
 function config.pqf()
   require("pqf").setup({
     signs = {
-      error = {text=" "},
-      warning = {text=" "},
-      info = {text="󰋽 "},
-      hint = {text="󰌶 "},
+      error = { text = " " },
+      warning = { text = " " },
+      info = { text = "󰋽 " },
+      hint = { text = "󰌶 " },
     },
   })
 end
