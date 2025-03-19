@@ -117,10 +117,6 @@ function config.numb()
   require("numb").setup()
 end
 
-function config.range_highlight()
-  require("range-highlight").setup()
-end
-
 function config.notify()
   local notify = require("notify")
   notify.setup()

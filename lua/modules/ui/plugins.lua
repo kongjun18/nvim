@@ -24,17 +24,9 @@ local ui = {
       "nvim-tree/nvim-web-devicons",
     },
   },
-  ["Pocco81/truezen.nvim"] = {
-    event = "VeryLazy",
-  },
   ["nacro90/numb.nvim"] = {
     config = config.numb,
     event = "VeryLazy",
-  },
-  ["winston0410/range-highlight.nvim"] = {
-    event = "VeryLazy",
-    dependencies = { "winston0410/cmd-parser.nvim" },
-    config = config.range_highlight,
   },
   ["rcarriga/nvim-notify"] = {
     config = config.notify,

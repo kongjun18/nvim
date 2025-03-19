@@ -38,7 +38,6 @@ local editor = {
     init = config.projectionist,
     event = "VeryLazy",
   },
-  ["yianwillis/vimcdoc"] = {},
   ["milisims/nvim-luaref"] = {},
   ["lfv89/vim-interestingwords"] = {
     event = "VeryLazy",
@@ -144,8 +143,8 @@ local editor = {
     -- Comment this line to avoid error on first startup.
     -- build = "npm install -g browser-sync",
   },
-  ["kongjun18/any-jump.vim"] = {
-    event = "CmdlineEnter",
+  ["pechorin/any-jump.vim"] = {
+    cmd = "AnyJump",
     init = function()
       vim.g.any_jump_disable_default_keybindings = 1
     end,
