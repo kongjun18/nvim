@@ -188,7 +188,14 @@ map("c", "<C-k>", function ()
   vim.api.nvim_feedkeys(t"<Up>", "c", false)
 end)
 
-map({ "n", "v" }, "gr", function()
+map("n", "gr", function()
   local cmd = string.format([[Grep \\b%s\\b]], vim.fn.expand("<cword>"))
   vim.cmd(cmd)
-end, { desc = "Grep String With Word Boundray" })
+end, { desc = "Grep the wrod under the cursor" })
+
+map(
+  "v",
+  "gr",
+  "<Cmd>call cmd#grep_visual_selection()<CR>",
+  { silent = true, desc = "Grep the selected string" }
+)
