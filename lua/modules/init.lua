@@ -13,7 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Load modules
-local modules = { "ui", "editor", "lsp", "vcs", "dap", "misc"}
+local modules = { "ui", "editor", "lsp", "vcs", "dap"}
 
 local keymaps = {}
 local specs = {}
