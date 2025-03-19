@@ -17,6 +17,7 @@ local vcs = {
     dependencies = "tpope/vim-fugitive",
   },
   ["akinsho/git-conflict.nvim"] = {
+    version = "*",
     config = config.git_conflict,
     event = "VeryLazy",
   },
