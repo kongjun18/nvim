@@ -4,7 +4,7 @@ local vcs = {
   ["tpope/vim-fugitive"] = {
     dependencies = {
       {
-        "kongjun18/yadm-git.vim",
+        "purarue/yadm-git.vim",
         enabled = require("modules.config").yadm_enable,
       },
       "tpope/vim-rhubarb",
