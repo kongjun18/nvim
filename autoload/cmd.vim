@@ -13,13 +13,16 @@ function! cmd#config_update() abort
     execute "AsyncRun -cwd" config_dir "git pull --rebase"
 endfunction
 
-function! cmd#grep(...)
-    if a:0 > 1
-        call log#error("cmd#grep: Too many arguments!")
-    endif
-    let l:pattern = get(a:000, 0, expand("<cword>"))
-    let l:cmd = printf("%s '%s'", &grepprg, expandcmd(l:pattern))
+function! cmd#grep(pattern) abort
+    let l:cmd = printf("%s '%s'", &grepprg, a:pattern)
     return system(l:cmd)
+endfunction
+
+function! cmd#grep_visual_selection()
+    let l:pattern = utils#get_visual_selection()
+    if l:pattern != ""
+        cgetexpr cmd#grep(l:pattern) | copen
+    endif
 endfunction
 
 function! cmd#search_in_browser(...) abort
