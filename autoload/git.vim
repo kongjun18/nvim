@@ -12,11 +12,8 @@ endfunction
 
 function git#diff_updated_handler() abort
     if &diff
-        nnoremap <buffer> <nowait> <silent> dp :diffput <SID>get_merged_file()<CR>|
-        nnoremap <buffer> <nowait> <silent> gh :diffget //2<CR>]czz|
-        nnoremap <buffer> <nowait> <silent> gl :diffget //3<CR>]czz|
-        nnoremap <buffer> <nowait> <silent> [q :call <SID>handle_conflicted_file('previous')<CR>| nnoremap <buffer> <nowait> <silent> ]q :call <SID>handle_conflicted_file('next')<CR> else
-        call <SID>local_unmap(['gh', 'gl', 'dp'])
+        nnoremap <buffer> <nowait> <silent> [q :call <SID>handle_conflicted_file('previous')<CR>
+        nnoremap <buffer> <nowait> <silent> ]q :call <SID>handle_conflicted_file('next')<CR>
     endif
 endfunction
 
@@ -35,8 +32,8 @@ function! git#gabort() abort
     quit
 endfunction
 
-" Jump to the previous/next conflicting file in quickfix without breaking
-" Gvdiffsplit!
+" Jump to the previous/next conflicting file in quickfix
+" without breaking Gvdiffsplit!
 " param  direction  'previous' or 'next'
 function s:handle_conflicted_file(direction) abort
     if &modified
@@ -59,35 +56,6 @@ function s:handle_conflicted_file(direction) abort
     endif
     Gvdiffsplit!
     normal! gg
-endfunction
-
-" Unmap buffer mapping
-" param  mappings  a list of mapping or a single mapping
-function s:local_unmap(mappings)
-    if type(a:mappings) == v:t_list
-        for l:mapping in a:mappings
-            if !empty(maparg(l:mapping))
-                execute 'unmap <buffer> ' .. l:mapping
-            endif
-        endfor
-    elseif type(a:mappings) == v:t_string
-        if !empty(maparg(l:mapping))
-            execute 'unmap <buffer> ' .. a:mappings
-        endif
-    endif
-endfunction
-
-" Get buffer name of merged file in vim-fugitive's 3 way diff
-function s:get_merged_file()
-    let l:name = bufname('//2')
-    if !empty(l:name)
-        return matchstr(l:name, '//2/\zs\f\+\ze')
-    endif
-    let l:name = bufname('//3')
-    if !empty(l:name)
-        return matchstr(l:name, '//2/\zs\f\+\ze')
-    endif
-    return l:name
 endfunction
 
 function s:gmerge_asyncrun_callback()
