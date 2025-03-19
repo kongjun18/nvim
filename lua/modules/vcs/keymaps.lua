@@ -15,21 +15,13 @@ local vcs = {
   },
   {
     "]c",
-    function()
-      return vim.api.nvim_get_option_value("diff", { win = 0 }) and "]c"
-        or "<Cmd>Gitsigns next_hunk<CR>"
-    end,
+    "<Cmd>Gitsigns next_hunk<CR>",
     desc = "Next Difference",
-    expr = true,
   },
   {
     "[c",
-    function()
-      return vim.api.nvim_get_option_value("diff", { win = 0 }) and "[c"
-        or "<Cmd>Gitsigns prev_hunk<CR>"
-    end,
+    "<Cmd>Gitsigns prev_hunk<CR>",
     desc = "Previous Difference",
-    expr = true,
   },
   {
     { "gh", group = "+Git Actions" },
