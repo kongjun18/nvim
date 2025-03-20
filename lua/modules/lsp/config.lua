@@ -421,6 +421,17 @@ function config.mason_lspconfig()
       lspconfig[server_name].manager:try_add(args.buf)
     end,
   })
+
+  -- Format requires LSP servers or formatters,
+  -- so it should not reside in core/autocmd.lua.
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    desc = "Format the buffer on save",
+    group = "format",
+    pattern = path(config_dir, "*.lua"),
+    callback = function()
+      vim.lsp.buf.format({ async = false })
+    end,
+  })
 end
 
 function config.outline()
