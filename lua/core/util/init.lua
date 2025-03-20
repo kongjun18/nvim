@@ -102,7 +102,7 @@ function M.tempfile()
     return nil, path, vim.loop.errno.EEXIST
   end
 
-  local fd, err  = vim.loop.fs_open(path, "w", tonumber("0644", 8))
+  local fd, err = vim.loop.fs_open(path, "w", tonumber("0644", 8))
   if not fd then
     return nil, nil, err
   end

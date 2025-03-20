@@ -9,7 +9,7 @@ local M = {
       end,
       desc = "Search Tags",
     },
-    { "<Leader>j", "<cmd>AnyJump<CR>", desc ="AnyJump" },
+    { "<Leader>j", "<cmd>AnyJump<CR>", desc = "AnyJump" },
     { "gp", group = "+Preview symbol" },
     {
       "gpi",

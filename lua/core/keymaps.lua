@@ -139,7 +139,7 @@ map("n", "<Leader>=", "gt", { desc = "Go to Next Tab" })
 
 map("n", "<Leader><Tab>", function()
   local in_blacklist = require("core.util").in_blacklist
-    ---@diagnostic disable-next-line: param-type-mismatch
+  ---@diagnostic disable-next-line: param-type-mismatch
   local alternate_buf = vim.fn.bufnr("#")
   if alternate_buf < 1 then
     return
@@ -175,17 +175,16 @@ end, {
   desc = "Smart dd",
 })
 
-map("t", "<S-Space>", "<Space>", {desc="Workaround for Vim issue #6040"})
+map("t", "<S-Space>", "<Space>", { desc = "Workaround for Vim issue #6040" })
 
 map("c", "%%", function()
   vim.api.nvim_feedkeys(vim.fn.expand("%:p:h") .. "/", "c", false)
-end, {desc = "Input current file name in cmdline"})
-map("c", "<C-j>", function ()
-  vim.api.nvim_feedkeys(t"<Down>", "c", false)
-
+end, { desc = "Input current file name in cmdline" })
+map("c", "<C-j>", function()
+  vim.api.nvim_feedkeys(t("<Down>"), "c", false)
 end)
-map("c", "<C-k>", function ()
-  vim.api.nvim_feedkeys(t"<Up>", "c", false)
+map("c", "<C-k>", function()
+  vim.api.nvim_feedkeys(t("<Up>"), "c", false)
 end)
 
 map("n", "gr", function()
