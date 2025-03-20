@@ -21,7 +21,7 @@ endfunction
 function! cmd#grep_visual_selection()
     let l:pattern = utils#get_visual_selection()
     if l:pattern != ""
-        cgetexpr cmd#grep(l:pattern) | copen
+        return cmd#grep(l:pattern)
     endif
 endfunction
 

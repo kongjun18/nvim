@@ -196,6 +196,6 @@ end, { desc = "Grep the wrod under the cursor" })
 map(
   "v",
   "gr",
-  "<Cmd>call cmd#grep_visual_selection()<CR>",
+  "<Cmd>cgetexpr cmd#grep_visual_selection() | copen | call setqflist([], 'a', { 'title': 'Grep Results' })<CR>",
   { silent = true, desc = "Grep the selected string" }
 )

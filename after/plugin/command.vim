@@ -23,7 +23,7 @@ command -nargs=? Search call cmd#search_in_browser(<f-args>)
 " inline code format to system clipboard.
 command -nargs=0 Symbol call cmd#symbal()
 " Async ripgrep
-command -nargs=? -complete=file_in_path -bar Grep cgetexpr cmd#grep(<f-args>) | copen
+command -nargs=? -complete=file_in_path -bar Grep cgetexpr cmd#grep(<f-args>) | copen | call setqflist([], 'a', { 'title': 'Grep Results' })
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
 " Vertical vim-fugitive
 command! -bang -nargs=? -range=-1 -complete=customlist,fugitive#Complete G   exe "vertical" fugitive#Command(<line1>, <count>, +"<range>", <bang>0, "<mods>", <q-args>)
