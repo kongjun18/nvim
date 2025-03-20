@@ -104,6 +104,7 @@ function config.lualine()
       "fugitive",
       "nvim-tree",
       "man",
+      "symbols-outline",
     },
   }
   require("lualine").setup(opts)
