@@ -15,7 +15,7 @@ undo_dir = data_dir .. path_sep .. "undo"
 session_dir = data_dir .. path_sep .. "session"
 dict_dir = config_dir .. path_sep .. "dict"
 
-project_root_patterns= {
+project_root_patterns = {
   ".root",
   ".git",
   "package.json",

@@ -47,27 +47,103 @@ local M = {
   },
   -- Terminal
   {
-    {"<M-=>",   function() vim.fn.TerminalToggle() end, desc="Toggle Terminal", },
-    {"<M-q>", t("<C-\\><C-n>") ,desc="Switch To Normal Mode", mode = "t" },
+    {
+      "<M-=>",
+      function()
+        vim.fn.TerminalToggle()
+      end,
+      desc = "Toggle Terminal",
+    },
+    { "<M-q>", t("<C-\\><C-n>"), desc = "Switch To Normal Mode", mode = "t" },
   },
   {
-    {"<Leader>n", group="Annotation"},
-    {"<Leader>nf",  function() require("neogen").generate() end, desc = "Function Annotation", },
-    {"<Leader>nc" ,  function() require("neogen").generate({ type = "class" }) end, desc="Class Annotation", },
-    {"<Leader>nt" ,  function() require("neogen").generate({ type = "type" }) end, desc="Type Annotation", },
-    {"<Leader>nu" ,  function() require("neogen").generate({ type = "file" }) end, desc="File Annotation", },
+    { "<Leader>n", group = "Annotation" },
+    {
+      "<Leader>nf",
+      function()
+        require("neogen").generate()
+      end,
+      desc = "Function Annotation",
+    },
+    {
+      "<Leader>nc",
+      function()
+        require("neogen").generate({ type = "class" })
+      end,
+      desc = "Class Annotation",
+    },
+    {
+      "<Leader>nt",
+      function()
+        require("neogen").generate({ type = "type" })
+      end,
+      desc = "Type Annotation",
+    },
+    {
+      "<Leader>nu",
+      function()
+        require("neogen").generate({ type = "file" })
+      end,
+      desc = "File Annotation",
+    },
   },
-  {"<C-S>",  "<Cmd>w<CR>", desc="Save File", },
+  { "<C-S>", "<Cmd>w<CR>", desc = "Save File" },
   {
-    {"<2-LeftMouse>" ,  function() vim.lsp.buf.definition() end, desc="Jump to Definition", },
-    {"<RightMouse>" ,  t("<C-O>"), noremap = false, desc="Jump to Older Location", },
-    {"<2-RightMouse>" ,  t("<C-O><C-O>"), noremap = false, desc="Jump to Older Location", },
-    {"<3-RightMouse>" ,  t("<C-O><C-O><C-O>"), noremap = false, desc="Jump to Older Location", },
-    {"<4-RightMouse>" ,  t("<C-O><C-O><C-O><C-O>"), noremap = false, desc="Jump to Older Location", },
-    {"<M-RightMouse>" ,  t("<C-I>"), noremap = false, desc="Jump to Newer Location", },
-    {"<M-2-RightMouse>" ,  t("<C-I><C-I>"), noremap = false, desc="Jump to Newer Location", },
-    {"<M-3-RightMouse>" ,  t("<C-I><C-I><C-I>"), noremap = false, desc="Jump to Newer Location", },
-    {"<M-4-RightMouse>" ,  t("<C-I><C-I><C-I><C-I>"), noremap = false, desc="Jump to Newer Location", },
+    {
+      "<2-LeftMouse>",
+      function()
+        vim.lsp.buf.definition()
+      end,
+      desc = "Jump to Definition",
+    },
+    {
+      "<RightMouse>",
+      t("<C-O>"),
+      noremap = false,
+      desc = "Jump to Older Location",
+    },
+    {
+      "<2-RightMouse>",
+      t("<C-O><C-O>"),
+      noremap = false,
+      desc = "Jump to Older Location",
+    },
+    {
+      "<3-RightMouse>",
+      t("<C-O><C-O><C-O>"),
+      noremap = false,
+      desc = "Jump to Older Location",
+    },
+    {
+      "<4-RightMouse>",
+      t("<C-O><C-O><C-O><C-O>"),
+      noremap = false,
+      desc = "Jump to Older Location",
+    },
+    {
+      "<M-RightMouse>",
+      t("<C-I>"),
+      noremap = false,
+      desc = "Jump to Newer Location",
+    },
+    {
+      "<M-2-RightMouse>",
+      t("<C-I><C-I>"),
+      noremap = false,
+      desc = "Jump to Newer Location",
+    },
+    {
+      "<M-3-RightMouse>",
+      t("<C-I><C-I><C-I>"),
+      noremap = false,
+      desc = "Jump to Newer Location",
+    },
+    {
+      "<M-4-RightMouse>",
+      t("<C-I><C-I><C-I><C-I>"),
+      noremap = false,
+      desc = "Jump to Newer Location",
+    },
   },
 }
 

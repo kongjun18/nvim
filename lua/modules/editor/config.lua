@@ -62,46 +62,50 @@ function config.autopairs()
   --     Before       Insert 	  After
   -- local data 	= 	local data =
   -- local data = 	= 	local data ==
-  table.insert(rules,  Rule('=', '', "-sh")
-        :with_pair(cond.not_inside_quote())
-        :with_pair(function(opts)
-            local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
-            if last_char:match('[%w%=%s]') then
-                return true
-            end
-            return false
-        end)
-        :replace_endpair(function(opts)
-            local prev_2char = opts.line:sub(opts.col - 2, opts.col - 1)
-            local next_char = opts.line:sub(opts.col, opts.col)
-            next_char = next_char == ' ' and '' or ' '
-            if prev_2char:match('%w$') then
-                return '<bs> =' .. next_char
-            end
-            if prev_2char:match('%=$') then
-                return next_char
-            end
-            if prev_2char:match('=') then
-                return '<bs><bs>=' .. next_char
-            end
-            return ''
-        end)
-        :set_end_pair_length(0)
-        :with_move(cond.none())
-        :with_del(cond.none()))
-
+  table.insert(
+    rules,
+    Rule("=", "", "-sh")
+      :with_pair(cond.not_inside_quote())
+      :with_pair(function(opts)
+        local last_char = opts.line:sub(opts.col - 1, opts.col - 1)
+        if last_char:match("[%w%=%s]") then
+          return true
+        end
+        return false
+      end)
+      :replace_endpair(function(opts)
+        local prev_2char = opts.line:sub(opts.col - 2, opts.col - 1)
+        local next_char = opts.line:sub(opts.col, opts.col)
+        next_char = next_char == " " and "" or " "
+        if prev_2char:match("%w$") then
+          return "<bs> =" .. next_char
+        end
+        if prev_2char:match("%=$") then
+          return next_char
+        end
+        if prev_2char:match("=") then
+          return "<bs><bs>=" .. next_char
+        end
+        return ""
+      end)
+      :set_end_pair_length(0)
+      :with_move(cond.none())
+      :with_del(cond.none())
+  )
 
   -- Before    Input    After
   --   {|}       %      {%|%}
   --   {%|%}   <space>  {% | %}
-  table.insert(rules,
+  table.insert(
+    rules,
     Rule("%", "%", "htmldjango"):with_pair(cond.before_text("{"))
   )
   -- Before 	Insert 	After
   --  (|) 	  space 	( | )
   -- ( | ) 	    )     (  )|
   local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }
-  table.insert(rules,
+  table.insert(
+    rules,
     -- Rule for a pair with left-side ' ' and right side ' '
     Rule(" ", " ")
       -- Pair will only occur if the conditional function returns true
@@ -133,7 +137,8 @@ function config.autopairs()
   )
   -- For each pair of brackets we will add another rule
   for _, bracket in pairs(brackets) do
-    table.insert(rules,
+    table.insert(
+      rules,
       -- Each of these rules is for a pair with left-side '( ' and right-side ' )' for each bracket type
       Rule(bracket[1] .. " ", " " .. bracket[2])
         :with_pair(cond.none())

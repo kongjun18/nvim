@@ -11,7 +11,7 @@ local dap = {
       {
         "nvim-neotest/nvim-nio",
         event = "VeryLazy",
-      }
+      },
     },
   },
   ["theHamsta/nvim-dap-virtual-text"] = {
