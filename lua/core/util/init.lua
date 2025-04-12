@@ -125,4 +125,26 @@ function M.tempdir()
   return path, nil
 end
 
+-- @return number CPU frequency in Ghz
+function M.cpu_frequency()
+  local cpu_info = vim.loop.cpu_info()
+  local freq
+
+  for _, info in ipairs(cpu_info) do
+    local freq_str = info.model:match("@%s*(%d+%.?%d*)GHz") -- 提取 GHz 后的数字部分
+    if freq_str then
+      freq = tonumber(freq_str) -- 转换为数字
+      break
+    end
+  end
+
+  return freq or 0
+end
+
+-- @return number CPU count
+function M.nproc()
+  local cpu_info = vim.loop.cpu_info()
+  return #cpu_info
+end
+
 return M
