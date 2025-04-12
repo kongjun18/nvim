@@ -349,6 +349,14 @@ function config.goto_preview()
 end
 
 function config.go()
+  -- Limit the CPU usage of the Go toolchain to reduce system load
+  -- on low-performance desktop.
+  local util = require("core.util")
+  local nproc = util.nproc()
+  local cpu_frequency = util.cpu_frequency()
+  if cpu_frequency < 3.0 or nproc <= 8 then
+    vim.env.GOMAXPROCS = math.floor(nproc / 2)
+  end
   require("go").setup({
     diagnostic = config.diagnostic_config,
     lsp_inlay_hints = {
