@@ -13,6 +13,7 @@ config.commands = {
 
 config.diagnostic_config = {
   virtual_text = false,
+  virtual_lines = true,
   float = {
     source = "if_many",
   },
