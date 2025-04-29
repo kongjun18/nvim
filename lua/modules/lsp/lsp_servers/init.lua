@@ -10,11 +10,12 @@ local M = {
   vue = "vuels",
   python = "pylsp",
   eslint = "eslint",
+  sh = "bashls",
+  zsh = "bashls",
   bash = "bashls",
   sql = "sqls",
   lua = "lua_ls",
   vim = "vimls",
-  sh = "bashls",
   awk = "awk_ls",
 
   json = "jsonls",
