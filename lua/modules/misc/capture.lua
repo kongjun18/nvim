@@ -58,16 +58,18 @@ local function decrypt_lines(lines, password)
 end
 
 local function refile_to(buf, dst)
-  local date = vim.fn.strftime("%Y-%m-%d %H:%M:%S")
+  local date = vim.fn.strftime("%Y-%m-%d %H:%M:%S %z %Z")
   local matched = {}
   for v in string.gmatch(date, "([^ ]+)") do
     table.insert(matched, v)
   end
   local day, time = matched[1], matched[2]
+  local timezone = string.format("%s %s", matched[3], matched[4])
+  time = string.format("%s %s", time, timezone)
 
   local password = vim.fn.inputsecret("Enter password: ")
   if password == "" then
-    return
+    return false
   end
 
   local lines = {}
@@ -82,13 +84,13 @@ local function refile_to(buf, dst)
         "Invalid file format: the diary file is not encrypted.",
         vim.log.levels.ERROR
       )
-      return
+      return false
     end
     table.remove(lines, 1)
     lines, ok = decrypt_lines(lines, password)
     if not ok then
       vim.notify("Failed to decrypt the diary.", vim.log.levels.ERROR)
-      return
+      return false
     end
   end
 
@@ -123,12 +125,14 @@ local function refile_to(buf, dst)
   local encrypted_lines, ok = encrypt_lines(lines, password)
   if not ok then
     vim.notify("Failed to encrypt the diary.", vim.log.levels.ERROR)
-    return
+    return false
   end
   table.insert(encrypted_lines, 1, ENCRYPTED_PREFIX)
-  if writefile(encrypted_lines, dst) then
-    vim.api.nvim_set_option_value("modified", false, { buf = buf })
+  if not writefile(encrypted_lines, dst) then
+    return false
   end
+  vim.api.nvim_set_option_value("modified", false, { buf = buf })
+  return true
 end
 
 local function capture()
@@ -152,7 +156,10 @@ local function capture()
         return
       end
 
-      refile_to(buf, diary_path)
+      if refile_to(buf, diary_path) then
+        -- bwipeout prints error when the buffer has modification
+        vim.cmd("bwipeout " .. buf)
+      end
     end,
   })
 end
