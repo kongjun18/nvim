@@ -18,6 +18,28 @@ local function writefile(lines, fname)
   return true
 end
 
+local passwordFactory = function()
+  local passwordMap = {}
+  local key = "CBKS"
+
+  local get_password = function()
+    if passwordMap[key] == nil then
+      local password = vim.fn.inputsecret("Enter password: ")
+      if password == "" then
+        return
+      end
+      passwordMap[key] = password
+    end
+    return passwordMap[key]
+  end
+  local set_password = function(password)
+    passwordMap[key] = password
+  end
+  return get_password, set_password
+end
+
+local get_password, set_password = passwordFactory()
+
 local function file_exists(file)
   local f = io.open(file, "rb")
   if f then
@@ -67,8 +89,8 @@ local function refile_to(buf, dst)
   local timezone = string.format("%s %s", matched[3], matched[4])
   time = string.format("%s %s", time, timezone)
 
-  local password = vim.fn.inputsecret("Enter password: ")
-  if password == "" then
+  local password = get_password()
+  if not password then
     return false
   end
 
@@ -89,6 +111,7 @@ local function refile_to(buf, dst)
     table.remove(lines, 1)
     lines, ok = decrypt_lines(lines, password)
     if not ok then
+      set_password(nil)
       vim.notify("Failed to decrypt the diary.", vim.log.levels.ERROR)
       return false
     end
@@ -124,6 +147,7 @@ local function refile_to(buf, dst)
 
   local encrypted_lines, ok = encrypt_lines(lines, password)
   if not ok then
+    set_password(nil)
     vim.notify("Failed to encrypt the diary.", vim.log.levels.ERROR)
     return false
   end
