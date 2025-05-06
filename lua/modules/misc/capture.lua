@@ -38,8 +38,8 @@ end
 local function encrypt_lines(lines, password)
   local output = vim.fn.systemlist(
     string.format(
-      "openssl enc -aes-256-cbc -pbkdf2 -salt -in - -out - -k '%s' | base64",
-      password
+      "openssl enc -aes-256-cbc -pbkdf2 -salt -in - -out - -k %s | base64",
+      vim.fn.shellescape(password)
     ),
     lines
   )
@@ -49,8 +49,8 @@ end
 local function decrypt_lines(lines, password)
   local output = vim.fn.systemlist(
     string.format(
-      "base64 --decode | openssl enc -d -aes-256-cbc -pbkdf2 -salt -in - -out - -k '%s'",
-      password
+      "base64 --decode | openssl enc -d -aes-256-cbc -pbkdf2 -salt -in - -out - -k %s",
+      vim.fn.shellescape(password)
     ),
     lines
   )
@@ -66,6 +66,10 @@ local function refile_to(buf, dst)
   local day, time = matched[1], matched[2]
 
   local password = vim.fn.inputsecret("Enter password: ")
+  if password == "" then
+    return
+  end
+
   local lines = {}
   for line in io.lines(dst) do
     table.insert(lines, line)
@@ -123,7 +127,7 @@ local function refile_to(buf, dst)
   end
   table.insert(encrypted_lines, 1, ENCRYPTED_PREFIX)
   if writefile(encrypted_lines, dst) then
-    vim.api.nvim_buf_set_option(buf, "modified", false)
+    vim.api.nvim_set_option_value("modified", false, { buf = buf })
   end
 end
 
@@ -133,9 +137,9 @@ local function capture()
   local win = vim.api.nvim_get_current_win()
   vim.api.nvim_win_set_buf(win, buf)
   vim.api.nvim_buf_set_name(buf, "Capture")
-  vim.api.nvim_buf_set_option(buf, "buftype", "acwrite")
-  vim.api.nvim_buf_set_option(buf, "swapfile", false)
-  vim.api.nvim_buf_set_option(buf, "undofile", false)
+  vim.api.nvim_set_option_value("buftype", "acwrite", { buf = buf })
+  vim.api.nvim_set_option_value("swapfile", false, { buf = buf })
+  vim.api.nvim_set_option_value("undofile", false, { buf = buf })
   vim.api.nvim_create_autocmd({ "BufWriteCmd" }, {
     buffer = buf,
     callback = function()
