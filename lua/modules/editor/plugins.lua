@@ -169,6 +169,10 @@ local editor = {
     config = config.obsidian,
     enabled = require("modules.config").obsidian_enable,
   },
+  ["elentok/encrypt.nvim"] = {
+    config = true,
+    cmd = "X",
+  },
 }
 
 return editor
