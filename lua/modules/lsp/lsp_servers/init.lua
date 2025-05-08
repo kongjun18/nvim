@@ -14,7 +14,6 @@ local M = {
   zsh = "bashls",
   bash = "bashls",
   sql = "sqls",
-  lua = "lua_ls",
   vim = "vimls",
   awk = "awk_ls",
 
