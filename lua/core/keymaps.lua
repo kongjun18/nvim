@@ -131,7 +131,7 @@ map("c", "<C-k>", function()
 end)
 
 map("n", "gr", function()
-  local cmd = string.format([[Grep \\b%s\\b]], vim.fn.expand("<cword>"))
+  local cmd = string.format([[Grep \b%s\b]], vim.fn.expand("<cword>"))
   vim.cmd(cmd)
 end, { desc = "Grep the wrod under the cursor" })
 

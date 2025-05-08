@@ -14,7 +14,8 @@ function! cmd#config_update() abort
 endfunction
 
 function! cmd#grep(pattern) abort
-    let l:cmd = printf("%s '%s'", &grepprg, a:pattern)
+    let l:cmd = printf("%s %s", &grepprg, shellescape(a:pattern))
+    echomsg l:cmd
     return system(l:cmd)
 endfunction
 
