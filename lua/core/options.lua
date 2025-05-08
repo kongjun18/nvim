@@ -87,7 +87,7 @@ local options = {
   tagrelative = false,
   spelloptions = "camel",
   spell = true,
-  grepprg = "rg --vimgrep --fixed-strings",
+  grepprg = "rg --vimgrep",
 }
 
 local function bind_option(opts)
