@@ -76,8 +76,9 @@ local completion = {
     event = "LspAttach",
     opts = {},
   },
-  ["folke/neodev.nvim"] = {
-    lazy = true,
+  ["folke/lazydev.nvim"] = {
+    ft = "lua",
+    config = true,
   },
   ["hedyhli/outline.nvim"] = {
     event = "CmdlineEnter",

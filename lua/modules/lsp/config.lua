@@ -171,8 +171,12 @@ function config.cmp()
     sources = cmp.config.sources({
       require("modules.config").codeium_enable and { name = "codeium" } or {},
       { name = "nvim_lsp" },
-      { name = "nvim_lua" },
+      {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      },
       { name = "luasnip" },
+
     }, {
       { name = "dictionary" },
       { name = "buffer" },
@@ -180,6 +184,7 @@ function config.cmp()
       { name = "path" },
     }),
   })
+
   cmp.setup.filetype({ "mysql", "plsql", "sql" }, {
     sources = cmp.config.sources({
       { name = "vim-dadbod-completion" },
