@@ -87,7 +87,8 @@ local M = {
       desc = "File Annotation",
     },
   },
-  { "<C-S>", "<Cmd>w<CR>", desc = "Save File" },
+  { "<C-S>", "<Cmd>w<CR>",                desc = "Save File" },
+  { "<C-/>", "<plug>NERDCommenterToggle", desc = "Toggle Comment" },
   {
     {
       "<2-LeftMouse>",
