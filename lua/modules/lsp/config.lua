@@ -382,57 +382,44 @@ function config.mason_lspconfig()
       },
     },
   })
+
+  config.custom_ui()
+
   require("mason-lspconfig").setup({
     automatic_installation = true,
+    handlers = {
+      function(server_name)
+        local ok, lsp_server =
+            pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
+        local customed = ok and lsp_server.opts or {}
+        local local_customed = _G[server_name .. "_opts"]
+        if local_customed then
+          customed = vim.tbl_extend("force", customed, local_customed)
+        end
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local opts = vim.tbl_extend("force", {
+          capabilities = capabilities,
+          vim.lsp.set_log_level("debug"),
+        }, customed)
+        opts.on_attach = function(client, bufnr)
+          config.on_attach(client, bufnr)
+          if customed.on_attach then
+            customed.on_attach(client, bufnr)
+          end
+        end
+        require("lspconfig")[server_name].setup(opts)
+      end,
+    },
   })
-  config.custom_ui()
+
   -- NOTE: I lazyload mason.nvim after BufReadPost/BufNewFile event, but it works.
   vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    desc = "Attach LSP server",
+    desc = "Load null-ls on file open",
     callback = function(args)
       if not NullLSLoaded then
         require("null-ls")
       end
       NullLSLoaded = true
-
-      local ft = vim.bo.ft
-      -- Avoid double setup
-      if _G[ft .. "_checked"] then
-        return
-      end
-
-      local lsp_servers = require("modules.lsp.lsp_servers")
-      _G[ft .. "_checked"] = true
-      local server_name = lsp_servers[ft]
-
-      if not server_name then
-        return
-      end
-
-      local ok, lsp_server =
-        pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
-      local customed = ok and lsp_server.opts or {}
-      local local_customed = _G[server_name .. "_opts"]
-      if local_customed then
-        customed = vim.tbl_extend("force", customed, local_customed)
-      end
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local opts = vim.tbl_extend("force", {
-        capabilities = capabilities,
-        vim.lsp.set_log_level("debug"),
-      }, customed)
-      opts.on_attach = function(client, bufnr)
-        config.on_attach(client, bufnr)
-        if customed.on_attach then
-          customed.on_attach(client, bufnr)
-        end
-      end
-      local lspconfig = require("lspconfig")
-      -- nvim-lspconfig use BufReadPost event to attach lsp client, which
-      -- causes first buffer would not be attached. Add it mutually to conquer
-      -- it.
-      lspconfig[server_name].setup(opts)
-      lspconfig[server_name].manager:try_add(args.buf)
     end,
   })
 
