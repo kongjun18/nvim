@@ -88,6 +88,7 @@ local M = {
     },
   },
   { "<C-S>", "<Cmd>w<CR>", desc = "Save File" },
+  { "<C-/>", "<Plug>NERDCommenterToggle", desc = "Toggle Comment" },
   {
     {
       "<2-LeftMouse>",
