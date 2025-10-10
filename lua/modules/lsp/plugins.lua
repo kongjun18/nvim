@@ -22,30 +22,22 @@ local completion = {
       "honza/vim-snippets",
     },
   },
-  ["hrsh7th/nvim-cmp"] = {
+  ["Saghen/blink.cmp"] = {
     config = config.cmp,
     event = "InsertEnter",
+    version = "v1.*",
     dependencies = {
-      "onsails/lspkind-nvim",
-      "lukas-reineke/cmp-under-comparator",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-calc",
-      "hrsh7th/cmp-nvim-lua",
-      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
+      "rafamadriz/friendly-snippets",
+      'Kaiser-Yang/blink-cmp-avante',
       {
-        "kongjun18/cmp-dictionary",
-        config = config.dictionary,
+        "Kaiser-Yang/blink-cmp-dictionary",
+        dependencies = { "nvim-lua/plenary.nvim" },
       },
       {
-        "kristijanhusak/vim-dadbod-completion",
-        dependencies = "tpope/vim-dadbod",
-      },
-      {
-        "jcdickinson/codeium.nvim",
-        config = true,
+        "hrsh7th/nvim-cmp",
+        -- Only install for context utilities, not for completion
+        config = false,
       },
     },
   },

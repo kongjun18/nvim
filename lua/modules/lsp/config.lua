@@ -48,9 +48,10 @@ function config.on_attach(client, bufnr)
 
   local wk = require("which-key")
   local ok, lsp_server =
-    pcall(require, string.format("modules.lsp.lsp_servers.%s", client.name))
+      pcall(require, string.format("modules.lsp.lsp_servers.%s", client.name))
 
   -- Mappings.
+
   local opts = { buffer = bufnr }
   local keymaps = ok and lsp_server.keymaps or {}
   wk.add(keymaps, opts)
@@ -59,7 +60,7 @@ function config.on_attach(client, bufnr)
   local default = config.commands
   local customed = ok and lsp_server.commands or nil
   local commands = customed and vim.tbl_extend("force", default, customed)
-    or default
+      or default
   local create_command = vim.api.nvim_buf_create_user_command
   for _, command in pairs(commands) do
     create_command(bufnr, command.name, command.command, command.opts or {})
@@ -93,131 +94,209 @@ function config.custom_ui()
   end
 end
 
--- TODO: deduplicate repeated items. See nvim-cmp issues [Feature Request: Dedup items #511]
 function config.cmp()
-  local cmp = require("cmp")
-  local lspkind = require("lspkind")
-
-  local has_words_before = function()
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0
-      and vim.api
-          .nvim_buf_get_lines(0, line - 1, line, true)[1]
-          :sub(col, col)
-          :match("%s")
-        == nil
-  end
+  local cmp = require("blink.cmp")
 
   cmp.setup({
-    preselect = cmp.PreselectMode.None,
+    -- Appearance
+    appearance = {
+      nerd_font_variant = "mono",
+    },
+
+    -- Completion behavior
     completion = {
-      keyword_length = 2,
-    },
-    sorting = {
-      comparators = {
-        cmp.config.compare.offset,
-        cmp.config.compare.exact,
-        cmp.config.compare.sort_text,
-        cmp.config.compare.score,
-        require("cmp-under-comparator").under,
-        cmp.config.compare.kind,
-        cmp.config.compare.length,
-        cmp.config.compare.order,
+      keyword = {
+        range = "prefix",
+      },
+      trigger = {
+        show_on_insert_on_trigger_character = true,
+        show_on_keyword = true,
+        show_on_trigger_character = true,
+      },
+      list = {
+        selection = {
+          preselect = false,
+          auto_insert = true,
+        },
+      },
+      accept = {
+        auto_brackets = {
+          enabled = true,
+        },
+      },
+      menu = {
+        auto_show = true,
+        draw = {
+          columns = {
+            { "kind_icon" },
+            { "label",    "label_description", gap = 1 },
+            { "kind" },
+          },
+        },
+      },
+      documentation = {
+        auto_show = false,
+        auto_show_delay_ms = 500,
       },
     },
-    formatting = {
-      format = lspkind.cmp_format({
-        mode = "text",
-        maxwidth = 50,
-      }),
-    },
-    snippet = {
-      expand = function(args)
-        require("luasnip").lsp_expand(args.body)
-      end,
-    },
-    mapping = {
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item()
-        elseif has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<CR>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.confirm()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-      ["<C-y>"] = cmp.config.disable,
-      ["<C-e>"] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
-      }),
-    },
-    sources = cmp.config.sources({
-      require("modules.config").codeium_enable and { name = "codeium" } or {},
-      { name = "nvim_lsp" },
-      {
-        name = "lazydev",
-        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+
+    -- Fuzzy matching
+    fuzzy = {
+      use_proximity = true,
+      frecency = {
+        enabled = true,
       },
-      { name = "luasnip" },
+    },
 
-    }, {
-      { name = "dictionary" },
-      { name = "buffer" },
-      { name = "calc" },
-      { name = "path" },
-    }),
-  })
-
-  cmp.setup.filetype({ "mysql", "plsql", "sql" }, {
-    sources = cmp.config.sources({
-      { name = "vim-dadbod-completion" },
-      { name = "nvim_lsp" },
-    }),
-  })
-  cmp.setup.filetype({ "NeogitCommitMessage", "gitcommit", "markdown" }, {
-    sources = cmp.config.sources({
-      { name = "luasnip" },
-      { name = "buffer" },
-      { name = "path" },
-      { name = "dictionary" },
-      { name = "calc" },
-    }),
-  })
-  cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline(),
+    -- Sources configuration
     sources = {
-      { name = "buffer" },
+      default = function(ctx)
+        local sources = { "lsp", "path", "snippets", "buffer" }
+        if vim.wo.spell or require("cmp.config.context").in_treesitter_capture('comment') then
+          table.insert(sources, "dictionary")
+        end
+
+        if vim.bo.filetype == "AvanteInput" then
+          table.insert(sources, "avante")
+        end
+        return sources
+      end,
+      transform_items = function(ctx, items)
+        -- Only show Avante sources when typing @ in AvanteInput
+        if vim.bo.filetype == "AvanteInput" then
+          local line = vim.api.nvim_get_current_line()
+          local col = vim.api.nvim_win_get_cursor(0)[2]
+          local before_cursor = line:sub(1, col)
+          local at_word = before_cursor:match(".*%f[%w@]@[%w]*$")
+          
+          if at_word then
+            -- Only show Avante completions when @ word is being typed
+            return vim.tbl_filter(function(item)
+              return item.source_name == "Avante"
+            end, items)
+          end
+        end
+        return items
+      end,
+      providers = {
+        avante = {
+          module = 'blink-cmp-avante',
+          name = 'Avante',
+        },
+        lsp = {
+          name = "LSP",
+          module = "blink.cmp.sources.lsp",
+        },
+        path = {
+          name = "Path",
+          module = "blink.cmp.sources.path",
+          score_offset = -3,
+        },
+        buffer = {
+          name = "Buffer",
+          module = "blink.cmp.sources.buffer",
+          fallbacks = {},
+          score_offset = -3,
+          opts = {
+            -- Enable word hints in comments and markdown
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end,
+          },
+        },
+        dictionary = {
+          name = "Dict",
+          module = "blink-cmp-dictionary",
+          min_keyword_length = 3,
+          score_offset = -5,
+          opts = {
+            -- Specify dictionary file paths (one word per line)
+            dictionary_files = {
+              vim.fn.expand("~/.config/nvim/dict/words.txt"),
+              "/usr/share/dict/words", -- Common system dictionary
+            },
+          },
+        },
+      },
+    },
+
+    -- Snippets
+    snippets = {
+      preset = "luasnip",
+    },
+
+    -- Key mappings (matching old nvim-cmp behavior)
+    keymap = {
+      preset = "none",
+      ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+      ["<C-e>"] = { "hide", "fallback" },
+      ["<CR>"] = {
+        function(cmp_instance)
+          if cmp_instance.is_visible() then
+            return cmp_instance.accept()
+          else
+            -- Fallback to nvim-autopairs CR behavior
+            local npairs = require("nvim-autopairs")
+            return npairs.autopairs_cr()
+          end
+        end,
+        "fallback",
+      },
+
+      -- Tab: sidekick suggestions -> snippet forward -> completion selection
+      ["<Tab>"] = {
+        function(cmp_instance)
+          -- First, try sidekick next edit suggestion (Cursor-like Tab behavior)
+          if require("sidekick").nes_jump_or_apply() then
+            return true
+          end
+          -- Then handle completion menu navigation
+          if cmp_instance.is_visible() then
+            return cmp_instance.select_next()
+          end
+          -- Otherwise, show completion if there are words before cursor
+          local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+          local has_words_before = col ~= 0
+              and vim.api
+              .nvim_buf_get_lines(0, line - 1, line, true)[1]
+              :sub(col, col)
+              :match("%s")
+              == nil
+          if has_words_before then
+            return cmp_instance.show()
+          end
+          -- Finally, try snippet forward
+          return cmp_instance.snippet_forward()
+        end,
+        "fallback",
+      },
+      ["<S-Tab>"] = {
+        function(cmp_instance)
+          if cmp_instance.is_visible() then
+            return cmp_instance.select_prev()
+          else
+            return cmp_instance.snippet_backward()
+          end
+        end,
+        "fallback",
+      },
+
+      ["<Up>"] = { "select_prev", "fallback" },
+      ["<Down>"] = { "select_next", "fallback" },
+      ["<C-p>"] = { "select_prev", "fallback" },
+      ["<C-n>"] = { "select_next", "fallback" },
+
+      ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+      ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
+      ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+    },
+
+    -- Signature help
+    signature = {
+      enabled = true,
     },
   })
-  cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = "path" },
-    }, {
-      { name = "cmdline" },
-    }),
-  })
-
-  -- on_confirm_done event
-  local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 end
 
 function config.luasnip()
@@ -252,31 +331,6 @@ function config.luasnip()
   })
 end
 
--- cmp-dictionary is loaded at InsertEnter, causing nvim-cmp
--- not to display dictionary completion immediately due to
--- the slow parsing speed.
---
--- Please run 'require("cmp_dictionary").update()' in advance
--- to accelerate parsing like gitcommit.vim.
-function config.dictionary()
-  if not DictionaryLoaded then
-    enabled =
-      { markdown = true, text = true, gitcommit = true, gitrebase = true }
-    require("cmp_dictionary").setup({
-      paths = { path(dict_dir, "word.dict") },
-      -- Enable cmp-dictionary in comments and some certain buffers.
-      is_available = function()
-        local context = require("cmp.config.context")
-        local in_comment = context.in_treesitter_capture("comment")
-          or context.in_syntax_group("Comment")
-        return enabled[vim.bo.ft] or in_comment
-      end,
-    })
-    require("cmp_dictionary").update()
-  end
-  DictionaryLoaded = true
-end
-
 function config.none_ls()
   local construct_sources = function(...)
     local s = {}
@@ -285,7 +339,7 @@ function config.none_ls()
       for _, provider in pairs(providers) do
         local customed_opts = _G[provider .. "_opts"]
         local ok, p =
-          pcall(require, string.format("%s.%s", arg.sources, provider))
+            pcall(require, string.format("%s.%s", arg.sources, provider))
         local opts = ok and p.opts or customed_opts
         if opts then
           if customed_opts then
@@ -389,17 +443,18 @@ function config.mason_lspconfig()
     automatic_installation = true,
     handlers = {
       function(server_name)
-        local ok, lsp_server =
-            pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
+        local ok, lsp_server = pcall(
+          require,
+          string.format("modules.lsp.lsp_servers.%s", server_name)
+        )
         local customed = ok and lsp_server.opts or {}
         local local_customed = _G[server_name .. "_opts"]
         if local_customed then
           customed = vim.tbl_extend("force", customed, local_customed)
         end
-        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
         local opts = vim.tbl_extend("force", {
           capabilities = capabilities,
-          vim.lsp.set_log_level("debug"),
         }, customed)
         opts.on_attach = function(client, bufnr)
           config.on_attach(client, bufnr)
@@ -428,6 +483,7 @@ function config.mason_lspconfig()
   vim.api.nvim_create_autocmd("BufWritePre", {
     desc = "Format the buffer on save",
     group = "format",
+
     pattern = path(config_dir, "*.lua"),
     callback = function()
       vim.lsp.buf.format({ async = false })
