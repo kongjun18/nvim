@@ -37,7 +37,7 @@ local function sign_column()
     sign,
     [[%=]],
     [[%3{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''} ]],
-    git_sign
+    (git_sign and git_sign.sign_hl_group and git_sign.sign_text)
         and ("%#" .. git_sign.sign_hl_group .. "#" .. git_sign.sign_text .. "%*")
       or "  ",
   }
