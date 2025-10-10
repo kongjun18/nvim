@@ -48,7 +48,7 @@ function config.on_attach(client, bufnr)
 
   local wk = require("which-key")
   local ok, lsp_server =
-    pcall(require, string.format("modules.lsp.lsp_servers.%s", client.name))
+      pcall(require, string.format("modules.lsp.lsp_servers.%s", client.name))
 
   -- Mappings.
   local opts = { buffer = bufnr }
@@ -59,7 +59,7 @@ function config.on_attach(client, bufnr)
   local default = config.commands
   local customed = ok and lsp_server.commands or nil
   local commands = customed and vim.tbl_extend("force", default, customed)
-    or default
+      or default
   local create_command = vim.api.nvim_buf_create_user_command
   for _, command in pairs(commands) do
     create_command(bufnr, command.name, command.command, command.opts or {})
@@ -101,10 +101,10 @@ function config.cmp()
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0
-      and vim.api
-          .nvim_buf_get_lines(0, line - 1, line, true)[1]
-          :sub(col, col)
-          :match("%s")
+        and vim.api
+        .nvim_buf_get_lines(0, line - 1, line, true)[1]
+        :sub(col, col)
+        :match("%s")
         == nil
   end
 
@@ -176,7 +176,6 @@ function config.cmp()
         group_index = 0, -- set group index to 0 to skip loading LuaLS completions
       },
       { name = "luasnip" },
-
     }, {
       { name = "dictionary" },
       { name = "buffer" },
@@ -261,14 +260,14 @@ end
 function config.dictionary()
   if not DictionaryLoaded then
     enabled =
-      { markdown = true, text = true, gitcommit = true, gitrebase = true }
+    { markdown = true, text = true, gitcommit = true, gitrebase = true }
     require("cmp_dictionary").setup({
       paths = { path(dict_dir, "word.dict") },
       -- Enable cmp-dictionary in comments and some certain buffers.
       is_available = function()
         local context = require("cmp.config.context")
         local in_comment = context.in_treesitter_capture("comment")
-          or context.in_syntax_group("Comment")
+            or context.in_syntax_group("Comment")
         return enabled[vim.bo.ft] or in_comment
       end,
     })
@@ -285,7 +284,7 @@ function config.none_ls()
       for _, provider in pairs(providers) do
         local customed_opts = _G[provider .. "_opts"]
         local ok, p =
-          pcall(require, string.format("%s.%s", arg.sources, provider))
+            pcall(require, string.format("%s.%s", arg.sources, provider))
         local opts = ok and p.opts or customed_opts
         if opts then
           if customed_opts then
@@ -410,7 +409,7 @@ function config.mason_lspconfig()
       end
 
       local ok, lsp_server =
-        pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
+          pcall(require, string.format("modules.lsp.lsp_servers.%s", server_name))
       local customed = ok and lsp_server.opts or {}
       local local_customed = _G[server_name .. "_opts"]
       if local_customed then
