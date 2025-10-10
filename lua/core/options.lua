@@ -86,7 +86,6 @@ local options = {
   mousemodel = "extend",
   tagrelative = false,
   spelloptions = "camel",
-  spell = true,
   grepprg = "rg --vimgrep",
 }
 

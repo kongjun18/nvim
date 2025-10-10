@@ -74,7 +74,6 @@ local editor = {
   },
   ["windwp/nvim-autopairs"] = {
     event = "InsertEnter",
-    dependencies = { "hrsh7th/nvim-cmp" },
     config = config.autopairs,
   },
   ["nvim-treesitter/nvim-treesitter"] = {

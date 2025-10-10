@@ -8,5 +8,3 @@ setlocal wrap           " Wrap line
 setlocal spell          " Enable spell checking
 cmap <buffer> q! Gabort
 nnoremap <buffer> ZQ <Cmd>Gabort<CR>
-" Load on BufferEnter to parse in advance.
-lua require("cmp_dictionary").update()

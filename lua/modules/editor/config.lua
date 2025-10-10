@@ -57,6 +57,10 @@ function config.autopairs()
     },
   })
 
+  -- Integration with blink.cmp
+  -- blink.cmp has built-in auto-bracket support, but we need to handle CR key
+  -- We'll configure this in the blink.cmp keymap directly
+
   local rules = {}
   -- auto addspace on =
   --     Before       Insert 	  After
