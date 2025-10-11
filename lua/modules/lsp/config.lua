@@ -97,6 +97,7 @@ end
 function config.cmp()
   local cmp = require("blink.cmp")
 
+  local npairs = require("nvim-autopairs")
   cmp.setup({
     -- Appearance
     appearance = {
@@ -168,7 +169,6 @@ function config.cmp()
           local col = vim.api.nvim_win_get_cursor(0)[2]
           local before_cursor = line:sub(1, col)
           local at_word = before_cursor:match(".*%f[%w@]@[%w]*$")
-          
           if at_word then
             -- Only show Avante completions when @ word is being typed
             return vim.tbl_filter(function(item)
@@ -231,14 +231,10 @@ function config.cmp()
       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
       ["<CR>"] = {
-        function(cmp_instance)
-          if cmp_instance.is_visible() then
-            return cmp_instance.accept()
-          else
-            -- Fallback to nvim-autopairs CR behavior
-            local npairs = require("nvim-autopairs")
-            return npairs.autopairs_cr()
-          end
+        function(instance)
+          return instance.accept({
+            callback = npairs.on_confirm_done
+          })
         end,
         "fallback",
       },
