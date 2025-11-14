@@ -2,7 +2,7 @@ local M = {
   {
     { "<leader>a", group = "AI Assistant" },
     {
-      "<c-.>",
+      "<M-.>",
       function()
         require("sidekick.cli").toggle()
       end,
