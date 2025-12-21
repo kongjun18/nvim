@@ -179,10 +179,6 @@ function config.cmp()
         return items
       end,
       providers = {
-        avante = {
-          module = 'blink-cmp-avante',
-          name = 'Avante',
-        },
         lsp = {
           name = "LSP",
           module = "blink.cmp.sources.lsp",
