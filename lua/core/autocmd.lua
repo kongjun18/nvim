@@ -19,9 +19,9 @@ autocmd("BufWritePre", {
   callback = function()
     local filetype = vim.bo.filetype
     if
-      vim.bo.modified
-      and filetype ~= "gitcommit"
-      and filetype ~= "NeogitCommitMessage"
+        vim.bo.modified
+        and filetype ~= "gitcommit"
+        and filetype ~= "NeogitCommitMessage"
     then
       local cursor = vim.fn.getcurpos()
       vim.cmd([[:keepmarks %s/\s\+$//ge]])
@@ -31,32 +31,117 @@ autocmd("BufWritePre", {
 })
 
 augroup("backup", {})
+
+local function floor_minute(minute)
+  if minute >= 40 then
+    return 40
+  elseif minute >= 20 then
+    return 20
+  else
+    return 0
+  end
+end
+
+local function backup_ext()
+  local strftime = vim.fn.strftime
+  local expand = vim.fn.expand
+  local minute = floor_minute(tonumber(strftime("%M")))
+  local bufname = expand("%:p")
+
+  if bufname == "" then
+    return unnamed_backup_ext()
+  end
+
+  -- backupext: ~~<directory>~~<date>
+  return string.format(
+    "~%s~~%s-%s",
+    string.gsub(expand("%:p:h"), path_sep, "~"),
+    strftime("%Y-%m-%d-%H"),
+    minute
+  )
+end
+
+local function get_unnamed_backup_ext()
+  local strftime = vim.fn.strftime
+  local minute = floor_minute(tonumber(strftime("%M")))
+  local cwd = vim.fn.getcwd()
+  return string.format(
+    "unnamed~~%s~~%s-%s",
+    string.gsub(cwd, path_sep, "~"),
+    strftime("%Y-%m-%d-%H"),
+    minute
+  )
+end
+
 autocmd("BufWritePre", {
   desc = "Set backup file suffix",
   group = "backup",
   callback = function()
-    local floor = function(minute)
-      if minute >= 40 then
-        minute = 40
-      else
-        if minute >= 20 then
-          minute = 20
-        else
-          minute = 00
-        end
-      end
-      return minute
+    vim.o.backupext = backup_ext()
+  end
+})
+
+
+local last_tick = {}
+
+local function backup_unnamed_buffer(buf, skip_modified_check)
+  if skip_modified_check == nil then
+    skip_modified_check = false
+  end
+
+  local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
+  if buftype ~= "" then
+    return
+  end
+
+  local name = vim.api.nvim_buf_get_name(buf)
+  if name ~= "" then
+    return
+  end
+
+  local backup_dir = vim.fn.stdpath("data") .. "/backup"
+  vim.fn.mkdir(backup_dir, "p")
+
+  -- Only back up modified buffers unless explicitly requested (close/exit)
+  if not skip_modified_check and not vim.api.nvim_get_option_value("modified", { buf = buf }) then
+    return
+  end
+
+  -- Avoid rewriting unchanged content during periodic runs
+  local tick = vim.api.nvim_buf_get_changedtick(buf)
+  if not skip_modified_check and last_tick[buf] == tick then
+    return
+  end
+  last_tick[buf] = tick
+
+  -- backupext: unnamed~~<directory>~~<date>
+  local backup_name = string.format("%s/%s", backup_dir, get_unnamed_backup_ext())
+
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  local content = table.concat(lines, "\n")
+  local file = io.open(backup_name, "w")
+  if file then
+    file:write(content)
+    file:close()
+  end
+end
+
+-- On buffer wipe/close, ensure unnamed buffer is saved once
+autocmd("BufWipeout", {
+  group = "backup",
+  callback = function(event)
+    backup_unnamed_buffer(event.buf, true)
+    last_tick[event.buf] = nil
+  end,
+})
+
+-- Stop timer and back up unnamed buffers when exiting
+autocmd("VimLeavePre", {
+  group = "backup",
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      backup_unnamed_buffer(buf, true)
     end
-    local strftime = vim.fn.strftime
-    local expand = vim.fn.expand
-    local minute = floor(tonumber(strftime("%M")))
-    -- backupext: ~~<directory>~~<date>
-    vim.o.backupext = string.format(
-      "~%s~~%s-%s",
-      string.gsub(expand("%:p:h"), path_sep, "~"),
-      strftime("%Y-%m-%d-%H"),
-      minute
-    )
   end,
 })
 
@@ -64,7 +149,7 @@ augroup("autoclose", {})
 
 local should_delete = function(win)
   local in_blacklist =
-    require("core.util").in_blacklist(vim.api.nvim_win_get_buf(win))
+      require("core.util").in_blacklist(vim.api.nvim_win_get_buf(win))
   local normal_window = fn.win_gettype(win) == ""
   return (not normal_window) or in_blacklist
 end
