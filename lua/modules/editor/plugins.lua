@@ -117,15 +117,6 @@ local editor = {
       {
         "nvim-telescope/telescope-fzy-native.nvim",
       },
-      {
-        "aaronhallaert/advanced-git-search.nvim",
-        cmd = { "AdvancedGitSearch" },
-        dependencies = {
-          "tpope/vim-fugitive",
-          "tpope/vim-rhubarb",
-          "sindrets/diffview.nvim",
-        },
-      },
     },
     config = config.telescope,
   },
