@@ -225,7 +225,7 @@ end
 
 function config.barbecue()
   require("barbecue").setup({
-    attach_navic = false, -- Prevent barbecue from automatically attaching nvim-navic
+    attach_navic = true,    -- Prevent barbecue from automatically attaching nvim-navic
     create_autocmd = false, -- Prevent barbecue from updating itself automatically
     exclude_filetypes = { "gitcommit", "toggleterm" },
     show_dirname = false,
