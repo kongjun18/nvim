@@ -50,7 +50,12 @@ local M = {
     {
       "<M-=>",
       function()
-        vim.fn.TerminalToggle()
+        -- Lazy-load vim-terminal-help on first use to avoid E117.
+        local ok = pcall(vim.fn.TerminalToggle)
+        if not ok then
+          require("lazy").load({ plugins = { "vim-terminal-help" } })
+          vim.fn.TerminalToggle()
+        end
       end,
       desc = "Toggle Terminal",
     },

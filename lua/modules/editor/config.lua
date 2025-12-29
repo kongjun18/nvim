@@ -14,7 +14,18 @@ function config.matchup()
 end
 
 function config.terminal_help()
-  vim.g.terminal_cwd = 0
+  -- Ensure a server is running so terminal shells can talk back to this Neovim
+  if vim.v.servername == "" then
+    vim.fn.serverstart("") -- create a private RPC socket with an auto address
+  end
+
+  -- Export the socket path; many tools still read NVIM_LISTEN_ADDRESS
+  -- Set NVIM_LISTEN_ADDRESS to NVIM so drop command can distinguish instances
+  local server = vim.v.servername
+  if server and server ~= "" then
+    vim.env.NVIM = vim.env.NVIM or server
+    vim.env.NVIM_LISTEN_ADDRESS = vim.env.NVIM
+  end
 end
 
 function config.auto_session()

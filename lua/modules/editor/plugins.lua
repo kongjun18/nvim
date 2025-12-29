@@ -26,7 +26,10 @@ local editor = {
     event = "VeryLazy",
     config = config.mini_ai,
   },
-  ["skywind3000/vim-terminal-help"] = {},
+  ["skywind3000/vim-terminal-help"] = {
+    config = config.terminal_help,
+    keys = { "<M-=>" },
+  },
   ["tpope/vim-rsi"] = {
     event = "VeryLazy",
   },
