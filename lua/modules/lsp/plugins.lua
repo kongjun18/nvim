@@ -24,7 +24,7 @@ local completion = {
   },
   ["Saghen/blink.cmp"] = {
     config = config.cmp,
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     version = "v1.*",
     dependencies = {
       "L3MON4D3/LuaSnip",
