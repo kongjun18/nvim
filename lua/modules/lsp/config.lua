@@ -288,6 +288,37 @@ function config.cmp()
     signature = {
       enabled = true,
     },
+
+    -- Cmdline completion
+    cmdline = {
+      enabled = true,
+      keymap = {
+        preset = "inherit",
+      },
+      completion = {
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
+        },
+        menu = {
+          auto_show = true,
+        },
+      },
+      sources = function()
+        local type = vim.fn.getcmdtype()
+        -- Search forward and backward
+        if type == "/" or type == "?" then
+          return { "buffer" }
+        end
+        -- Commands
+        if type == ":" then
+          return { "cmdline" }
+        end
+        return {}
+      end,
+    },
   })
 end
 
