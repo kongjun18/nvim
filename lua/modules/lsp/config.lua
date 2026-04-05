@@ -153,13 +153,22 @@ function config.cmp()
     sources = {
       default = function(ctx)
         local sources = { "lsp", "path", "snippets", "buffer" }
-        if vim.wo.spell or require("cmp.config.context").in_treesitter_capture('comment') then
+
+        local filetype = vim.bo.filetype
+        if vim.wo.spell or require("cmp.config.context").in_treesitter_capture('comment') or
+            filetype == "markdown" or filetype == "tex" then
           table.insert(sources, "dictionary")
         end
 
-        if vim.bo.filetype == "AvanteInput" then
+        if filetype == "AvanteInput" then
           table.insert(sources, "avante")
         end
+
+        if filetype == "tex" then
+          table.insert(sources, "vimtex")
+        end
+
+
         return sources
       end,
       transform_items = function(ctx, items)
@@ -212,6 +221,12 @@ function config.cmp()
               "/usr/share/dict/words", -- Common system dictionary
             },
           },
+        },
+        vimtex = {
+          name = "vimtex",
+          min_keyword_length = 2,
+          module = "blink.compat.source",
+          score_offset = 80,
         },
       },
     },

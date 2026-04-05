@@ -1,51 +1,48 @@
 local config = require("modules.editor.config")
 local editor = {
-  ["folke/which-key.nvim"] = {
+  ["folke/which-key.nvim"]                        = {
     event = "VeryLazy",
     opts = {},
   },
-  ["lambdalisue/suda.vim"] = {
+  ["lambdalisue/suda.vim"]                        = {
     event = "VeryLazy",
   },
-  ["andymass/vim-matchup"] = {
+  ["andymass/vim-matchup"]                        = {
     config = config.matchup,
     event = "VeryLazy",
   },
-  ["ethanholz/nvim-lastplace"] = {
+  ["ethanholz/nvim-lastplace"]                    = {
     config = config.nvim_lastplace,
     event = "BufReadPost",
   },
-  ["tommcdo/vim-exchange"] = {
+  ["tommcdo/vim-exchange"]                        = {
     event = "VeryLazy",
   },
-  ["rmagatti/auto-session"] = {
+  ["rmagatti/auto-session"]                       = {
     config = config.auto_session,
     event = "VeryLazy",
   },
-  ["echasnovski/mini.ai"] = {
+  ["echasnovski/mini.ai"]                         = {
     event = "VeryLazy",
     config = config.mini_ai,
   },
-  ["skywind3000/vim-terminal-help"] = {
-    config = config.terminal_help,
-    keys = { "<M-=>" },
-  },
-  ["tpope/vim-rsi"] = {
+  ["skywind3000/vim-terminal-help"]               = {},
+  ["tpope/vim-rsi"]                               = {
     event = "VeryLazy",
   },
-  ["kylechui/nvim-surround"] = {
+  ["kylechui/nvim-surround"]                      = {
     config = config.nvim_surround,
     event = "VeryLazy",
   },
-  ["tpope/vim-projectionist"] = {
+  ["tpope/vim-projectionist"]                     = {
     init = config.projectionist,
     event = "VeryLazy",
   },
-  ["milisims/nvim-luaref"] = {},
-  ["lfv89/vim-interestingwords"] = {
+  ["milisims/nvim-luaref"]                        = {},
+  ["lfv89/vim-interestingwords"]                  = {
     event = "VeryLazy",
   },
-  ["windwp/nvim-ts-autotag"] = {
+  ["windwp/nvim-ts-autotag"]                      = {
     ft = {
       "html",
       "typescript",
@@ -61,25 +58,25 @@ local editor = {
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
-  ["tpope/vim-sleuth"] = {
+  ["tpope/vim-sleuth"]                            = {
     event = "VeryLazy",
   },
-  ["junegunn/vim-easy-align"] = {
+  ["junegunn/vim-easy-align"]                     = {
     event = "VeryLazy",
   },
-  ["h-hg/fcitx.nvim"] = {
+  ["h-hg/fcitx.nvim"]                             = {
     event = "VeryLazy",
   },
-  ["folke/todo-comments.nvim"] = {
+  ["folke/todo-comments.nvim"]                    = {
     event = "VeryLazy",
     dependencies = "nvim-lua/plenary.nvim",
     config = config.todo_comments,
   },
-  ["windwp/nvim-autopairs"] = {
+  ["windwp/nvim-autopairs"]                       = {
     event = "InsertEnter",
     config = config.autopairs,
   },
-  ["nvim-treesitter/nvim-treesitter"] = {
+  ["nvim-treesitter/nvim-treesitter"]             = {
     config = config.treesitter,
     event = { "BufReadPost", "BufNewFile" },
     build = ":TSUpdate",
@@ -87,24 +84,24 @@ local editor = {
   ["nvim-treesitter/nvim-treesitter-textobjects"] = {
     dependencies = { "nvim-treesitter" },
   },
-  ["preservim/nerdcommenter"] = {
+  ["preservim/nerdcommenter"]                     = {
     init = config.nerdcommenter,
     event = "VeryLazy",
   },
-  ["ludovicchabant/vim-gutentags"] = {
+  ["ludovicchabant/vim-gutentags"]                = {
     config = config.gutentags,
   },
-  ["skywind3000/asyncrun.vim"] = {
+  ["skywind3000/asyncrun.vim"]                    = {
     event = "VeryLazy",
   },
-  ["skywind3000/asynctasks.vim"] = {
+  ["skywind3000/asynctasks.vim"]                  = {
     dependencies = "asyncrun.vim",
     config = config.asynctasks,
   },
-  ["ahmedkhalf/project.nvim"] = {
+  ["ahmedkhalf/project.nvim"]                     = {
     config = config.project,
   },
-  ["nvim-telescope/telescope.nvim"] = {
+  ["nvim-telescope/telescope.nvim"]               = {
     event = "CmdlineEnter",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -123,37 +120,60 @@ local editor = {
     },
     config = config.telescope,
   },
-  ["danymat/neogen"] = {
+  ["danymat/neogen"]                              = {
     config = config.neogen,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
   },
-  ["dstein64/vim-startuptime"] = {
+  ["dstein64/vim-startuptime"]                    = {
     event = "VeryLazy",
   },
-  ["ray-x/web-tools.nvim"] = {
+  ["ray-x/web-tools.nvim"]                        = {
     config = config.web_tools,
     event = "CmdlineEnter",
     -- Comment this line to avoid error on first startup.
     -- build = "npm install -g browser-sync",
   },
-  ["pechorin/any-jump.vim"] = {
+  ["pechorin/any-jump.vim"]                       = {
     cmd = "AnyJump",
     init = function()
       vim.g.any_jump_disable_default_keybindings = 1
     end,
   },
-  ["wakatime/vim-wakatime"] = {
+  ["wakatime/vim-wakatime"]                       = {
     event = "VeryLazy",
     enabled = require("modules.config").wakatime_enable,
   },
-  ["MeanderingProgrammer/markdown.nvim"] = {
+  ["MeanderingProgrammer/markdown.nvim"]          = {
     name = "render-markdown",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = true,
     ft = "markdown",
   },
-
-  ["epwalsh/obsidian.nvim"] = {
+  ["lervag/vimtex"]                               = {
+    lazy = false,
+    init = function()
+      vim.g.vimtex_view_method = "zathura" -- 或 sioyek / skim(macOS)
+      vim.g.vimtex_compiler_method = "latexmk"
+      vim.g.vimtex_compiler_latexmk = {
+        options = {
+          "-pdf",
+          "-shell-escape",
+          "-verbose",
+          "-file-line-error",
+          "-synctex=1",
+          "-interaction=nonstopmode",
+        },
+      }
+      -- TOC 设置
+      vim.g.vimtex_toc_config = {
+        split_width = 40,
+        mode = 2,
+        show_help = 0,
+        layers = { "content", "todo", "include" },
+      }
+    end,
+  },
+  ["epwalsh/obsidian.nvim"]                       = {
     version = "*", -- recommended, use latest release instead of latest commit
     event = "VeryLazy",
     dependencies = {
@@ -162,7 +182,7 @@ local editor = {
     config = config.obsidian,
     enabled = require("modules.config").obsidian_enable,
   },
-  ["elentok/encrypt.nvim"] = {
+  ["elentok/encrypt.nvim"]                        = {
     config = true,
     cmd = "X",
   },
