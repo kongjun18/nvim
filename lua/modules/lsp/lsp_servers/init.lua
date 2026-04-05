@@ -23,6 +23,9 @@ local M = {
   dockerfile = "dockerls",
   dot = "dotls",
   markdown = "marksman",
+  tex = "texlab",
+  plantex = "texlab",
+  bib = "texlab",
 }
 
 return M

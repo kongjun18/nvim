@@ -39,6 +39,17 @@ local completion = {
         -- Only install for context utilities, not for completion
         config = false,
       },
+      {
+        "micangl/cmp-vimtex",
+        dependencies = {
+          {
+            "saghen/blink.compat",
+            version = "*",
+            lazy = true,
+            opts = {},
+          },
+        },
+      }
     },
   },
   ["nvimtools/none-ls.nvim"] = {
