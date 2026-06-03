@@ -246,10 +246,10 @@ function config.gutentags()
   vim.g.gutentags_project_root = project_root_patterns
   -- All ctags files suffixed with .tag'
   vim.g.gutentags_ctags_tagfile = ".tag"
-  -- Only support universal-ctags
+  local is_universal = ctags_flavor ~= "emacs"
   local gutentags_ctags_extra_args = {
-    "--fields=+niazS",
-    "--extras=+q",
+    is_universal and "--fields=+niazS" or "--fields=+nia",
+    is_universal and "--extras=+q" or "--extra=+q",
     "--c++-kinds=+px",
     "--c-kinds=+px",
     "--exclude=Debug",
