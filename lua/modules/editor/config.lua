@@ -173,6 +173,89 @@ function config.autopairs()
   npairs.add_rules(rules)
 end
 
+local function probe_ts_match_api()
+  local ok, _ = pcall(vim.treesitter.language.get_lang, "lua")
+  if not ok or not pcall(vim.treesitter.get_parser, 0, "lua") then
+    return vim.fn.has("nvim-0.12") == 1
+  end
+  local needs_fix = false
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { "local x = 1" })
+  pcall(function()
+    vim.treesitter.query.add_directive("__ts_compat_probe!", function(match, _, _, pred)
+      local node = match[pred[2]]
+      if type(node) == "table" then
+        needs_fix = true
+      end
+    end, { force = true })
+    local lang = "lua"
+    local query = vim.treesitter.query.parse(lang, '((identifier) @cap (#__ts_compat_probe! @cap))')
+    local parser = vim.treesitter.get_parser(buf, lang)
+    if parser then
+      local tree = parser:parse()[1]
+      if tree then
+        for _ in query:iter_matches(tree:root(), buf) do
+          break
+        end
+      end
+    end
+  end)
+  vim.api.nvim_buf_delete(buf, { force = true })
+  return needs_fix
+end
+
+local function fix_nvim_treesitter_match_api()
+  local html_script_type_languages = {
+    ["importmap"] = "json",
+    ["module"] = "javascript",
+    ["application/ecmascript"] = "javascript",
+    ["text/ecmascript"] = "javascript",
+  }
+
+  local non_filetype_match_injection_language_aliases = {
+    ex = "elixir",
+    pl = "perl",
+    sh = "bash",
+    uxn = "uxntal",
+    ts = "typescript",
+  }
+
+  local function get_parser_from_markdown_info_string(injection_alias)
+    local ft = vim.filetype.match({ filename = "a." .. injection_alias })
+    return ft or non_filetype_match_injection_language_aliases[injection_alias] or injection_alias
+  end
+
+  vim.treesitter.query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+    local node = match[pred[2]]
+    if type(node) == "table" then
+      node = node[1]
+    end
+    if not node then
+      return
+    end
+    local injection_alias = vim.treesitter.get_node_text(node, bufnr):lower()
+    metadata["injection.language"] = get_parser_from_markdown_info_string(injection_alias)
+  end, { force = true })
+
+  vim.treesitter.query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
+    local node = match[pred[2]]
+    if type(node) == "table" then
+      node = node[1]
+    end
+    if not node then
+      return
+    end
+    local type_attr_value = vim.treesitter.get_node_text(node, bufnr)
+    local configured = html_script_type_languages[type_attr_value]
+    if configured then
+      metadata["injection.language"] = configured
+    else
+      local parts = vim.split(type_attr_value, "/", {})
+      metadata["injection.language"] = parts[#parts]
+    end
+  end, { force = true })
+end
+
 function config.treesitter()
   local ok, treesitter = pcall(require, "nvim-treesitter.configs")
   if not ok then
@@ -227,6 +310,19 @@ function config.treesitter()
       eanble = true,
     },
   })
+
+  if nvim_treesitter_needs_fix == nil then
+    nvim_treesitter_needs_fix = probe_ts_match_api()
+    local local_lua = config_dir .. path_sep .. "lua" .. path_sep .. "local.lua"
+    local f = io.open(local_lua, "a")
+    if f then
+      f:write("nvim_treesitter_needs_fix = " .. tostring(nvim_treesitter_needs_fix) .. "\n")
+      f:close()
+    end
+  end
+  if nvim_treesitter_needs_fix then
+    fix_nvim_treesitter_match_api()
+  end
 end
 
 function config.gutentags()
