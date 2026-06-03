@@ -246,6 +246,24 @@ function config.barbecue()
 end
 
 function config.rainbow_delimiters()
+  -- Patch lib.attach to guard against nil parser on Neovim 0.12+
+  local lib_ok, lib = pcall(require, "rainbow-delimiters.lib")
+  if lib_ok and lib.attach then
+    local original_attach = lib.attach
+    lib.attach = function(bufnr, ...)
+      bufnr = bufnr or vim.api.nvim_get_current_buf()
+      local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+      if not lang then
+        return
+      end
+      local ok, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+      if not ok or not parser then
+        return
+      end
+      return original_attach(bufnr, ...)
+    end
+  end
+
   -- This module contains a number of default definitions
   local rainbow_delimiters = require("rainbow-delimiters")
   highlights = {
