@@ -218,7 +218,6 @@ function config.cmp()
             -- Specify dictionary file paths (one word per line)
             dictionary_files = {
               vim.fn.expand("~/.config/nvim/dict/words.txt"),
-              "/usr/share/dict/words", -- Common system dictionary
             },
           },
         },
