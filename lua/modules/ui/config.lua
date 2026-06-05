@@ -186,6 +186,21 @@ function config.dressing()
 end
 
 function config.bqf()
+  -- Suppress E325 (swap file ATTENTION) inside bqf quickfix windows only:
+  -- edit the file anyway and warn instead of erroring.
+  vim.api.nvim_create_autocmd("SwapExists", {
+    group = vim.api.nvim_create_augroup("BqfSwapExists", { clear = true }),
+    callback = function()
+      if vim.bo[vim.fn.winbufnr(vim.fn.winnr("#"))].buftype == "quickfix" then
+        vim.v.swapchoice = "e"
+        vim.notify(
+          "bqf: swap file exists for " .. vim.fn.expand("<afile>"),
+          vim.log.levels.WARN
+        )
+      end
+    end,
+  })
+
   require("bqf").setup({
     preview = {
       should_preview_cb = function(bufnr, qwinid)
