@@ -254,6 +254,24 @@ local function fix_nvim_treesitter_match_api()
       metadata["injection.language"] = parts[#parts]
     end
   end, { force = true })
+
+  -- Guard TSRange.from_nodes against both nodes being nil (crashes make-range! directive).
+  -- On the new API, match values are tables; unwrap them. On either API, both nodes can
+  -- be nil when a pattern partially matches — return nil instead of crashing.
+  local tsrange = require("nvim-treesitter.tsrange")
+  local orig_from_nodes = tsrange.TSRange.from_nodes
+  tsrange.TSRange.from_nodes = function(buf, start_node, end_node)
+    if type(start_node) == "table" then
+      start_node = start_node[1]
+    end
+    if type(end_node) == "table" then
+      end_node = end_node[1]
+    end
+    if not start_node and not end_node then
+      return nil
+    end
+    return orig_from_nodes(buf, start_node, end_node)
+  end
 end
 
 function config.treesitter()
