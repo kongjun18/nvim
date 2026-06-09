@@ -272,6 +272,22 @@ local function fix_nvim_treesitter_match_api()
     end
     return orig_from_nodes(buf, start_node, end_node)
   end
+
+  -- Guard vim.treesitter.get_node_text against table-wrapped / nil nodes.
+  -- On Neovim 0.12+, query match values are tables of nodes. Directives like
+  -- set-lang-from-info-string! (from nvim-treesitter) may re-register after our
+  -- override and pass unwrapped tables to get_node_text, which crashes at
+  -- node:range(). Patch upstream so all callers are safe regardless of load order.
+  local orig_get_node_text = vim.treesitter.get_node_text
+  vim.treesitter.get_node_text = function(node, source, opts)
+    if type(node) == "table" then
+      node = node[1]
+    end
+    if not node then
+      return ""
+    end
+    return orig_get_node_text(node, source, opts)
+  end
 end
 
 function config.treesitter()
