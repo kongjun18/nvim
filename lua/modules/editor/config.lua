@@ -401,6 +401,32 @@ function config.gutentags()
   vim.g.gutentags_ctags_extra_args = gutentags_ctags_extra_args
   -- Set &tags for default `[No Name]` buffer
   vim.g.gutentags_generate_on_empty_buffer = 1
+
+  -- Skip gutentags for vim-fugitive buffers.
+  vim.g.gutentags_exclude_filetypes = {
+    "fugitive",
+    "git",
+    "gitcommit",
+    "gitrebase",
+    "fugitiveblame",
+  }
+
+  -- Skip gutentags for `:wq`/`:x`/`:wqa` and friends.
+  local skip_wq = vim.api.nvim_create_augroup("GutentagsSkipWq", { clear = true })
+  vim.api.nvim_create_autocmd("CmdlineLeave", {
+    group = skip_wq,
+    pattern = ":",
+    callback = function()
+      -- Match the write-and-quit family, optionally with a leading range and a
+      -- trailing `!`: wq, wq!, x, xit, exit, wqall, xall, 1,$wq, ...
+      local cmdline = vim.fn.getcmdline()
+      if cmdline:match("^%s*[%%%d,.$'+%- ]*w?q%a*!?%s*$")
+          or cmdline:match("^%s*[%%%d,.$'+%- ]*x%a*!?%s*$")
+      then
+        vim.g.gutentags_generate_on_write = 0
+      end
+    end,
+  })
 end
 
 function config.projectionist()
