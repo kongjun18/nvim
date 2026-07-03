@@ -168,6 +168,7 @@ local function capture()
   vim.api.nvim_set_option_value("buftype", "acwrite", { buf = buf })
   vim.api.nvim_set_option_value("swapfile", false, { buf = buf })
   vim.api.nvim_set_option_value("undofile", false, { buf = buf })
+  vim.api.nvim_set_option_value("wrap", true, { win = win })
   vim.api.nvim_create_autocmd({ "BufWriteCmd" }, {
     buffer = buf,
     callback = function()
