@@ -288,6 +288,41 @@ local function fix_nvim_treesitter_match_api()
     end
     return orig_get_node_text(node, source, opts)
   end
+
+  -- Unwrap table-wrapped nodes in nvim-treesitter's prepared matches.
+  -- iter_prepared_matches calls query:iter_matches with { all = false }, but on
+  -- Neovim 0.12+ that flag is ignored and every capture value is a table (array)
+  -- of nodes. Downstream consumers (e.g. nvim-treesitter-textobjects move.lua)
+  -- expect match.node to be a single TSNode and call node:range() on it, which
+  -- crashes when node is a table or nil. Recursively unwrap any ".node" field so
+  -- consumers keep receiving a plain TSNode regardless of Neovim version.
+  local ok_query, ts_query = pcall(require, "nvim-treesitter.query")
+  if ok_query and ts_query.iter_prepared_matches then
+    local function unwrap_nodes(match)
+      if type(match) ~= "table" then
+        return
+      end
+      for key, value in pairs(match) do
+        if key == "node" and type(value) == "table" and type(value[1]) == "userdata" then
+          match[key] = value[1]
+        elseif type(value) == "table" then
+          unwrap_nodes(value)
+        end
+      end
+    end
+
+    local orig_iter_prepared_matches = ts_query.iter_prepared_matches
+    ts_query.iter_prepared_matches = function(...)
+      local iterator = orig_iter_prepared_matches(...)
+      return function()
+        local prepared_match = iterator()
+        if prepared_match ~= nil then
+          unwrap_nodes(prepared_match)
+        end
+        return prepared_match
+      end
+    end
+  end
 end
 
 function config.treesitter()
