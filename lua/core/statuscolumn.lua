@@ -4,9 +4,11 @@ _G.Status = M
 ---@return {name:string, text:string, texthl:string}[]
 local function get_signs()
   local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+  local placed = vim.fn.sign_getplaced(buf, { group = "*", lnum = vim.v.lnum })
+  local signs = (placed[1] and placed[1].signs) or {}
   return vim.tbl_map(function(sign)
     return vim.fn.sign_getdefined(sign.name)[1]
-  end, vim.fn.sign_getplaced(buf, { group = "*", lnum = vim.v.lnum })[1].signs)
+  end, signs)
 end
 local function sign_column()
   local sign
