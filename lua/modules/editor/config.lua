@@ -43,10 +43,13 @@ function config.todo_comments()
   require("todo-comments").setup({
     -- KEYWORD: or KEYWORD(author):
     highlight = {
-      pattern = [[.*<(KEYWORDS)(\(\p+\))?\s*]], -- vim regex
+      pattern = {
+        [[.*<(KEYWORDS)\(\p+\)\s*:]], -- vim regex
+        [[.*<(KEYWORDS)\s*:]],
+      },
     },
     search = {
-      pattern = [[\b(KEYWORDS)(\(\w+\))?\s*]], -- ripgrep regex
+      pattern = [[\b(KEYWORDS)(\(\w+\))?\s*:]], -- ripgrep regex
     },
     -- Add keyword QUESTION
     keywords = {
