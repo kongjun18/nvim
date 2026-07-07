@@ -15,12 +15,24 @@ local vcs = {
   },
   {
     "]c",
-    "<Cmd>Gitsigns next_hunk<CR>",
+    function()
+      if vim.wo.diff then
+        return "]czz"
+      end
+      return "<Cmd>Gitsigns next_hunk<CR>"
+    end,
+    expr = true,
     desc = "Next Difference",
   },
   {
     "[c",
-    "<Cmd>Gitsigns prev_hunk<CR>",
+    function()
+      if vim.wo.diff then
+        return "[czz"
+      end
+      return "<Cmd>Gitsigns previous_hunk<CR>"
+    end,
+    expr = true,
     desc = "Previous Difference",
   },
   {
