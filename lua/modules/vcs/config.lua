@@ -20,4 +20,20 @@ function config.git_conflict()
   require("git-conflict").setup()
 end
 
+function config.diffview()
+  require("diffview").setup({
+    view = {
+      default = {
+        disable_diagnostics = true,
+      },
+      merge_tool = {
+        disable_diagnostics = true,
+      },
+      file_history = {
+        disable_diagnostics = true,
+      },
+    },
+  })
+end
+
 return config

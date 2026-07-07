@@ -22,6 +22,7 @@ local vcs = {
     event = "VeryLazy",
   },
   ["sindrets/diffview.nvim"] = {
+    config = config.diffview,
     event = "VeryLazy",
   },
   ["lewis6991/gitsigns.nvim"] = {
