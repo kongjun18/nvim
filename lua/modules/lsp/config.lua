@@ -308,12 +308,15 @@ function config.cmp()
       enabled = true,
       keymap = {
         preset = "inherit",
+        ["<Tab>"] = { "show_and_insert_or_accept_single", "select_next" },
+        ["<Up>"] = false,
+        ["<Down>"] = false,
       },
       completion = {
         list = {
           selection = {
             preselect = false,
-            auto_insert = false,
+            auto_insert = true,
           },
         },
         menu = {
