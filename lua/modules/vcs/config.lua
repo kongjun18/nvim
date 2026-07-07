@@ -33,6 +33,11 @@ function config.diffview()
         disable_diagnostics = true,
       },
     },
+    hooks = {
+      view_opened = function()
+        vim.cmd.wincmd("l")
+      end,
+    },
   })
 end
 
