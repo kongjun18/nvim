@@ -30,7 +30,7 @@ local vcs = {
       if vim.wo.diff then
         return "[czz"
       end
-      return "<Cmd>Gitsigns previous_hunk<CR>"
+      return "<Cmd>Gitsigns prev_hunk<CR>"
     end,
     expr = true,
     desc = "Previous Difference",
