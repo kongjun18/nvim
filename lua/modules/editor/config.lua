@@ -328,11 +328,43 @@ local function fix_nvim_treesitter_match_api()
   end
 end
 
+-- Suppress nvim-treesitter parser compilation errors.
+--
+-- On a compile/generate failure nvim-treesitter calls `vim.api.nvim_err_writeln`
+-- with a multi-line error dump, which paints the cmdline red and can trigger the
+-- "Press ENTER" prompt. Downgrade only those treesitter-originated messages to a
+-- single-line warning; every other error passes through untouched.
+local function suppress_treesitter_compile_errors()
+  if vim.g._ts_compile_errors_suppressed then
+    return
+  end
+  vim.g._ts_compile_errors_suppressed = true
+
+  local orig_err_writeln = vim.api.nvim_err_writeln
+  vim.api.nvim_err_writeln = function(msg)
+    if
+      type(msg) == "string"
+      and (msg:find("nvim%-treesitter%[", 1) or (msg:find("tree%-sitter", 1) and msg:find("Failed to execute", 1)))
+    then
+      -- Keep only the language tag / first line so the warning fits on the cmdline.
+      local lang = msg:match("nvim%-treesitter%[([^%]]+)%]")
+      local warning = lang and ("nvim-treesitter: failed to compile parser for " .. lang)
+        or "nvim-treesitter: failed to compile parser"
+      vim.schedule(function()
+        vim.api.nvim_echo({ { warning, "WarningMsg" } }, false, {})
+      end)
+      return
+    end
+    return orig_err_writeln(msg)
+  end
+end
+
 function config.treesitter()
   local ok, treesitter = pcall(require, "nvim-treesitter.configs")
   if not ok then
     return
   end
+  suppress_treesitter_compile_errors()
   -- Download packages via Git
   require("nvim-treesitter.install").prefer_git = true
   -- Download packages from mirror
