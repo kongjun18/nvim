@@ -52,6 +52,57 @@ local function patch_diffview_detach_buffer()
   File._diffview_detach_buffer_patch = true
 end
 
+local function setup_diffview_scroll_sync(view)
+  local augroup = vim.api.nvim_create_augroup("DiffviewScrollSync_" .. view.tabpage, { clear = true })
+  local syncing = false
+  -- Capture the tab number while the tabpage is still valid. TabClosed fires
+  -- after the tab is gone, so view.tabpage would be an invalid handle there.
+  local tabnr = vim.api.nvim_tabpage_get_number(view.tabpage)
+
+  vim.api.nvim_create_autocmd("WinScrolled", {
+    group = augroup,
+    callback = function(ev)
+      if syncing then return end
+      local scrolled_win = tonumber(ev.match)
+      if not scrolled_win or not vim.api.nvim_win_is_valid(scrolled_win) then return end
+      -- Only act when the scrolled window is in the Diffview tabpage.
+      if vim.api.nvim_win_get_tabpage(scrolled_win) ~= view.tabpage then return end
+      -- Only propagate from diff-mode windows.
+      if not vim.wo[scrolled_win].diff then return end
+
+      local info = vim.fn.getwininfo(scrolled_win)[1]
+      if not info then return end
+      local topline = info.topline
+      local leftcol = vim.api.nvim_win_call(scrolled_win, function()
+        return vim.fn.winsaveview().leftcol
+      end)
+
+      syncing = true
+      for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(view.tabpage)) do
+        if winid ~= scrolled_win
+          and vim.api.nvim_win_is_valid(winid)
+          and vim.wo[winid].diff
+        then
+          vim.api.nvim_win_call(winid, function()
+            vim.fn.winrestview({ topline = topline, leftcol = leftcol })
+          end)
+        end
+      end
+      syncing = false
+    end,
+  })
+
+  -- Clean up when the Diffview tab closes.
+  vim.api.nvim_create_autocmd("TabClosed", {
+    group = augroup,
+    callback = function(ev)
+      if tonumber(ev.match) == tabnr then
+        vim.api.nvim_del_augroup_by_id(augroup)
+      end
+    end,
+  })
+end
+
 function config.diffview()
   patch_diffview_detach_buffer()
 
@@ -68,8 +119,9 @@ function config.diffview()
       },
     },
     hooks = {
-      view_opened = function()
+      view_opened = function(view)
         vim.cmd.wincmd("l")
+        setup_diffview_scroll_sync(view)
       end,
     },
   })
