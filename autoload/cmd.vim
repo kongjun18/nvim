@@ -3,9 +3,11 @@ if exists("g:loaded_customed_cmd")
 endif
 let g:loaded_customed_cmd = 1
 
-function! cmd#symbal() abort
+function! cmd#symbol() abort
     let symbol = printf("`%s`", v:lua.require('nvim-navic').get_data()[0].name)
     call setreg('+', symbol)
+    call setreg('@', symbol)
+    call setreg('0', symbol)
 endfunction
 
 function! cmd#config_update() abort

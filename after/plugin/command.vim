@@ -21,7 +21,7 @@ command -nargs=0 ConfigUpdate call cmd#config_update()
 command -nargs=? Search call cmd#search_in_browser(<f-args>)
 " Copy the current LSP symbol in markdown
 " inline code format to system clipboard.
-command -nargs=0 Symbol call cmd#symbal()
+command -nargs=0 Symbol call cmd#symbol()
 " Async ripgrep
 command -nargs=? -complete=file_in_path -bar Grep cgetexpr cmd#grep(<f-args>) | copen | call setqflist([], 'a', { 'title': 'Grep Results' })
 cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
