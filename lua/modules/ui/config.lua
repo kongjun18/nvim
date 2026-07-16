@@ -278,6 +278,21 @@ function config.rainbow_delimiters()
     end
   end
 
+  -- Guard against query/parser drift: a third-party rainbow query written for a
+  -- newer grammar (e.g. latex's `curly_group_label`) raises E5108 against an
+  -- older installed parser. Swallow it so rainbow simply skips that language
+  -- instead of propagating the error up through vim-matchup / treesitter.
+  if lib_ok and lib.get_query then
+    local original_get_query = lib.get_query
+    lib.get_query = function(...)
+      local ok, query = pcall(original_get_query, ...)
+      if not ok then
+        return nil
+      end
+      return query
+    end
+  end
+
   -- This module contains a number of default definitions
   local rainbow_delimiters = require("rainbow-delimiters")
   highlights = {
