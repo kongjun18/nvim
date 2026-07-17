@@ -18,6 +18,17 @@ end
 
 function config.git_conflict()
   require("git-conflict").setup()
+
+  -- git-conflict.nvim loads on `VeryLazy`, after `VimEnter`/`BufRead` have
+  -- already fired for buffers open at startup. Its setup() registers those
+  -- autocmds to seed `visited_buffers` (the prerequisite for conflict
+  -- detection and buffer-local mappings), but they never trigger for the
+  -- already-loaded buffers, so commands/mappings stay inert until a manual
+  -- `:GitConflictRefresh`. Fire the same events once so existing buffers are
+  -- picked up immediately.
+  vim.schedule(function()
+    vim.api.nvim_exec_autocmds("BufRead", { group = "GitConflictCommands" })
+  end)
 end
 
 local function patch_diffview_detach_buffer()
