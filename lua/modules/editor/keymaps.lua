@@ -44,6 +44,68 @@ local M = {
       desc = "Find AsyncTask",
     },
     { "<leader>ft", ":TodoTelescope<CR>", desc = "Find Todo Comments" },
+    {
+      "<M-i>",
+      function()
+        local insert_file_path = function()
+          local ok, builtin = pcall(require, "telescope.builtin")
+          if not ok then
+            return
+          end
+          local actions = require("telescope.actions")
+          local action_state = require("telescope.actions.state")
+
+          -- Capture the target buffer/window and the originating mode now; the picker
+          -- steals focus and always returns us to normal mode.
+          local win = vim.api.nvim_get_current_win()
+          local buf = vim.api.nvim_get_current_buf()
+          local was_insert = vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
+
+          builtin.find_files({
+            attach_mappings = function(prompt_bufnr)
+              actions.select_default:replace(function()
+                local entry = action_state.get_selected_entry()
+                actions.close(prompt_bufnr)
+                if not entry then
+                  return
+                end
+                -- find_files stores the cwd-relative path in entry.value (entry.path is
+                -- absolute); prefer the relative form.
+                local path = entry.value or entry.path
+                if not path or path == "" then
+                  return
+                end
+                -- Defer the edit until after Telescope has fully torn down: closing the
+                -- picker restores the original window and forces normal mode, which would
+                -- otherwise clobber a synchronous startinsert and drop us out of insert.
+                vim.schedule(function()
+                  if not (vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf)) then
+                    return
+                  end
+                  vim.api.nvim_set_current_win(win)
+                  -- nvim_put(lines, "c", after=true, follow=true).
+                  vim.api.nvim_put({ path }, "c", true, true)
+                  -- Resume insert mode when we came from it, positioning the cursor just
+                  -- after the inserted path (nvim_put leaves the cursor on its last
+                  -- char). startinsert must come first: nvim_win_set_cursor clamps the
+                  -- column to len-1 in normal mode, so setting the one-past-end column
+                  -- before entering insert mode lands the cursor on the last char.
+                  if was_insert then
+                    vim.cmd("startinsert")
+                    local pos = vim.api.nvim_win_get_cursor(win)
+                    vim.api.nvim_win_set_cursor(win, { pos[1], pos[2] + 1 })
+                  end
+                end)
+              end)
+              return true
+            end,
+          })
+        end
+        insert_file_path();
+      end,
+      desc = "Insert File Path After Cursor",
+      mode = "i",
+    },
   },
   -- Terminal
   {
