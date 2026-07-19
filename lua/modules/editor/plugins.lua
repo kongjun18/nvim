@@ -143,9 +143,12 @@ local editor = {
     event = "VeryLazy",
     enabled = require("modules.config").wakatime_enable,
   },
-  ["MeanderingProgrammer/markdown.nvim"]          = {
-    name = "render-markdown",
+  ["MeanderingProgrammer/render-markdown.nvim"]   = {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = true,
+    ft = "markdown",
+  },
+  ["YousefHadder/markdown-plus.nvim"]             = {
     config = true,
     ft = "markdown",
   },

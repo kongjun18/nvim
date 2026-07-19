@@ -684,4 +684,5 @@ function config.obsidian()
     { desc = "[N]ew Obsidian [N]ote" }
   )
 end
+
 return config
