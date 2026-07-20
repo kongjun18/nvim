@@ -60,41 +60,54 @@ local M = {
           local win = vim.api.nvim_get_current_win()
           local buf = vim.api.nvim_get_current_buf()
           local was_insert = vim.api.nvim_get_mode().mode:sub(1, 1) == "i"
+          local saved_pos = vim.api.nvim_win_get_cursor(win)
+
+          -- startinsert must come before set_cursor: nvim_win_set_cursor clamps the
+          -- column to len-1 in normal mode, so setting col+1 before entering insert
+          -- mode lands the cursor at the correct position.
+          local function restore_cursor(row, col)
+            if was_insert then
+              vim.cmd("startinsert")
+              vim.api.nvim_win_set_cursor(win, { row, col + 1 })
+            end
+          end
 
           builtin.find_files({
             attach_mappings = function(prompt_bufnr)
+              local selected = false
+              actions.close:enhance({
+                post = function()
+                  if was_insert and not selected then
+                    vim.schedule(function()
+                      if vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf) then
+                        vim.api.nvim_set_current_win(win)
+                        restore_cursor(saved_pos[1], saved_pos[2])
+                      end
+                    end)
+                  end
+                end,
+              })
               actions.select_default:replace(function()
                 local entry = action_state.get_selected_entry()
                 actions.close(prompt_bufnr)
                 if not entry then
                   return
                 end
-                -- find_files stores the cwd-relative path in entry.value (entry.path is
-                -- absolute); prefer the relative form.
                 local path = entry.value or entry.path
                 if not path or path == "" then
                   return
                 end
-                -- Defer the edit until after Telescope has fully torn down: closing the
-                -- picker restores the original window and forces normal mode, which would
-                -- otherwise clobber a synchronous startinsert and drop us out of insert.
+                selected = true
+                -- Defer until after Telescope tears down; closing the picker forces
+                -- normal mode and would clobber a synchronous startinsert.
                 vim.schedule(function()
                   if not (vim.api.nvim_win_is_valid(win) and vim.api.nvim_buf_is_valid(buf)) then
                     return
                   end
                   vim.api.nvim_set_current_win(win)
-                  -- nvim_put(lines, "c", after=true, follow=true).
                   vim.api.nvim_put({ path }, "c", true, true)
-                  -- Resume insert mode when we came from it, positioning the cursor just
-                  -- after the inserted path (nvim_put leaves the cursor on its last
-                  -- char). startinsert must come first: nvim_win_set_cursor clamps the
-                  -- column to len-1 in normal mode, so setting the one-past-end column
-                  -- before entering insert mode lands the cursor on the last char.
-                  if was_insert then
-                    vim.cmd("startinsert")
-                    local pos = vim.api.nvim_win_get_cursor(win)
-                    vim.api.nvim_win_set_cursor(win, { pos[1], pos[2] + 1 })
-                  end
+                  local pos = vim.api.nvim_win_get_cursor(win)
+                  restore_cursor(pos[1], pos[2])
                 end)
               end)
               return true
