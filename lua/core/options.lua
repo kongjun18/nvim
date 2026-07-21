@@ -101,17 +101,14 @@ end
 bind_option(basic_options)
 bind_option(options)
 
--- Make sure to use clipboard-osc52 in SSH session.
-if os.getenv("SSH_TTY") then
-  vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-    },
-    paste = {
-      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-    },
-  }
-end
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
